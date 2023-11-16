@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500&display=swap');
+body {
+    background-color: #AFC5F1;
+    overflow: hidden;
+}
+
+.center-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+}
+
+.tableconsumable{
+    display: none;
+    position:relative;
+    left:100px;
+    text-align: center;
+    top:100px;
+}
+
+.tableconsumable th{
+    background-color: #350781;
+    color: white;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    
+}
+
+.menu {
+    background-color: rgb(255, 255, 255);
+    width: 100px;
+    height: 100vh;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    position: fixed;
+    top: 0px;
+}
+
+.menu button {
+    background-color: #871212;
+    display: block;
+    margin-bottom: 50px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50px;
+    position: relative;
+    left: 11px;
+    top: 20px;
+    border: none;
+    background-position: center;
+    /* Centraliza a imagem */
+    background-repeat: no-repeat;
+    /* Evita a repetição da imagem */
+}
+
+.button-a {
+    background-size: 50px;
+    /* Ajusta o tamanho da imagem */
+    background-image: url('img/home.png');
+}
+
+.button-b {
+    background-size: 50px;
+    /* Ajusta o tamanho da imagem */
+    background-image: url('img/caixas.png');
+}
+
+.button-c {
+    background-size: 70px;
+    /* Ajusta o tamanho da imagem */
+    background-image: url('img/soma.png');
+}
+
+.consumable {
+    font-family: 'Outfit', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    left: 100px;
+    width: 300px;
+    height: 150px;
+    margin-left: 70px;
+    margin-right: 200px;
+    border-radius: 30px;
+    border: none;
+    background-color: #FF9669;
+    color: #932C00;
+}
+
+.permanent{
+    font-family: 'Outfit', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    left: 100px;
+    width: 300px;
+    height: 150px;
+    border-radius: 30px;
+    border: none;
+    color: white;
+    background-color: #008E1D;
+}

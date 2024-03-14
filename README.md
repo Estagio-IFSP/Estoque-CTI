@@ -25,3 +25,8 @@ The scope of this project...
 ## Installation
 Project is created with:
 * Python 3.7
+* asgiref 3.7.2
+* Django 4.2.7
+* psycopg2 2.9.9
+* sqlparse 0.4.4
+* tzdata 2023.3

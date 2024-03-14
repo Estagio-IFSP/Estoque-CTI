@@ -1,1 +1,13 @@
 Requisitos
+- Banco de dados dos produto catalogados
+- CRUD dos produto catalogados
+- Especificar produtos consumiveis e permanentes
+- Especificar o local dos produtos
+- Especificar a quantia de um produto
+- Descrição breve dos produtos permanentes(exemplo:computador foi emprestado para um dado professor/aluno)
+- Emissao de Relatorio, por E-mail
+- Solicitar o Re-estoque de um produto
+
+Requisitos Não-Funcionais
+- Interface
+- Mobile

@@ -20,7 +20,7 @@ The scope of this project...
 =======
 ## Diagramas
 
-![image](./documents/diagrams/classes.drawio)
+![image](./documents/diagrams/classes.drawio.png)
 
 ## Installation
 Project is created with:

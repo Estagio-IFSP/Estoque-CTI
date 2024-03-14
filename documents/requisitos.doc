@@ -3,19 +3,20 @@ Requisitos
 - CRUD dos produto catalogados
 - Sistema de pesquisa
 - Especificar produtos consumiveis e permanentes
-- Especificar o local dos produtos
+- Especificar o local dos produtos (Pode ser mais detalhado)
 - Especificar a quantia de um produto
 - Descrição breve dos produtos permanentes (exemplo:computador foi emprestado para um dado professor/aluno)
 - Estoque:
     - Estoque minimo (exemplo: pilhas acabando)
     - Estoque atual (exemplo:)
-- Sistema de cadastro por E-mail
-- Usuário cadastrado pode:
-    - Solicitar o Re-estoque de um produto
+- Lista de E-mail da CTI
+- Usuário pode:
+    - Pedido o Re-estoque de um produto
+    - Pedido de emprestimo de um produto
     - Quantia solicitada
     - Data da solicitação
     - Teor de urgencia
-- Emissao de Relatorio, por E-mail
+- Emissao de Relatorio de Pedidos, por E-mail
 - Movimentações
 - Historico de mudanças no estoque
 

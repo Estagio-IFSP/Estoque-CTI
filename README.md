@@ -20,7 +20,11 @@ The scope of this project...
 =======
 ## Diagramas
 
-![image](./documents/diagrams/classes.drawio.png)
+### Diagrama de Classes
+![image](./documents/diagrams/Diagrama%20de%20Classe%20-%20Estoque.drawio.png)
+
+### Diagrama Entidade Relacionamento
+![image](./documents/diagrams/DER%20-%20Estoque.drawio.png)
 
 ## Installation
 Project is created with:

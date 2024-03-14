@@ -6,8 +6,18 @@ Requisitos
 - Especificar a quantia de um produto
 - Descrição breve dos produtos permanentes(exemplo:computador foi emprestado para um dado professor/aluno)
 - Emissao de Relatorio, por E-mail
-- Solicitar o Re-estoque de um produto
+- Sistema de cadastro
+- Usuário cadastrado pode:
+    - Solicitar o Re-estoque de um produto
+    - Quantia solicitada
+    - Data da solicitação
+    - Teor de urgencia
+
 
 Requisitos Não-Funcionais
 - Interface
+- Graficos ??????
+    -Pizza
+    -Linha
 - Mobile
+    - Leitor de Codigo de barra

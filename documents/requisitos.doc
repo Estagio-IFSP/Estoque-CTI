@@ -1,14 +1,11 @@
 Requisitos
 - Banco de dados dos produto catalogados
 - CRUD dos produto catalogados
-- Sistema de pesquisa
 - Especificar produtos consumiveis e permanentes
 - Especificar o local dos produtos (Pode ser mais detalhado)
 - Especificar a quantia de um produto
 - Descrição breve dos produtos permanentes (exemplo:computador foi emprestado para um dado professor/aluno)
-- Estoque:
-    - Estoque minimo (exemplo: pilhas acabando)
-    - Estoque atual (exemplo:)
+- Estoque minimo/atual
 - Lista de E-mail da CTI
 - Usuário pode:
     - Pedido o Re-estoque de um produto
@@ -24,7 +21,7 @@ Requisitos
 Requisitos Não-Funcionais
 - Interface
     - Foto do produto
-- Graficos ??????
+- Graficos
     -Pizza (exemplo: quantidade do produto sendo usada vs quantidade disponivel)
     -Linha (exemplo: historico do estoque)
 - Mobile

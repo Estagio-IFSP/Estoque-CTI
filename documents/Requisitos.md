@@ -2,13 +2,11 @@
 
 | Nº | Requisito                               | Tipo      | Prioridade | Descrição                                                                                           |
 |----|-----------------------------------------|-----------|------------|-----------------------------------------------------------------------------------------------------|
-| 1  | Gerenciamento de Estoque                | Funcional | Alta       | Manter o registro do estoque mínimo e atual de produtos.                                           |
-| 2  | Lista de E-mails da CTI                | Funcional | Média      | Manter uma lista atualizada de endereços de e-mail da equipe de CTI.                               |
-| 3  | Pedido de Reabastecimento de Produto   | Funcional | Alta       | Permitir que os usuários solicitem o reabastecimento de um produto, especificando a quantidade e a urgência. |
-| 4  | Pedido de Empréstimo de Produto        | Funcional | Alta       | Permitir que os usuários solicitem o empréstimo de um produto, especificando a quantidade e a urgência.    |
-| 5  | Emissão de Relatórios de Pedidos       | Funcional | Alta       | Gerar relatórios de pedidos para acompanhamento e enviá-los por e-mail.                             |
-| 6  | Movimentações                          | Funcional | Alta       | Registrar todas as movimentações de entrada e saída de produtos no estoque.                         |
-| 7  | Histórico de Mudanças no Estoque      | Funcional | Média      | Manter um histórico de todas as mudanças significativas no estoque.                                |
+| R1 | REALIZAÇÃO DO CRUD DOS PRODUTOS         | Funcional | Alta       | Através da interface que seja possível a realização do processo de criação de novos produtos, leitura para serem mostrados na interface e também sua pesquisa pelo nome, atualização de novas informações dos produtos, sejam elas aumentar ou diminuir os números de produtos emprestados, ou armazenados, atualização de nomes e códigos dos produtos, e que seja possível realizar a remoção geral do produto do sistema.                                                              |
+| R1.1 | DISPONIBILIZAR RECURSOS DE CRIAÇÃO DE PRODUTOS | Funcional | Alta | Na interface de exibição deve ser possível realizar o cadastro de um novo produto ainda não cadastrado, onde para isso seja necessário realizar o preenchimento do formulário quando solicitado o cadastro.                                                                                     |
+| R1.1.1 | REALIZAÇÃO DO FORMULÁRIO DE CRIAÇÃO DE PRODUTOS | Funcional | Alta | O formulário deve ser preenchido com as informações do produto como: ID, nome, marca, modelo, quantidade, local de armazenamento, descrição, foto do produto para sua identificação e, caso seja um bem permanente, deverá possuir número de patrimônio.                                |
+| R1.1.2 | Seila | Funcional | Alta | Seila |
+
 
 ### Legenda:
 - **Tipo:**

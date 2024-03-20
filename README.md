@@ -36,19 +36,13 @@ The scope of this project...
 | R4.1.1 | REALIZAR FORMULÁRIO DE REABASTECIMENTO | Funcional | # | Ao ser solicitado o reabastecimento de um produto, o usuário precisará realizar o preenchimento do formulário do produto com a quantidade solicitada.|
 | R4.2 | REALIZAR A CONFIRMAÇÃO DE REABASTECIMENTO | Funcional | # | Deve possuir uma funcionalidade para ser possível confirmar que o produto chegou, onde o usuário precisara realizar o preenchimento do formulário de confirmação.|
 | R4.2.1 | REALIZAR O FORMULÁRIO DE CONFIRMAÇÃO | Funcional | # | Ao ser confirmado o reabastecimento de um produto, o usuário precisará realizar o preenchimento do formulário do produto com a data de chegada e método que foi conseguido o produto.|
+| R4.3 | REALIZAR A EMISSÃO DE RELATÓRIO SOLICITAÇÃO DE REABASTECIMENTO | Funcional | Média | O relatório de reabastecimento deve conter a data de solicitação dos produtos, sendo indicado de alguma forma de fácil reconhecimento se o produto já foi recebido ou não e qual produto foi solicitado.|
 | R5 | REALIZAR O EMPRÉSTIMO DE PRODUTOS | Funcional | # | O sistema deve possuir uma função para o cadastro de empréstimos de produtos realizados, onde para realizar o cadastro deve ser preenchido um formulário.|
 | R5.1 | REALIZAR O FORMULÁRIO DE EMPRÉSTIMO DE PRODUTOS | Funcional | # | Ao ser realizado o cadastro de empréstimo, o formulário deve solicitar as informações como local de onde vai estar, data de solicitação de empréstimo e uma descrição opcional para informações adicionais|
 | R5.2 | REALIZAR A DEVOLUÇÃO DE EMPRÉSTIMO DE PRODUTOS | Funcional | # |O sistema deve possuir uma função para a confirmação de devolução dos produtos que foram emprestados, onde deve solicitar o local onde vai ser armazenado o produto.|
 | R6 | REALIZAR A EMISSÃO DE RELATÓRIO | Funcional | # | O sistema deve possuir uma função para a realização de emissão de relatórios de empréstimo de produtos e de solicitações de reabastecimento.|
 | R6.1 | REALIZAR A EMISSÃO DE RELATÓRIO DE EMPRÉSTIMO | Funcional | # | O relatório de empréstimo deve conter a data de saída de devolução dos produtos, sendo indicado de alguma forma de fácil reconhecimento se saiu ou foi devolvido e qual produto foi emprestado/devolvido.|
-| R6.2 | REALIZAR A EMISSÃO DE RELATÓRIO DE REABASTECIMENTO | Funcional | Média | O relatório de reabastecimento deve conter a data de solicitação dos produtos, sendo indicado de alguma forma de fácil reconhecimento se o produto já foi recebido ou não e qual produto foi solicitado.|
-| R7  | Gerenciamento de Estoque                | Funcional | Alta       | Manter o registro do estoque mínimo e atual de produtos.                                           |
-| R8 | Lista de E-mails da CTI                | Funcional | Média      | Manter uma lista atualizada de endereços de e-mail da equipe de CTI.                               |
-| R9 | Pedido de Reabastecimento de Produto   | Funcional | Alta       | Permitir que os usuários solicitem o reabastecimento de um produto, especificando a quantidade e a urgência. |
-| R10 | Pedido de Empréstimo de Produto        | Funcional | Alta       | Permitir que os usuários solicitem o empréstimo de um produto, especificando a quantidade e a urgência.    |
-| R11 | Emissão de Relatórios de Pedidos       | Funcional | Alta       | Gerar relatórios de pedidos para acompanhamento e enviá-los por e-mail.                             |
-| R12 | Movimentações                          | Funcional | Alta       | Registrar todas as movimentações de entrada e saída de produtos no estoque.                         |
-| R13 | Histórico de Mudanças no Estoque      | Funcional | Média      | Manter um histórico de todas as mudanças significativas no estoque.                                |
+| R6.2 | REALIZAR A EMISSÃO DE RELATÓRIO DE REABASTECIMENTO | Funcional | Média | O relatório de reabastecimento deve conter a data da aquisição dos produtos, sua origem e a quantia adquirida|
 
 ### Legenda:
 - **Tipo:**

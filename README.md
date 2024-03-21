@@ -5,15 +5,16 @@
 
 ## Table of contents
 * [Introduction](#Intro)
+* [Requisitos](#Requisitos)
 * [Installation](#Installation)
 * [Start](#start)
 
 ## Intro
-The scope of this project...
+Um sistema de manejamento do estoque de bens consumivei e permanentes para a CTI do Instituto Federal de Ciencia e Tecnologia do Estado de São Paolo, Campus de Jacárei.
 
 ### Objetivos
 
-### Requisitos Funcionais:
+### Requisitos
 
 | Nº | Requisito                               | Tipo      | Prioridade | Descrição                                                                                           |
 |----|-----------------------------------------|-----------|------------|-----------------------------------------------------------------------------------------------------|

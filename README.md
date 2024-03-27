@@ -58,6 +58,9 @@ Um sistema de manejamento do estoque de bens consumivei e permanentes para a CTI
 =======
 ## Diagramas
 
+### Diagrama de Caso de Uso
+![image](./documents/diagrams/Diagrama%20de%20caso%20de%20uso.drawio.png)
+
 ### Diagrama de Classes
 ![image](./documents/diagrams/Diagrama%20de%20classe%20Estagio.drawio.png)
 

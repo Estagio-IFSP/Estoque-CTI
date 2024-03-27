@@ -59,7 +59,7 @@ Um sistema de manejamento do estoque de bens consumivei e permanentes para a CTI
 ## Diagramas
 
 ### Diagrama de Classes
-![image](./documents/diagrams/Diagrama%20de%20Classe%20-%20Estoque.drawio.png)
+![image](./documents/diagrams/Diagrama%20de%20classe%20Estagio.drawio.png)
 
 ### Diagrama Entidade Relacionamento
 ![image](./documents/diagrams/DER%20-%20Estoque.drawio.png)

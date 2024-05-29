@@ -1,0 +1,246 @@
+Requisitos funcionais RF e não funcionais RNF associados
+
+#RF – 1 	Fazer Login 
+Descrição:	Será apresentado uma tela para o login no sistema.
+
+
+REQUISITOS NÃO FUNCIONAIS ASSOCIADOS
+
+
+RNF – 1.1 	Formulário de login				
+					
+Descrição:	Será dividido da seguinte forma:				
+                    1. campos iniciais 
+					2. links de redirecionamento  
+					3. botões de acesso
+					
+RNF – 1.2	Campos iniciais 				
+Descrição:	Essa parte do formulário deverá conter os seguintes campos: e-mail e senha. 				
+					
+RNF – 1.3	Links de redirecionamento				
+Descrição:	O usuário pode localizar o link “Esqueceu sua senha?” localizado abaixo do campo para informar a senha. E também o link “Não tem uma conta?” localizado acima do botão para registrar-se no sistema.				
+									
+RNF – 1.4	Botões de acesso 				
+Descrição:	Serão apresentados da seguinte forma:				
+                    1. Botão Entrar: após o usuário pré-cadastrado clicar o botão “Entrar” deve ir para a tela principal do sistema.
+											
+					2. Botão Registrar-se:  após o usuário clicar o botão “Registrar-se” deve ir para o formulário de cadastro de usuário. 
+										
+					3. Botão Entrar com Google: após o usuário cliclar o botão redireciona para a tela principal do sistema. 
+					
+					4. Entrar com GitHub: após o usuário cliclar o botão redireciona para a tela principal do sistema. 
+
+
+#RF 2 - Cadastrar Usuário 
+
+Descrição:	Será apresentado um formulário para o cadastro do usuário.
+
+
+REQUISITOS NÃO FUNCIONAIS ASSOCIADOS
+
+
+RNF 2.1 - Formulário de cadastro 
+
+Descrição: Será dividido em duas seções:
+1. informações iniciais
+2. outras informações: senha e foto 
+
+RNF 2.2 - Campos iniciais 
+
+Descrição: Esse formulário deverá conter os seguintes campos: nome e e-mail.
+
+RNF 2.3 - Próximas informações
+
+O usuário prossegue para a segunda parte do cadastro onde serão apresentados os campo adicionais “Senha”, “Confirmação de senha” e "Foto".
+
+
+#RF – 3 - Acessar menu 
+Descrição:	Serão apresentadas abas e ícones, na barra de navegação, para o usuário escolher a opção.
+	
+	
+REQUISITOS NÃO FUNCIONAIS ASSOCIADOS	
+	
+	
+RNF – 3.1	Seção Inventário
+Descrição:	Ao ser clicada deve ir para a tela de inventário do sistema.
+	
+RNF – 3.2	Seção Manutenção
+Descrição:	Ao ser clicada deve ir para a tela de registro de chamados.
+	
+RNF – 3.3	Seção Empréstimo
+Descrição:	Ao ser clicada deve ir para a tela de listagem de empréstimos. (Ou exibir diretamente o Termo de Empréstimo para preenchimento)
+
+
+#RF 4 - Cadastrar Produto 
+
+Descrição: Formulário de preenchimento.
+
+
+REQUISITOS NÃO FUNCIONAIS ASSOCIADOS
+
+
+RNF 4.1 - Formulário 
+
+Descrição: Será divididio em três seções:
+1. informações do produto
+2. informações do fornecedor
+3. tipo do produto
+
+RNF 4.2 - Seção 1: 
+
+            1. - Campo Nome
+
+            Descrição: O usuário insere o nome do produto.
+
+            2. - Campo Data
+
+            Descrição: O usuário insere data de recebimento no formato calendário.
+
+            3. - Campo Quantidade 
+
+            Descrição: O usuário insere a quantidade adquirida do produto. Forma de inserção: contador.
+
+RNF 4.3 - Seção 2: 
+
+            1. - Campo fornecedor 
+
+            Descrição: Filtro de busca de fornecedor pré-cadastrado.
+
+            2. - Botão Novo Fornecedor 
+
+            Descrição: Aba para o formulário com os campos "Nome", "Data do contrato" e "Descrição".
+            
+
+RNF 4.4 - Seção 3: 
+
+Descrição: Caso o usuário selecionar especificamente bens permanentes, serão disponibilizados os seguintes campos:
+
+            1. - Campo opcional "Patrimônio".
+
+            Descrição: Após seleção, exibe o campo opcional "Patrimônio". 
+
+            2 - Campo não obrigatório "Garantia".
+
+            Descrição: Com seleção de data, e subcampo "Descrição" para inserir link e dados do fornecedor.
+
+#RF 5 - Editar Produto
+
+Descrição: Formulário para o usuário informar novos dados a um produto pré-cadastrado.
+
+
+REQUISITOS NÃO FUNCIONAIS ASSOCIADOS
+
+
+RNF 5.1 - Campos do formulário de edição 
+
+Descrição: Esse formulário deve conter os seguintes campos: data de recebimento, quantidade recebida e fornecedor.
+            
+            * campo ID é fixo; 
+            
+
+#RF 6 - Filtrar Produto 
+
+Descrição: Exibe informações filtradas de produtos como sugestão de busca. 
+
+
+REQUISITOS NÃO FUNCIONAIS ASSOCIADOS
+
+
+RNF 6.1 - Exibição dos campos
+
+Descrição: Serão sugeridas informações previamente cadastradas, como nome e fornecedor, para facilitar o preenchimento de campos.
+
+RNF 6.2 - Botão Inventário
+
+Descrição: Após clicar o usuário é redirecionado para visualizar informações tabeladas e subdivididas entre bens permanentes e bens de consumo.
+
+RNF 6.3 - Botão Aviso 
+
+Descrição: Notificação exibida na tela principal sobre movimentação de produtos e status de estoque.  
+
+
+#RF 7 - Cadastrar empréstimo
+
+Descrição: Funcionalidade para registro de movimentações de produtos. Concessão de bens permanentes (notebooks, computador, monitor, projetor, etc) emprestados para outros campus, ou ao campus JCR.
+
+
+REQUISITOS NÃO FUNCIONAIS ASSOCIADOS
+
+
+RNF 7.1 - Termo de empréstimo
+
+Descrição: Será divididio em 4 seções:
+1. informações do produto
+2. informações do desinatário 
+3. outras informações: período do empréstimo 
+
+RNF 7.2 - Seção 1:
+
+Contém caixa de seleção com opções de identificação: Servidor, Aluno, Terceirizado e Externo.
+
+            1. - Campo informar Produto 
+
+            Descrição: O usuário insere o nome do produto.
+
+            2. - Campo informar Data
+            
+            Descrição: O usuário insere a data de empréstimo, no formato calendário. 
+
+            3. - Campo informar Quantidade 
+
+            Descrição: O usuário insere a quantidade concedida em empréstimo. 
+
+RNF 7.3 - Seção 2:
+
+            1. - Campo Nome Usuário   
+
+            Descrição: O usuário insere o nome do usuário-destinatário.
+
+            2. - Campo informar Telefone 
+            
+            Descrição: O usuário insere o telefone de contato de origem do usuário-destinatário do empréstimo.
+
+            3. -  Campo informar Identificador
+
+            Descrição: Esse campo servirá para informar SIAPE/Matrícula/CPF.
+
+RNF 7.4 - Seção 3:
+
+            1. - Campo informar Prazo   
+
+            Descrição: Esse campo servirá para informar o período de duração do empréstimo.
+
+
+RNF 7.5 - Disparar alerta via e-mail
+
+Descrição: Disparo de alertas de vencimento do período de empréstimo.
+
+RNF 7.6 - Botão de devolução
+
+Descrição: O botão servirá para alterar o status do empréstimo caso o usuário-destinatário tiver efetivado a devolução. 
+
+
+
+
+            
+
+
+Alocar no menu 
+
+RNF -  Seção Produtos 
+
+Descrição:  Alocado na tela principal com a finalidade de pesquisar, adicionar, editar ou excluir produtos do estoque.
+
+RNF - Notificação patrimônio e fornecedor
+
+Descrição: alerta de preenchimento dos campos não obrigatórios pendentes.
+
+RNF - Notificação de Alerta
+
+Descrição: 
+
+RNF - Ícone de perfil 
+
+Descrição: Alocado na barra de navegação da tela principal.
+
+ 

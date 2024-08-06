@@ -82,6 +82,7 @@ DATABASES = {
         "NAME": "stock_control",
         "USER": "admin",
         "PASSWORD": "admin",
+        "HOST": os.environ.get('DB_HOST', ""),
     }
 }
 

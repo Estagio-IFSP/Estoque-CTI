@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "stockControllapp"
+    "stockControl"
 ]
 
 MIDDLEWARE = [
@@ -125,7 +125,7 @@ STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "src")
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'stockControllapp/static'),
+    os.path.join(BASE_DIR, 'stockControl/static'),
 ]
 
 # Default primary key field type

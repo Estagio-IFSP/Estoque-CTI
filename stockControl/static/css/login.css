@@ -12,8 +12,8 @@ body {
     height: 800px; /* Altura desejada para o box */
     position: absolute;
     top: 50%; /* Posiciona o elemento a 50% da altura da tela */
-    left: 70%; /* Distância de 5% do lado direito da tela */
-    transform: translate(0, -50%); /* Corrige o posicionamento vertical para o centro */
+    left: 50%; /* Distância de 5% do lado direito da tela */
+    transform: translate(-50%, -50%); /* Corrige o posicionamento vertical para o centro */
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra suave */
 }
@@ -22,9 +22,9 @@ body {
 h2{
     font-family: 'Outfit', sans-serif;
     font-weight: bolder;
-    position: relative; 
-    top: 80px; 
-    left: 70px; 
+    position: relative;
+    top: 80px;
+    left: 70px;
 }
 
 input{
@@ -32,9 +32,9 @@ input{
     display: block;
     width: 70%;
     height: 7%;
-    position: relative; 
-    top: 150px; 
-    left: 70px; 
+    position: relative;
+    top: 150px;
+    left: 70px;
     margin-bottom: 40px;
     border-radius: 30px;
     border: 0.5px solid black;
@@ -48,7 +48,7 @@ button{
     letter-spacing: 10PX;
     width: 70%;
     position: relative;
-    top: 150px; 
+    top: 150px;
     left: 70px;
     height: 7%;
     border-radius: 30px;
@@ -59,16 +59,16 @@ button{
 
 .box span{
     font-family: 'Outfit', sans-serif;
-    position: relative; 
-    top: 150px; 
-    left: 236px; 
+    position: relative;
+    top: 150px;
+    left: 236px;
 }
 
 .l1{
     border: none; /* Remove a borda padrão */
     height: 2px; /* Altura da linha */
     width: 130px;
-    position: relative; 
+    position: relative;
     top: 180px;
     left: 280px;
     background-color: #000000; /* Cor da linha */
@@ -79,7 +79,7 @@ button{
     border: none; /* Remove a borda padrão */
     height: 2px; /* Altura da linha */
     width: 130px;
-    position: relative; 
+    position: relative;
     top: 121px;
     left: 80px;
     background-color: #000000; /* Cor da linha */
@@ -89,7 +89,7 @@ p{
     color: #9b9898;
     font-family: 'Outfit', sans-serif;
     text-decoration: underline;
-    position: relative; 
+    position: relative;
     top: 230px;
     left: 175px;
     cursor: pointer;
@@ -105,8 +105,8 @@ p{
     height: 800px; /* Altura desejada para o box */
     position: absolute;
     top: 50%; /* Posiciona o elemento a 50% da altura da tela */
-    left: 70%; /* Distância de 5% do lado direito da tela */
-    transform: translate(0, -50%); /* Corrige o posicionamento vertical para o centro */
+    left: 50%; /* Distância de 5% do lado direito da tela */
+    transform: translate(-50%, -50%); /* Corrige o posicionamento vertical para o centro */
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra suave */
     transition: right 0.5s ease-in-out;

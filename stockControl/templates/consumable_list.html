@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h2>Bens Consumíveis</h2>
+
+  <ul>
+    {% for consumable in consumables %}
+      <li>{{ consumable.name }}</li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

@@ -18,9 +18,13 @@ from django.contrib import admin
 from django.urls import path
 from stockControl.views import login
 from stockControl.views import dashboard
+from stockControl.views import ConsumableGoodListView
+from stockControl.views import post_consumable_good
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", login, name="login"),
-    path("dashboard/", dashboard, name="dashboard")
+    path("dashboard/", dashboard, name="dashboard"),
+    path("dashboard/consumables", ConsumableGoodListView.as_view()),
+    path("dashboard/post_consumable", post_consumable_good),
 ]

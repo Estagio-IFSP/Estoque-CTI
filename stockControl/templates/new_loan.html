@@ -1,10 +1,10 @@
 {% extends "dashboard.html" %}
 {% load static %}
 
-{% block title %}Novo fornecedor - Estoque CTI{% endblock %}
+{% block title %}Novo empréstimo - Estoque CTI{% endblock %}
 
 {% block dashboard_content %}
-<form action="/dashboard/new_supplier" method="post">
+<form action="/dashboard/new_loan" method="post">
   {% csrf_token %}
   {{ form }}
   <input type="submit" value="Enviar" class="">

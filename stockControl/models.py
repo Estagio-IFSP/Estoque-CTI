@@ -10,6 +10,8 @@ class Supplier(models.Model):
 
 # Bem (permanente e de consumo
 class Good(models.Model):
+    good_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    type_id = models.PositiveIntegerField()
     name = models.CharField(max_length=100)
     quantity = models.PositiveBigIntegerField()
     acquisition_date = models.DateField()
@@ -30,22 +32,17 @@ class PermanentGood(Good):
     warranty_expiry_date = models.DateField()
     warranty_details = models.TextField();
 
-# Pessoa que empresta um bem
+# Requerente (Pessoa que empresta um bem)
 class Claimant(models.Model):
     identifier = models.CharField()
     phone_number = models.PositiveIntegerField()
 
 # Empréstimo
 class Loan(models.Model):
+    good = GenericForeignKey("good_type", "type_id")
     good_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     type_id = models.PositiveIntegerField()
-    good = GenericForeignKey("good_type", "good_type_id")
     loan_date = models.DateField()
     return_date = models.DateField()
     quantity = models.PositiveBigIntegerField()
     claimant = models.ForeignKey(Claimant, on_delete = models.PROTECT)
-
-# Estoque
-class Stock(models.Model):
-    quantity = models.PositiveBigIntegerField()
-    category = models.CharField(max_length=50)

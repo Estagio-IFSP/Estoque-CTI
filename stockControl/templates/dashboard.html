@@ -20,13 +20,34 @@
     </ul>
   </li>
   <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Bens permanentes</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="{% url 'permanents' %}">Listar</a></li>
+      <li><a class="dropdown-item" href="{% url 'new_permanent_good' %}">Cadastrar</a></li>
+    </ul>
+  </li>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Empréstimos</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="{% url 'loans' %}">Listar</a></li>
+      <li><a class="dropdown-item" href="{% url 'new_loan' %}">Cadastrar</a></li>
+    </ul>
+  </li>
+  <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Fornecedores</a>
     <ul class="dropdown-menu">
       <li><a class="dropdown-item" href="{% url 'suppliers' %}">Listar</a></li>
       <li><a class="dropdown-item" href="{% url 'new_supplier' %}">Cadastrar</a></li>
     </ul>
   </li>
-</nav>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Requerentes</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="{% url 'claimants' %}">Listar</a></li>
+      <li><a class="dropdown-item" href="{% url 'new_claimant' %}">Cadastrar</a></li>
+    </ul>
+  </li>
+</ul>
 
 <main class="container mt-5">
 {% block dashboard_content %}{% endblock %}

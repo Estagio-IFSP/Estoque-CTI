@@ -1,0 +1,15 @@
+{% extends "dashboard.html" %}
+
+{% block title %}Requerentes - Estoque CTI{% endblock %}
+
+{% block dashboard_content %}
+
+  <h2>Requerentes</h2>
+
+  <ul>
+    {% for claimant in claimants %}
+      <li>{{ claimant.identifier }}</li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

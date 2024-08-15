@@ -1,0 +1,15 @@
+{% extends "dashboard.html" %}
+
+{% block title %}Empréstimos - Estoque CTI{% endblock %}
+
+{% block dashboard_content %}
+
+  <h2>Empréstimos</h2>
+
+  <ul>
+    {% for loan in loans %}
+      <li>{{ loan.good_type }}</li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

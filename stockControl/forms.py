@@ -12,7 +12,7 @@ class BaseForm(forms.ModelForm):
 class ConsumableGoodForm(BaseForm):
     class Meta:
         model = ConsumableGood
-        fields = [ "name", "quantity", "acquisition_date", "description", "status", "supplier" ] # missing: supplier
+        fields = [ "name", "quantity", "acquisition_date", "description", "status", "supplier" ]
 
 class SupplierForm(BaseForm):
     class Meta:

@@ -8,11 +8,6 @@ class Supplier(models.Model):
     name = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
 
-# Garantia
-class Warranty(models.Model):
-    expiry_date = models.DateField()
-    details = models.TextField();
-
 # Bem (permanente e de consumo
 class Good(models.Model):
     name = models.CharField(max_length=100)
@@ -32,7 +27,8 @@ class ConsumableGood(Good):
 # Bem permanente
 class PermanentGood(Good):
     patrimony = models.BooleanField()
-    warranty = models.ManyToManyField(Warranty)
+    warranty_expiry_date = models.DateField()
+    warranty_details = models.TextField();
 
 # Pessoa que empresta um bem
 class Claimant(models.Model):

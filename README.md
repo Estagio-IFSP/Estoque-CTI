@@ -3,7 +3,6 @@
 ## Índice
 - [Contexto](#Contexto)
 - [Instalação](#Instalação)
-- [Desenvolvimento](#Desenvolvimento)
 - [Documentação](#Documentação)
 
 ## Contexto

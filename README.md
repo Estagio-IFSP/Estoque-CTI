@@ -1,18 +1,61 @@
+# estoque-CTI
 
-# Controle-de-Estoque
-=======
-# Sistema-de-Estoque-CTI
+## Índice
+- [Contexto](#Contexto)
+- [Instalação](#Instalação)
+- [Documentação](#Documentação)
 
-## Table of contents
-* [Introduction](#Intro)
-* [Requisitos](#Requisitos)
-* [Installation](#Installation)
-* [Start](#start)
+## Contexto
+Um sistema de manejamento do estoque de bens consumíveis e permanentes para a CTI do Instituto Federal de Ciência e Tecnologia do Estado de São Paulo, Campus de Jacareí.
 
-## Intro
-Um sistema de manejamento do estoque de bens consumivei e permanentes para a CTI do Instituto Federal de Ciencia e Tecnologia do Estado de São Paolo, Campus de Jacárei.
+## Instalação
 
-### Objetivos
+Para rodar o sistema, é necessário ter o Python 3.12.0 e o gerenciador de pacotes `pip`.
+
+Primeiro, clone o repositório e crie um ambiente virtual:
+
+```sh
+git clone https://github.com/Estagio-IFSP/Estoque-CTI
+cd Estoque-CTI
+python -m venv .venv
+source .venv/bin/activate
+```
+
+Após os comandos acima, o ambiente virtual deve estar habilitado.
+
+Em seguida, instale as dependências:
+
+```sh
+pip install -r requirements.txt
+```
+
+Para a execução, é necessário ainda um banco de dados PostgreSQL disponível.
+
+O comando abaixo pode ser utilizado para executar um container Docker com o PostgreSQL:
+
+```sh
+docker run --rm -d -e POSTGRES_PASSWORD=admin -e POSTGRES_USER=admin -e POSTGRES_DB=stock_control -p 5432:5432 postgres:16.3-alpine3.20 postgres
+```
+
+Se desejar ver a saída de log do banco de dados, retire o argumento `-d`. Se desejar preservar o container após a execução para poder executá-lo novamente, retire o argumento `--rm`. Com este argumento, o container será sempre apagado após a execução.
+
+O comando acima foi testado apenas com o [Podman](https://podman.io/).
+
+Com o banco de dados disponível, é possível realizar as migrações para que o banco possua todas as tabelas necessárias:
+
+```sh
+export DB_HOST=localhost
+python manage.py makemigrations
+python manage.py migrate --run-syncdb
+```
+
+Por fim, o comando abaixo inicializa o servidor da aplicação. Ela ficará acessível em <http://localhost:8000>
+
+```sh
+python manage.py runserver
+```
+
+## Documentação
 
 ### Requisitos
 
@@ -45,33 +88,17 @@ Um sistema de manejamento do estoque de bens consumivei e permanentes para a CTI
 | R6.1 | REALIZAR A EMISSÃO DE RELATÓRIO DE EMPRÉSTIMO | Funcional | # | O relatório de empréstimo deve conter a data de saída de devolução dos produtos, sendo indicado de alguma forma de fácil reconhecimento se saiu ou foi devolvido e qual produto foi emprestado/devolvido.|
 | R6.2 | REALIZAR A EMISSÃO DE RELATÓRIO DE REABASTECIMENTO | Funcional | Média | O relatório de reabastecimento deve conter a data da aquisição dos produtos, sua origem e a quantia adquirida|
 
-### Legenda:
+#### Legenda:
 - **Tipo:**
   - Funcional: Descreve uma função específica do sistema.
 - **Prioridade:**
   - Alta: Requisitos essenciais para o funcionamento básico do sistema ou que agregam alto valor ao usuário.
   - Média: Requisitos importantes, mas que podem ser implementados em fases posteriores ou têm menor impacto imediato.
 
-### Funcionalidades
+### Diagramas
 
-
-=======
-## Diagramas
-
-### Diagrama de Caso de Uso
+#### Diagrama de Caso de Uso
 ![image](./documents/diagrams/Diagrama%20de%20caso%20de%20uso.drawio.png)
 
-### Diagrama de Classes
+#### Diagrama de Classes
 ![image](./documents/diagrams/Diagrama%20de%20classe%20Estagio.drawio.png)
-
-### Diagrama Entidade Relacionamento
-![image](./documents/diagrams/DER%20-%20Estoque.drawio.png)
-
-## Installation
-Project is created with:
-* Python 3.7
-* asgiref 3.7.2
-* Django 4.2.7
-* psycopg2 2.9.9
-* sqlparse 0.4.4
-* tzdata 2023.3

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Dashboard - Estoque CTI{% endblock %}
+
+{% block script %}
+<script>
+  const dropdownElementList = document.querySelectorAll('.dropdown-toggle')
+  const dropdownList = [...dropdownElementList].map(dropdownToggleEl => new bootstrap.Dropdown(dropdownToggleEl))
+</script>
+{% endblock %}
+
+{% block content %}
+<ul class="nav nav-pills">
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Bens consumíveis</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="{% url 'consumables' %}">Listar</a></li>
+      <li><a class="dropdown-item" href="{% url 'new_consumable_good' %}">Cadastrar</a></li>
+    </ul>
+  </li>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Fornecedores</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="{% url 'suppliers' %}">Listar</a></li>
+      <li><a class="dropdown-item" href="{% url 'new_supplier' %}">Cadastrar</a></li>
+    </ul>
+  </li>
+</nav>
+
+<main class="container mt-5">
+{% block dashboard_content %}{% endblock %}
+</main>
+
+{% endblock %}

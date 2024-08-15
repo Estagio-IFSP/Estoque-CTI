@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 
 
 # Fornecedor
@@ -8,17 +10,20 @@ class Supplier(models.Model):
 
 # Garantia
 class Warranty(models.Model):
-    expiryDate = models.DateField()
+    expiry_date = models.DateField()
     details = models.TextField();
 
 # Bem (permanente e de consumo
 class Good(models.Model):
     name = models.CharField(max_length=100)
-    acquisitionDate = models.DateField()
     quantity = models.PositiveBigIntegerField()
+    acquisition_date = models.DateField()
     description = models.TextField()
     status = models.CharField(max_length=30)
-    supplier = models.ForeignKey(Supplier, on_delete = models.PROTECT)
+    supplier = models.ForeignKey(Supplier, on_delete=models.PROTECT)
+
+    class Meta:
+        abstract = True
 
 # Bem de consumo
 class ConsumableGood(Good):
@@ -36,9 +41,11 @@ class Claimant(models.Model):
 
 # Empréstimo
 class Loan(models.Model):
-    good = models.ForeignKey(Good, on_delete = models.PROTECT)
-    loanDate = models.DateField()
-    returnDate = models.DateField()
+    good_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    type_id = models.PositiveIntegerField()
+    good = GenericForeignKey("good_type", "good_type_id")
+    loan_date = models.DateField()
+    return_date = models.DateField()
     quantity = models.PositiveBigIntegerField()
     claimant = models.ForeignKey(Claimant, on_delete = models.PROTECT)
 
@@ -46,4 +53,3 @@ class Loan(models.Model):
 class Stock(models.Model):
     quantity = models.PositiveBigIntegerField()
     category = models.CharField(max_length=50)
-    actionDate = models.DateField()

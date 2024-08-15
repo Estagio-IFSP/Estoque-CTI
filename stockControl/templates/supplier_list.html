@@ -1,0 +1,15 @@
+{% extends "dashboard.html" %}
+
+{% block title %}Fornecedores - Estoque CTI{% endblock %}
+
+{% block dashboard_content %}
+
+  <h2>Fornecedores</h2>
+
+  <ul>
+    {% for supplier in suppliers %}
+      <li>{{ supplier.name }}</li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

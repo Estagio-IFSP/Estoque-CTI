@@ -4,7 +4,16 @@
 
 {% block dashboard_content %}
 
-  <h2>Bens</h2>
+  <div class="container">
+    <div class="row">
+      <div class="col-10">
+        <h2>Bens</h2>
+      </div>
+      <div class="col">
+        <a class="btn btn-success float-end" href="{% url 'new_good' %}">Novo</a>
+      </div>
+    </div>
+  </div>
 
   <table class="table">
     <tr>

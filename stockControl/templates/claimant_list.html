@@ -6,10 +6,19 @@
 
   <h2>Requerentes</h2>
 
-  <ul>
+  <table class="table">
+    <tr>
+      <th>Nome</th>
+      <th>Identificador</th>
+      <th>Telefone</th>
+    </tr>
     {% for claimant in claimants %}
-      <li>{{ claimant.identifier }}</li>
+    <tr>
+      <td>{{ claimant.name }}</td>
+      <td>{{ claimant.identifier }}</td>
+      <td>{{ claimant.phone_number }}</td>
+    </tr>
     {% endfor %}
-  </ul>
+  </table>
 
 {% endblock %}

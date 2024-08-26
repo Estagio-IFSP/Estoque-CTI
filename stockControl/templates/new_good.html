@@ -1,10 +1,10 @@
 {% extends "dashboard.html" %}
 {% load static %}
 
-{% block title %}Novo bem consumível - Estoque CTI{% endblock %}
+{% block title %}Novo bem - Estoque CTI{% endblock %}
 
 {% block dashboard_content %}
-<form action="/dashboard/new_consumable_good" method="post">
+<form action="/dashboard/new_good" method="post">
   {% csrf_token %}
   {{ form }}
   <input type="submit" value="Enviar" class="">

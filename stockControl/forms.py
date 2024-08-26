@@ -1,45 +1,36 @@
 from django import forms
-from django.contrib.contenttypes.forms import generic_inlineformset_factory
+from django.forms import CheckboxInput
 from stockControl.models import Good
-from stockControl.models import ConsumableGood
-from stockControl.models import PermanentGood
 from stockControl.models import Supplier
 from stockControl.models import Claimant
 from stockControl.models import Loan
 
-class BaseForm(forms.Form):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in self.fields.values():
-            field.widget.attrs['class'] = 'form-control'
-
+# Atribui as classes do Bootstrap a todos os campos dos formulários
 class BaseModelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
-            field.widget.attrs['class'] = 'form-control'
+            if type(field.widget) is CheckboxInput:
+                field.widget.attrs['class'] = 'form-check'
+            else:
+                field.widget.attrs['class'] = 'form-control'
 
-class ConsumableGoodForm(BaseModelForm):
+class GoodForm(BaseModelForm):
     class Meta:
-        model = ConsumableGood
-        fields = [ "name", "quantity", "acquisition_date", "description", "status", "supplier" ]
-
-class PermanentGoodForm(BaseModelForm):
-    class Meta:
-        model = PermanentGood
-        fields = [ "name", "quantity", "acquisition_date", "description", "status", "supplier", "patrimony", "warranty_expiry_date", "warranty_details" ]
+        model = Good
+        fields = [ "name", "quantity", "acquisition_date", "description", "status", "supplier", "permanent", "warranty_expiry_date", "warranty_details" ]
 
 class SupplierForm(BaseModelForm):
     class Meta:
         model = Supplier
-        fields = [ "name", "phone" ]
+        fields = [ "name", "phone_number" ]
 
 class ClaimantForm(BaseModelForm):
     class Meta:
         model = Claimant
-        fields = [ "identifier", "phone_number" ]
+        fields = [ "name", "identifier", "phone_number" ]
 
 class LoanForm(BaseModelForm):
     class Meta:
         model = Loan
-        fields = [ "loan_date", "return_date", "quantity", "claimant" ] # "good",
+        fields = [ "good", "quantity", "claimant", "loan_date", "return_date", ]

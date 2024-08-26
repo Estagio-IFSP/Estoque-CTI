@@ -6,10 +6,23 @@
 
   <h2>Empréstimos</h2>
 
-  <ul>
+  <table class="table">
+    <tr>
+      <th>Good</th>
+      <th>Quantity</th>
+      <th>Claimant</th>
+      <th>Loan date</th>
+      <th>Return date</th>
+    </tr>
     {% for loan in loans %}
-      <li>{{ loan.good_type }}</li>
+    <tr>
+      <td>{{ loan.good }}</td>
+      <td>{{ loan.quantity }}</td>
+      <td>{{ loan.claimant }}</td>
+      <td>{{ loan.loan_date }}</td>
+      <td>{{ loan.return_date }}</td>
+    </tr>
     {% endfor %}
-  </ul>
+  </table>
 
 {% endblock %}

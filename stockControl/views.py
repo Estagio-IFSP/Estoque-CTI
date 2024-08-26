@@ -1,13 +1,11 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login as auth_login
 from django.views.generic import ListView
-from stockControl.models import ConsumableGood
-from stockControl.models import PermanentGood
 from stockControl.models import Supplier
 from stockControl.models import Claimant
 from stockControl.models import Loan
-from .forms import ConsumableGoodForm
-from .forms import PermanentGoodForm
+from stockControl.models import Good
+from .forms import GoodForm
 from .forms import SupplierForm
 from .forms import ClaimantForm
 from .forms import LoanForm
@@ -24,25 +22,15 @@ def password_recovery(request):
 def dashboard(request):
     return render(request, "dashboard.html")
 
-def new_consumable_good(request):
+def new_good(request):
     if request.method == "POST":
-        form = ConsumableGoodForm(request.POST)
+        form = GoodForm(request.POST)
         if form.is_valid():
             form.save()
     else:
-        form = ConsumableGoodForm()
+        form = GoodForm()
 
-    return render(request, "new_consumable_good.html", { "form": form })
-
-def new_permanent_good(request):
-    if request.method == "POST":
-        form = PermanentGoodForm(request.POST)
-        if form.is_valid():
-            form.save()
-    else:
-        form = PermanentGoodForm()
-
-    return render(request, "new_permanent_good.html", { "form": form })
+    return render(request, "new_good.html", { "form": form })
 
 def new_supplier(request):
     if request.method == "POST":
@@ -74,15 +62,10 @@ def new_loan(request):
 
     return render(request, "new_loan.html", { "form": form })
 
-class ConsumableGoodListView(ListView):
-    model = ConsumableGood
-    template_name = "consumable_good_list.html"
-    context_object_name = "consumables"
-
-class PermanentGoodListView(ListView):
-    model = PermanentGood
-    template_name = "permanent_good_list.html"
-    context_object_name = "permanents"
+class GoodListView(ListView):
+    model = Good
+    template_name = "good_list.html"
+    context_object_name = "goods"
 
 class SupplierListView(ListView):
     model = Supplier

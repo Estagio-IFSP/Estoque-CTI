@@ -6,10 +6,17 @@
 
   <h2>Fornecedores</h2>
 
-  <ul>
+  <table class="table">
+    <tr>
+      <th>Nome</th>
+      <th>Telefone</th>
+    </tr>
     {% for supplier in suppliers %}
-      <li>{{ supplier.name }}</li>
+    <tr>
+      <td>{{ supplier.name }}</td>
+      <td>{{ supplier.phone_number }}</td>
+    </tr>
     {% endfor %}
-  </ul>
+  </table>
 
 {% endblock %}

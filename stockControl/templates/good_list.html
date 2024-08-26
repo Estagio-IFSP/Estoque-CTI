@@ -1,0 +1,30 @@
+{% extends "dashboard.html" %}
+
+{% block title %}Bens - Estoque CTI{% endblock %}
+
+{% block dashboard_content %}
+
+  <h2>Bens</h2>
+
+  <table class="table">
+    <tr>
+      <th>Status</th>
+      <th>Nome</th>
+      <th>Fornecedor</th>
+      <th>Quantidade</th>
+      <th>Aquisição</th>
+      <th>Permanente</th>
+    </tr>
+    {% for good in goods %}
+    <tr>
+      <td>{{ good.status }}</td>
+      <td>{{ good.name }}</td>
+      <td>{{ good.supplier }}</td>
+      <td>{{ good.quantity }}</td>
+      <td>{{ good.acquisition_date }}</td>
+      <td>{% if good.permanent %}Sim{% else %}Não{% endif %}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+{% endblock %}

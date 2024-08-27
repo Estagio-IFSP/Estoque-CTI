@@ -1,11 +1,9 @@
-{% extends "dashboard.html" %}
+{% extends "list.html" %}
 
-{% block title %}Empréstimos - Estoque CTI{% endblock %}
+{% block dashboard_title %}Empréstimos{% endblock %}
+{% block create_button_url %}{% url 'new_loan' %}{% endblock %}
 
 {% block dashboard_content %}
-
-  <h2>Empréstimos</h2>
-
   <table class="table">
     <tr>
       <th>Good</th>
@@ -24,5 +22,4 @@
     </tr>
     {% endfor %}
   </table>
-
 {% endblock %}

@@ -1,11 +1,9 @@
-{% extends "dashboard.html" %}
+{% extends "list.html" %}
 
-{% block title %}Fornecedores - Estoque CTI{% endblock %}
+{% block dashboard_title %}Fornecedores{% endblock %}
+{% block create_button_url %}{% url 'new_supplier' %}{% endblock %}
 
 {% block dashboard_content %}
-
-  <h2>Fornecedores</h2>
-
   <table class="table">
     <tr>
       <th>Nome</th>
@@ -18,5 +16,4 @@
     </tr>
     {% endfor %}
   </table>
-
 {% endblock %}

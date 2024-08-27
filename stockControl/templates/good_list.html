@@ -1,39 +1,23 @@
-{% extends "dashboard.html" %}
+{% extends "list.html" %}
 
-{% block title %}Bens - Estoque CTI{% endblock %}
+{% block dashboard_title %}Bens{% endblock %}
+{% block create_button_url %}{% url 'new_good' %}{% endblock %}
 
 {% block dashboard_content %}
-
-  <div class="container">
-    <div class="row">
-      <div class="col-10">
-        <h2>Bens</h2>
-      </div>
-      <div class="col">
-        <a class="btn btn-success float-end" href="{% url 'new_good' %}">Novo</a>
-      </div>
-    </div>
-  </div>
-
   <table class="table">
     <tr>
-      <th>Status</th>
       <th>Nome</th>
       <th>Fornecedor</th>
       <th>Quantidade</th>
-      <th>Aquisição</th>
-      <th>Permanente</th>
+      <th>Status</th>
     </tr>
     {% for good in goods %}
     <tr>
-      <td>{{ good.status }}</td>
       <td>{{ good.name }}</td>
       <td>{{ good.supplier }}</td>
       <td>{{ good.quantity }}</td>
-      <td>{{ good.acquisition_date }}</td>
-      <td>{% if good.permanent %}Sim{% else %}Não{% endif %}</td>
+      <td>{{ good.status }}</td>
     </tr>
     {% endfor %}
   </table>
-
 {% endblock %}

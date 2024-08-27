@@ -1,14 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Dashboard - Estoque CTI{% endblock %}
-
-{% block script %}
-<script>
-  const dropdownElementList = document.querySelectorAll('.dropdown-toggle')
-  const dropdownList = [...dropdownElementList].map(dropdownToggleEl => new bootstrap.Dropdown(dropdownToggleEl))
-</script>
-{% endblock %}
+{% block title %}<title>{% block dashboard_title %}Dashboard{% endblock %} - Estoque CTI</title>{% endblock %}
 
 {% block content %}
 <nav class="nav nav-fill nav-pills">
@@ -19,6 +12,7 @@
 </nav>
 
 <main class="container mt-5">
+{% block dashboard_header %}{% endblock %}
 {% block dashboard_content %}{% endblock %}
 </main>
 

@@ -1,7 +1,8 @@
-{% extends "dashboard.html" %}
+{% extends "new.html" %}
 {% load static %}
 
-{% block title %}Novo empréstimo - Estoque CTI{% endblock %}
+{% block dashboard_title %}Novo empréstimo{% endblock %}
+{% block h1 %}Novo empréstimo{% endblock %}
 
 {% block dashboard_content %}
 <form action="/dashboard/new_loan" method="post">

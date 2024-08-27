@@ -1,7 +1,8 @@
-{% extends "dashboard.html" %}
+{% extends "new.html" %}
 {% load static %}
 
-{% block title %}Novo requerente - Estoque CTI{% endblock %}
+{% block dashboard_title %}Novo requerente{% endblock %}
+{% block h1 %}Novo requerente{% endblock %}
 
 {% block dashboard_content %}
 <form action="/dashboard/new_claimant" method="post">

@@ -19,18 +19,42 @@ class GoodForm(BaseModelForm):
     class Meta:
         model = Good
         fields = [ "name", "quantity", "acquisition_date", "description", "status", "supplier", "permanent", "warranty_expiry_date", "warranty_details" ]
+        labels = {
+            "name": "Nome",
+            "quantity": "Quantidade",
+            "phone_number": "Telefone",
+            "acquisition_date": "Data de aquisição",
+            "description": "Descrição",
+            "supplier": "Fornecedor",
+            "permanent": "Permanente",
+            "warranty_expiry_date": "Data de expiração da garantia",
+            "warranty_details": "Detalhes da garantia",
+        }
 
 class SupplierForm(BaseModelForm):
     class Meta:
         model = Supplier
         fields = [ "name", "phone_number" ]
+        labels = { "name": "Nome", "phone_number": "Telefone" }
 
 class ClaimantForm(BaseModelForm):
     class Meta:
         model = Claimant
         fields = [ "name", "identifier", "phone_number" ]
+        labels = {
+            "name": "Nome",
+            "identifier": "Identificador (prontuário)",
+            "phone_number": "Telefone"
+        }
 
 class LoanForm(BaseModelForm):
     class Meta:
         model = Loan
         fields = [ "good", "quantity", "claimant", "loan_date", "return_date", ]
+        labels = {
+            "good": "Bem",
+            "quantity": "Quantidade",
+            "claimant": "Requerente",
+            "loan_date": "Data do empréstimo",
+            "return_date": "Data de devolução",
+        }

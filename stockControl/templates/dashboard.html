@@ -1,34 +1,18 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Dashboard - Estoque CTI{% endblock %}
-
-{% block script %}
-<script>
-  const dropdownElementList = document.querySelectorAll('.dropdown-toggle')
-  const dropdownList = [...dropdownElementList].map(dropdownToggleEl => new bootstrap.Dropdown(dropdownToggleEl))
-</script>
-{% endblock %}
+{% block title %}<title>{% block dashboard_title %}Dashboard{% endblock %} - Estoque CTI</title>{% endblock %}
 
 {% block content %}
-<ul class="nav nav-pills">
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Bens consumíveis</a>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="{% url 'consumables' %}">Listar</a></li>
-      <li><a class="dropdown-item" href="{% url 'new_consumable_good' %}">Cadastrar</a></li>
-    </ul>
-  </li>
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Fornecedores</a>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="{% url 'suppliers' %}">Listar</a></li>
-      <li><a class="dropdown-item" href="{% url 'new_supplier' %}">Cadastrar</a></li>
-    </ul>
-  </li>
+<nav class="nav nav-fill nav-pills">
+  <a class="nav-link {% if request.path == '/dashboard/goods' %}active{% endif %}" href="{% url 'goods' %}">Bens</a>
+  <a class="nav-link {% if request.path == '/dashboard/loans' %}active{% endif %}" href="{% url 'loans' %}">Empréstimos</a>
+  <a class="nav-link {% if request.path == '/dashboard/suppliers' %}active{% endif %}" href="{% url 'suppliers' %}">Fornecedores</a>
+  <a class="nav-link {% if request.path == '/dashboard/claimants' %}active{% endif %}" href="{% url 'claimants' %}">Requerentes</a>
 </nav>
 
 <main class="container mt-5">
+{% block dashboard_header %}{% endblock %}
 {% block dashboard_content %}{% endblock %}
 </main>
 

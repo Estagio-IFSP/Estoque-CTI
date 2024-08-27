@@ -1,11 +1,11 @@
 {% extends "new.html" %}
 {% load static %}
 
-{% block dashboard_title %}Novo fornecedor{% endblock %}
-{% block h1 %}Novo fornecedor{% endblock %}
+{% block dashboard_title %}Novo empréstimo{% endblock %}
+{% block h1 %}Novo empréstimo{% endblock %}
 
 {% block dashboard_content %}
-<form action="/dashboard/new_supplier" method="post">
+<form action="/dashboard/new_loan" method="post">
   {% csrf_token %}
   {{ form }}
   <input type="submit" value="Enviar" class="">

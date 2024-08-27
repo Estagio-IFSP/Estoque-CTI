@@ -1,0 +1,23 @@
+{% extends "list.html" %}
+
+{% block dashboard_title %}Bens{% endblock %}
+{% block create_button_url %}{% url 'new_good' %}{% endblock %}
+
+{% block dashboard_content %}
+  <table class="table">
+    <tr>
+      <th>Nome</th>
+      <th>Fornecedor</th>
+      <th>Quantidade</th>
+      <th>Status</th>
+    </tr>
+    {% for good in goods %}
+    <tr>
+      <td>{{ good.name }}</td>
+      <td>{{ good.supplier }}</td>
+      <td>{{ good.quantity }}</td>
+      <td>{{ good.status }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

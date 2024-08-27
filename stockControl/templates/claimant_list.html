@@ -1,0 +1,23 @@
+{% extends "list.html" %}
+
+{% block dashboard_title %}Requerentes{% endblock %}
+{% block create_button_url %}{% url 'new_claimant' %}{% endblock %}
+
+{% block dashboard_content %}
+  <h2>Requerentes</h2>
+
+  <table class="table">
+    <tr>
+      <th>Nome</th>
+      <th>Identificador</th>
+      <th>Telefone</th>
+    </tr>
+    {% for claimant in claimants %}
+    <tr>
+      <td>{{ claimant.name }}</td>
+      <td>{{ claimant.identifier }}</td>
+      <td>{{ claimant.phone_number }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

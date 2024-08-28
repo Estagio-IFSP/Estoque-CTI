@@ -1,21 +1,20 @@
 {% extends "list.html" %}
 
 {% block title %}Fornecedores{% endblock %}
+{% block h1 %}Fornecedores{% endblock %}
 {% block create_button_url %}{% url 'new_supplier' %}{% endblock %}
 
-{% block dashboard_content %}
-  <table class="table">
-    <tr>
-      <th>Nome</th>
-      <th>Telefone</th>
-      <th>Ações</th>
-    </tr>
-    {% for supplier in suppliers %}
-    <tr>
-      <td>{{ supplier.name }}</td>
-      <td>{{ supplier.phone_number }}</td>
-      {% include 'list_action_buttons.html' with object=supplier %}
-    </tr>
-    {% endfor %}
-  </table>
-{% endblock %}
+{% block table_content %}
+  <tr>
+    <th>Nome</th>
+    <th>Telefone</th>
+    <th>Ações</th>
+  </tr>
+  {% for supplier in suppliers %}
+  <tr>
+    <td>{{ supplier.name }}</td>
+    <td>{{ supplier.phone_number }}</td>
+    {% include 'list_action_buttons.html' with object=supplier %}
+  </tr>
+  {% endfor %}
+{% endblock table_content %}

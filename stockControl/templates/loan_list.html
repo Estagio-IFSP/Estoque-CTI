@@ -1,27 +1,26 @@
 {% extends "list.html" %}
 
 {% block title %}Empréstimos{% endblock %}
+{% block h1 %}Empréstimos{% endblock %}
 {% block create_button_url %}{% url 'new_loan' %}{% endblock %}
 
-{% block dashboard_content %}
-  <table class="table">
-    <tr>
-      <th>Bem</th>
-      <th>Quantidade</th>
-      <th>Requerente</th>
-      <th>Empréstimo</th>
-      <th>Devolução</th>
-      <th>Ações</th>
-    </tr>
-    {% for loan in loans %}
-    <tr>
-      <td>{{ loan.good }}</td>
-      <td>{{ loan.quantity }}</td>
-      <td>{{ loan.claimant }}</td>
-      <td>{{ loan.loan_date }}</td>
-      <td>{{ loan.return_date }}</td>
-      {% include 'list_action_buttons.html' with object=loan %}
-    </tr>
-    {% endfor %}
-  </table>
-{% endblock %}
+{% block table_content %}
+  <tr>
+    <th>Bem</th>
+    <th>Quantidade</th>
+    <th>Requerente</th>
+    <th>Empréstimo</th>
+    <th>Devolução</th>
+    <th>Ações</th>
+  </tr>
+  {% for loan in loans %}
+  <tr>
+    <td>{{ loan.good }}</td>
+    <td>{{ loan.quantity }}</td>
+    <td>{{ loan.claimant }}</td>
+    <td>{{ loan.loan_date }}</td>
+    <td>{{ loan.return_date }}</td>
+    {% include 'list_action_buttons.html' with object=loan %}
+  </tr>
+  {% endfor %}
+{% endblock table_content %}

@@ -2,5 +2,10 @@
 {% load static %}
 
 {% block title %}Novo{% endblock %}
-{% block dashboard_header %}<h1>{% block h1 %}{% endblock %}</h1>{% endblock %}
-{% block dashboard_content %}{% endblock %}
+
+{% block dashboard_content %}
+  {% block dashboard_header %}
+    <h1>{% block h1 %}{% endblock %}</h1>
+  {% endblock dashboard_header %}
+  {% block creation_form %}{% endblock %}
+{% endblock dashboard_content %}

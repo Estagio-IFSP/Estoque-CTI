@@ -4,10 +4,10 @@
 {% block title %}Novo fornecedor{% endblock %}
 {% block h1 %}Novo fornecedor{% endblock %}
 
-{% block dashboard_content %}
+{% block creation_form %}
 <form action="/dashboard/new_supplier" method="post">
   {% csrf_token %}
   {{ form }}
   <input type="submit" value="Enviar" class="">
 </form>
-{% endblock %}
+{% endblock creation_form %}

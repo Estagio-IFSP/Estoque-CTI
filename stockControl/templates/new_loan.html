@@ -4,10 +4,10 @@
 {% block title %}Novo empréstimo{% endblock %}
 {% block h1 %}Novo empréstimo{% endblock %}
 
-{% block dashboard_content %}
+{% block creation_form %}
 <form action="/dashboard/new_loan" method="post">
   {% csrf_token %}
   {{ form }}
   <input type="submit" value="Enviar" class="">
 </form>
-{% endblock %}
+{% endblock creation_form %}

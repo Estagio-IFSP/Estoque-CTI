@@ -1,26 +1,24 @@
 {% extends "list.html" %}
-{% load static %}
 
 {% block title %}Bens{% endblock %}
+{% block h1 %}Bens{% endblock %}
 {% block create_button_url %}{% url 'new_good' %}{% endblock %}
 
-{% block dashboard_content %}
-  <table class="table">
-    <tr>
-      <th>Nome</th>
-      <th>Fornecedor</th>
-      <th>Quantidade</th>
-      <th>Status</th>
-      <th>Ações</th>
-    </tr>
-    {% for good in goods %}
-    <tr>
-      <td>{{ good.name }}</td>
-      <td>{{ good.supplier }}</td>
-      <td>{{ good.quantity }}</td>
-      <td>{{ good.status }}</td>
-      {% include 'list_action_buttons.html' with object=good %}
-    </tr>
-    {% endfor %}
-  </table>
-{% endblock %}
+{% block table_content %}
+  <tr>
+    <th>Nome</th>
+    <th>Fornecedor</th>
+    <th>Quantidade</th>
+    <th>Status</th>
+    <th>Ações</th>
+  </tr>
+  {% for good in goods %}
+  <tr>
+    <td>{{ good.name }}</td>
+    <td>{{ good.supplier }}</td>
+    <td>{{ good.quantity }}</td>
+    <td>{{ good.status }}</td>
+    {% include 'list_action_buttons.html' with object=good %}
+  </tr>
+  {% endfor %}
+{% endblock table_content %}

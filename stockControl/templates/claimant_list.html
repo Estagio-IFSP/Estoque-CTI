@@ -1,25 +1,22 @@
 {% extends "list.html" %}
 
 {% block title %}Requerentes{% endblock %}
+{% block h1 %}Requerentes{% endblock %}
 {% block create_button_url %}{% url 'new_claimant' %}{% endblock %}
 
-{% block dashboard_content %}
-  <h2>Requerentes</h2>
-
-  <table class="table">
-    <tr>
-      <th>Nome</th>
-      <th>Identificador</th>
-      <th>Telefone</th>
-      <th>Ações</th>
-    </tr>
-    {% for claimant in claimants %}
-    <tr>
-      <td>{{ claimant.name }}</td>
-      <td>{{ claimant.identifier }}</td>
-      <td>{{ claimant.phone_number }}</td>
-      {% include 'list_action_buttons.html' with object=claimant %}
-    </tr>
-    {% endfor %}
-  </table>
-{% endblock %}
+{% block table_content %}
+  <tr>
+    <th>Nome</th>
+    <th>Identificador</th>
+    <th>Telefone</th>
+    <th>Ações</th>
+  </tr>
+  {% for claimant in claimants %}
+  <tr>
+    <td>{{ claimant.name }}</td>
+    <td>{{ claimant.identifier }}</td>
+    <td>{{ claimant.phone_number }}</td>
+    {% include 'list_action_buttons.html' with object=claimant %}
+  </tr>
+  {% endfor %}
+{% endblock table_content %}

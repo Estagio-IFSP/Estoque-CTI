@@ -3,6 +3,7 @@
 
 {% block title %}Listagem{% endblock %}
 
+{% block dashboard_content %}
 {% block dashboard_header %}
 <div class="container">
   <div class="row">
@@ -10,10 +11,13 @@
       <h1>{% block h1 %}{% endblock %}</h1>
     </div>
     <div class="col">
-      <a class="btn btn-success float-end" href="{% block create_button_url %}{% endblock %}">Novo</a>
+      <a class="btn btn-success" href="{% block create_button_url %}{% endblock %}">Novo</a>
     </div>
   </div>
 </div>
-{% endblock %}
+{% endblock dashboard_header %}
 
-{% block dashboard_content %}{% endblock %}
+<table class="table">
+  {% block table_content %}{% endblock table_content %}
+</table>
+{% endblock dashboard_content %}

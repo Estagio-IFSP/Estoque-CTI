@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login as auth_login
+from django.views.generic import DetailView
 from django.views.generic import ListView
 from stockControl.models import Supplier
 from stockControl.models import Claimant
@@ -61,6 +62,14 @@ def new_loan(request):
         form = LoanForm()
 
     return render(request, "new_loan.html", { "form": form })
+
+class GoodDetailView(DetailView):
+    model = Good
+    template_name = "good_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
 
 class GoodListView(ListView):
     model = Good

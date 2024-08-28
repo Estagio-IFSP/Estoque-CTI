@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 # Fornecedor
@@ -23,12 +24,13 @@ class Good(models.Model):
     permanent = models.BooleanField()
     warranty_expiry_date = models.DateField()
     warranty_details = models.TextField();
+    slug = "good"
 
     def __str__(self):
         return str(self.name)
 
-    def get_slug(self):
-        return "good"
+    def get_absolute_url(self):
+        return reverse("good-detail", kwargs={"pk": self.pk})
 
 # Requerente (Pessoa que empresta um bem)
 class Claimant(models.Model):

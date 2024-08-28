@@ -1,0 +1,42 @@
+{% extends "detail.html" %}
+{% load static %}
+
+{% block title %}{{ object }}{% endblock %}
+
+{% block details %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="h3">{{ object }}</h1>
+    </div>
+    <div class="col d-inline-flex align-items-center justify-content-end">
+      {% if object.permanent %}
+      <span class="btn btn-success disabled">Permanente</span>
+      {% else %}
+      <span class="btn btn-secondary disabled">Consumível</span>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<p class="lead">{{ object.description }}</p>
+<table class="table">
+  <tr>
+    <th>Quantidade</th>
+    <th>Data de aquisição</th>
+    <th>Status</th>
+    <th>Fornecedor</th>
+  </tr>
+  <tr>
+  <th>{{ object.quantity }}</th>
+  <th>{{ object.acquisition_date }}</th>
+  <th>{{ object.status }}</th>
+  <th>{{ object.supplier }}</th>
+  </tr>
+
+  {% if object.permanent %}
+  <h2>Garantia</h2>
+  <p><strong>Expiração:</strong> {{ object.warranty_expiry_date }}</p>
+  <p><strong>Detalhes:</strong> {{ object.warranty_details }}</p>
+  {% endif %}
+</table>
+{% endblock details %}

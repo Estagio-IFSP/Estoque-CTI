@@ -11,6 +11,7 @@
       <th>Requerente</th>
       <th>Empréstimo</th>
       <th>Devolução</th>
+      <th>Ações</th>
     </tr>
     {% for loan in loans %}
     <tr>
@@ -19,6 +20,7 @@
       <td>{{ loan.claimant }}</td>
       <td>{{ loan.loan_date }}</td>
       <td>{{ loan.return_date }}</td>
+      {% include 'list_action_buttons.html' with object=loan %}
     </tr>
     {% endfor %}
   </table>

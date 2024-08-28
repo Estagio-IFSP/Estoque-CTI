@@ -19,14 +19,7 @@
       <td>{{ good.supplier }}</td>
       <td>{{ good.quantity }}</td>
       <td>{{ good.status }}</td>
-      <td>
-        <a href="goods/{{ good.id }}/edit" class="btn btn-success btn-sm" role="button">
-          <img src="{% static 'img/ph--pencil-simple-fill.svg' %}" alt="Ícone de editar" style="filter: invert(100%);"/>
-        </a>
-        <a href="goods/{{ good.id }}/delete" class="btn btn-danger btn-sm" role="button">
-          <img src="{% static 'img/ph--trash-fill.svg' %}" alt="Ícone de deletar" style="filter: invert(100%);"/>
-        </a>
-      </td>
+      {% include 'list_action_buttons.html' with object=good %}
     </tr>
     {% endfor %}
   </table>

@@ -8,11 +8,13 @@
     <tr>
       <th>Nome</th>
       <th>Telefone</th>
+      <th>Ações</th>
     </tr>
     {% for supplier in suppliers %}
     <tr>
       <td>{{ supplier.name }}</td>
       <td>{{ supplier.phone_number }}</td>
+      {% include 'list_action_buttons.html' with object=supplier %}
     </tr>
     {% endfor %}
   </table>

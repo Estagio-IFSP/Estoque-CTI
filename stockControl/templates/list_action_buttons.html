@@ -1,0 +1,10 @@
+{% load static %}
+
+<td>
+  <a href="{{ object.get_slug }}/{{ object.id }}/edit" class="btn btn-success btn-sm" role="button">
+    <img src="{% static 'img/ph--pencil-simple-fill.svg' %}" alt="Ícone de editar" style="filter: invert(100%);"/>
+  </a>
+  <a href="{{ object.get_slug }}/{{ object.id }}/delete" class="btn btn-danger btn-sm" role="button">
+    <img src="{% static 'img/ph--trash-fill.svg' %}" alt="Ícone de deletar" style="filter: invert(100%);"/>
+  </a>
+</td>

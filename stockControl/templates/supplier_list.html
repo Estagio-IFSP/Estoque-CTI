@@ -7,14 +7,12 @@
 {% block table_content %}
   <tr>
     <th>Nome</th>
-    <th>Telefone</th>
-    <th>Ações</th>
+    <th style="text-align: right;"><span >Ações</span></th>
   </tr>
   {% for supplier in suppliers %}
   <tr>
-    <td>{{ supplier.name }}</td>
-    <td>{{ supplier.phone_number }}</td>
-    {% include 'list_action_buttons.html' with object=supplier %}
+    <td><a href="{{ supplier.get_absolute_url }}">{{ supplier.name }}</a></td>
+    {% include 'action_buttons.html' with object=supplier %}
   </tr>
   {% endfor %}
 {% endblock table_content %}

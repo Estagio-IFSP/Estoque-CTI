@@ -11,16 +11,16 @@
     <th>Requerente</th>
     <th>Empréstimo</th>
     <th>Devolução</th>
-    <th>Ações</th>
+    <th style="text-align: right;"><span >Ações</span></th>
   </tr>
   {% for loan in loans %}
   <tr>
-    <td>{{ loan.good }}</td>
+    <td><a href="{{ loan.get_absolute_url }}">{{ loan.good }}</a></td>
     <td>{{ loan.quantity }}</td>
     <td>{{ loan.claimant }}</td>
     <td>{{ loan.loan_date }}</td>
-    <td>{{ loan.return_date }}</td>
-    {% include 'list_action_buttons.html' with object=loan %}
+    <td><span class="{% if loan.due_check %}badge text-bg-danger{% endif %}">{{ loan.return_date }}</span></td>
+    {% include 'action_buttons.html' with object=loan %}
   </tr>
   {% endfor %}
 {% endblock table_content %}

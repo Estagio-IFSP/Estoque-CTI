@@ -1,0 +1,17 @@
+{% extends "detail.html" %}
+{% load static %}
+
+{% block title %}Fornecedor {{ object }}{% endblock %}
+
+{% block details %}
+<div class="container">
+  <div class="row">
+      <h1 class="h3">{{ object.name }}</h1>
+  </div>
+</div>
+<dl class="row">
+  <dt class="col-sm-3">Telefone</dt>
+  <dd class="col-sm-9">{{ object.phone_number }}</dd>
+</dl>
+{% include 'action_buttons.html' with object=object %}
+{% endblock details %}

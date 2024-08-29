@@ -4,7 +4,7 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<nav class="nav nav-fill nav-pills">
+<nav class="nav nav-expand-lg nav-pills justify-content-center">
   <a class="nav-link {% if request.path == '/dashboard/goods' %}active{% endif %}" href="{% url 'goods' %}">Bens</a>
   <a class="nav-link {% if request.path == '/dashboard/loans' %}active{% endif %}" href="{% url 'loans' %}">Empréstimos</a>
   <a class="nav-link {% if request.path == '/dashboard/suppliers' %}active{% endif %}" href="{% url 'suppliers' %}">Fornecedores</a>

@@ -10,7 +10,7 @@
     <th>Fornecedor</th>
     <th>Quantidade</th>
     <th>Status</th>
-    <th>Ações</th>
+    <th style="text-align: right;"><span >Ações</span></th>
   </tr>
   {% for good in goods %}
   <tr>
@@ -18,7 +18,7 @@
     <td>{{ good.supplier }}</td>
     <td>{{ good.quantity }}</td>
     <td>{{ good.status }}</td>
-    {% include 'list_action_buttons.html' with object=good %}
+    {% include 'action_buttons.html' with object=good %}
   </tr>
   {% endfor %}
 {% endblock table_content %}

@@ -76,15 +76,39 @@ class GoodListView(ListView):
     template_name = "good_list.html"
     context_object_name = "goods"
 
+class SupplierDetailView(DetailView):
+    model = Supplier
+    template_name = "supplier_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
 class SupplierListView(ListView):
     model = Supplier
     template_name = "supplier_list.html"
     context_object_name = "suppliers"
 
+class ClaimantDetailView(DetailView):
+    model = Claimant
+    template_name = "claimant_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
 class ClaimantListView(ListView):
     model = Claimant
     template_name = "claimant_list.html"
     context_object_name = "claimants"
+
+class LoanDetailView(DetailView):
+    model = Loan
+    template_name = "loan_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
 
 class LoanListView(ListView):
     model = Loan

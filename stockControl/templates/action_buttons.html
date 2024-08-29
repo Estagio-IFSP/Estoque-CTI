@@ -2,10 +2,10 @@
 
 <td>
   <div class="col d-flex align-items-center justify-content-end"</div>
-    <a href="{{ object.get_slug }}/{{ object.id }}/edit" class="btn btn-success btn-sm me-1" role="button">
+    <a href="/dashboard/{{ object.slug }}/{{ object.id }}/edit" class="btn btn-success btn-sm me-1" role="button">
       <img src="{% static 'img/ph--pencil-simple-fill.svg' %}" alt="Ícone de editar" style="filter: invert(100%);"/>
     </a>
-    <a href="{{ object.get_slug }}/{{ object.id }}/delete" class="btn btn-danger btn-sm" role="button">
+    <a href="/dashboard/{{ object.slug }}/{{ object.id }}/delete" class="btn btn-danger btn-sm" role="button">
       <img src="{% static 'img/ph--trash-fill.svg' %}" alt="Ícone de deletar" style="filter: invert(100%);"/>
     </a>
   </div>

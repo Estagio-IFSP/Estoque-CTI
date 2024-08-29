@@ -20,11 +20,11 @@
 </div>
 <dl class="row">
   <dt class="col-sm-3">Bem</dt>
-  <dd class="col-sm-9"><a href="/dashboard/{{ object.good.slug }}/{{ object.good.pk }}">{{ object.good }}</a></dd>
+  <dd class="col-sm-9"><a href="{{ object.good.get_absolute_url }}">{{ object.good }}</a></dd>
   <dt class="col-sm-3">Quantidade</dt>
   <dd class="col-sm-9">{{ object.quantity }}</dd>
   <dt class="col-sm-3">Requerente</dt>
-  <dd class="col-sm-9"><a href="/dashboard/{{ object.claimant.slug }}/{{ object.claimant.pk }}">{{ object.claimant }}</a></dd>
+  <dd class="col-sm-9"><a href="{{ object.claimant.get_absolute_url }}">{{ object.claimant }}</a></dd>
   <dt class="col-sm-3">Data do empréstimo</dt>
   <dd class="col-sm-9">{{ object.loan_date }} (há {{ object.loan_date | timesince }})</dd>
   <dt class="col-sm-3">Data de devolução</dt>

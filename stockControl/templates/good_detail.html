@@ -23,7 +23,7 @@
   <dt class="col-sm-3">Status</dt>
   <dd class="col-sm-9">{{ object.status }}</dd>
   <dt class="col-sm-3">Fornecedor</dt>
-  <dd class="col-sm-9"><a href="/dashboard/{{object.supplier.slug }}/{{ object.supplier.pk }}">{{ object.supplier }}</a></dd>
+  <dd class="col-sm-9"><a href="{{ object.supplier.get_absolute_url }}">{{ object.supplier }}</a></dd>
   <dt class="col-sm-3">Quantidade</dt>
   <dd class="col-sm-9">{{ object.quantity }}</dd>
   <dt class="col-sm-3">Data de aquisição</dt>

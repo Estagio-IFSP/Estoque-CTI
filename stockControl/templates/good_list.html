@@ -15,7 +15,7 @@
   {% for good in goods %}
   <tr>
     <td><a href="{{ good.get_absolute_url }}">{{ good.name }}</a></td>
-    <td>{{ good.supplier }}</td>
+    <td><a href="{{ good.supplier.get_absolute_url }}">{{ good.supplier.name }}</a></td>
     <td>{{ good.quantity }}</td>
     <td>{{ good.status }}</td>
     {% include 'action_buttons.html' with object=good %}

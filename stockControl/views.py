@@ -1,7 +1,10 @@
+from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login as auth_login
 from django.views.generic import DetailView
 from django.views.generic import ListView
+from django.views.generic import UpdateView
+from django.views.generic import DeleteView
 from stockControl.models import Supplier
 from stockControl.models import Claimant
 from stockControl.models import Loan
@@ -76,6 +79,17 @@ class GoodListView(ListView):
     template_name = "good_list.html"
     context_object_name = "goods"
 
+class GoodUpdateView(UpdateView):
+    model = Good
+    template_name = "update.html"
+    fields = [ "name", "quantity", "acquisition_date", "description", "status", "supplier", "permanent", "warranty_expiry_date", "warranty_details" ]
+    context_object_name = "goods"
+
+class GoodDeleteView(DeleteView):
+    model = Good
+    template_name = "delete.html"
+    success_url = reverse_lazy("goods")
+
 class SupplierDetailView(DetailView):
     model = Supplier
     template_name = "supplier_detail.html"
@@ -88,6 +102,16 @@ class SupplierListView(ListView):
     model = Supplier
     template_name = "supplier_list.html"
     context_object_name = "suppliers"
+
+class SupplierUpdateView(UpdateView):
+    model = Supplier
+    template_name = "update.html"
+    fields = [ "name", "phone_number" ]
+
+class SupplierDeleteView(DeleteView):
+    model = Supplier
+    template_name = "delete.html"
+    success_url = reverse_lazy("supplier")
 
 class ClaimantDetailView(DetailView):
     model = Claimant
@@ -102,6 +126,16 @@ class ClaimantListView(ListView):
     template_name = "claimant_list.html"
     context_object_name = "claimants"
 
+class ClaimantUpdateView(UpdateView):
+    model = Claimant
+    template_name = "update.html"
+    fields = [ "name", "phone_number" ]
+
+class ClaimantDeleteView(DeleteView):
+    model = Claimant
+    template_name = "delete.html"
+    success_url = reverse_lazy("claimant")
+
 class LoanDetailView(DetailView):
     model = Loan
     template_name = "loan_detail.html"
@@ -114,3 +148,14 @@ class LoanListView(ListView):
     model = Loan
     template_name = "loan_list.html"
     context_object_name = "loans"
+
+class LoanUpdateView(UpdateView):
+    model = Loan
+    template_name = "update.html"
+    fields = [ "good", "quantity", "claimant", "loan_date", "return_date", ]
+
+class LoanDeleteView(DeleteView):
+    model = Loan
+    template_name = "delete.html"
+    success_url = reverse_lazy("loan")
+

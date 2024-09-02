@@ -1,18 +1,22 @@
 from django.urls import reverse_lazy
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login as auth_login
-from django.views.generic import DetailView
-from django.views.generic import ListView
-from django.views.generic import UpdateView
-from django.views.generic import DeleteView
-from stockControl.models import Supplier
-from stockControl.models import Claimant
-from stockControl.models import Loan
-from stockControl.models import Good
-from .forms import GoodForm
-from .forms import SupplierForm
-from .forms import ClaimantForm
-from .forms import LoanForm
+from django.views.generic import DetailView, ListView, UpdateView, DeleteView
+from django.db.models import ProtectedError
+from stockControl.models import Supplier, Claimant, Loan, Good
+from .forms import GoodForm, SupplierForm,ClaimantForm, LoanForm
+
+class ProtectedAwareDeleteView(DeleteView):
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        try:
+            form = self.get_form()
+            if form.is_valid():
+                return self.form_valid(form)
+            else:
+                return self.form_invalid(form)
+        except ProtectedError as error:
+            return render(request, "protected-error.html", {"object": self.object, "error": error})
 
 def login(request):
     return render(request, "login.html")
@@ -70,10 +74,6 @@ class GoodDetailView(DetailView):
     model = Good
     template_name = "good_detail.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-
 class GoodListView(ListView):
     model = Good
     template_name = "good_list.html"
@@ -83,20 +83,26 @@ class GoodUpdateView(UpdateView):
     model = Good
     template_name = "update.html"
     fields = [ "name", "quantity", "acquisition_date", "description", "status", "supplier", "permanent", "warranty_expiry_date", "warranty_details" ]
-    context_object_name = "goods"
 
-class GoodDeleteView(DeleteView):
+class GoodDeleteView(ProtectedAwareDeleteView):
     model = Good
     template_name = "delete.html"
     success_url = reverse_lazy("goods")
 
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        try:
+            form = self.get_form()
+            if form.is_valid():
+                return self.form_valid(form)
+            else:
+                return self.form_invalid(form)
+        except ProtectedError as error:
+            return render(request, "protected-error.html", {"object": self.object, "error": error})
+
 class SupplierDetailView(DetailView):
     model = Supplier
     template_name = "supplier_detail.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
 
 class SupplierListView(ListView):
     model = Supplier
@@ -108,18 +114,14 @@ class SupplierUpdateView(UpdateView):
     template_name = "update.html"
     fields = [ "name", "phone_number" ]
 
-class SupplierDeleteView(DeleteView):
+class SupplierDeleteView(ProtectedAwareDeleteView):
     model = Supplier
     template_name = "delete.html"
-    success_url = reverse_lazy("supplier")
+    success_url = reverse_lazy("suppliers")
 
 class ClaimantDetailView(DetailView):
     model = Claimant
     template_name = "claimant_detail.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
 
 class ClaimantListView(ListView):
     model = Claimant
@@ -131,18 +133,14 @@ class ClaimantUpdateView(UpdateView):
     template_name = "update.html"
     fields = [ "name", "phone_number" ]
 
-class ClaimantDeleteView(DeleteView):
+class ClaimantDeleteView(ProtectedAwareDeleteView):
     model = Claimant
     template_name = "delete.html"
-    success_url = reverse_lazy("claimant")
+    success_url = reverse_lazy("claimants")
 
 class LoanDetailView(DetailView):
     model = Loan
     template_name = "loan_detail.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
 
 class LoanListView(ListView):
     model = Loan
@@ -154,8 +152,7 @@ class LoanUpdateView(UpdateView):
     template_name = "update.html"
     fields = [ "good", "quantity", "claimant", "loan_date", "return_date", ]
 
-class LoanDeleteView(DeleteView):
+class LoanDeleteView(ProtectedAwareDeleteView):
     model = Loan
     template_name = "delete.html"
-    success_url = reverse_lazy("loan")
-
+    success_url = reverse_lazy("loans")

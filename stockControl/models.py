@@ -8,6 +8,7 @@ class Supplier(models.Model):
     name = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=20)
     slug = "supplier"
+    localized_class_name = "Fornecedor"
 
     def __str__(self):
         return str(self.name)
@@ -27,6 +28,7 @@ class Good(models.Model):
     warranty_expiry_date = models.DateField()
     warranty_details = models.TextField();
     slug = "good"
+    localized_class_name = "Bem"
 
     def __str__(self):
         return str(self.name)
@@ -40,6 +42,7 @@ class Claimant(models.Model):
     identifier = models.CharField()
     phone_number = models.PositiveIntegerField()
     slug="claimant"
+    localized_class_name = "Requerente"
 
     def __str__(self):
         return str(self.name)
@@ -55,6 +58,7 @@ class Loan(models.Model):
     return_date = models.DateField()
     quantity = models.PositiveBigIntegerField()
     slug = "loan"
+    localized_class_name = "Empréstimo"
 
     def __str__(self):
         return str(self.good.name) + " para " + str(self.claimant.name)

@@ -1,5 +1,23 @@
+{% extends "dashboard.html" %}
+{% load static %}
+{% load css_class %}
+
+{% block title %}Excluir {{ object.name }}{% endblock %}
+
+{% block dashboard_content %}
+{% block dashboard_header %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>{% block h1 %}Excluir {{ object }}{% endblock %}</h1>
+    </div>
+  </div>
+</div>
+{% endblock dashboard_header %}
+
 <form method="post">{% csrf_token %}
-    <p>Are you sure you want to delete "{{ object }}"?</p>
+  <p>Tem certeza que deseja apagar {{ object }}?</p>
     {{ form }}
-    <input type="submit" value="Confirm">
+    <input type="submit" value="Excluir">
 </form>
+{% endblock dashboard_content %}

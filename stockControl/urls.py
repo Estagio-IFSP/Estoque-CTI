@@ -1,29 +1,12 @@
 from django.contrib import admin
 from django.urls import path
-from stockControl.views import login
-from stockControl.views import signup
-from stockControl.views import password_recovery
-from stockControl.views import dashboard
-from stockControl.views import GoodDetailView
-from stockControl.views import GoodListView
-from stockControl.views import GoodUpdateView
-from stockControl.views import GoodDeleteView
-from stockControl.views import SupplierDetailView
-from stockControl.views import SupplierListView
-from stockControl.views import SupplierUpdateView
-from stockControl.views import SupplierDeleteView
-from stockControl.views import ClaimantDetailView
-from stockControl.views import ClaimantListView
-from stockControl.views import ClaimantUpdateView
-from stockControl.views import ClaimantDeleteView
-from stockControl.views import LoanDetailView
-from stockControl.views import LoanListView
-from stockControl.views import LoanUpdateView
-from stockControl.views import LoanDeleteView
-from stockControl.views import new_good
-from stockControl.views import new_claimant
-from stockControl.views import new_loan
-from stockControl.views import new_supplier
+from stockControl.views import login, signup, password_recovery, dashboard
+from stockControl.views import GoodDetailView, GoodListView, GoodUpdateView, GoodDeleteView
+from stockControl.views import SupplierDetailView, SupplierListView, SupplierUpdateView, SupplierDeleteView
+from stockControl.views import ClaimantDetailView, ClaimantListView, ClaimantUpdateView, ClaimantDeleteView
+from stockControl.views import LoanDetailView, LoanListView, LoanUpdateView, LoanDeleteView
+from stockControl.views import LoanItemDetailView, LoanItemListView, LoanItemUpdateView, LoanItemDeleteView
+from stockControl.views import new_good, new_claimant, new_loan, new_supplier, new_loan_item
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -55,4 +38,10 @@ urlpatterns = [
     path("dashboard/loan/<int:pk>/", LoanDetailView.as_view(), name="loan-detail"),
     path("dashboard/loan/<int:pk>/edit", LoanUpdateView.as_view(), name="loan-edit"),
     path("dashboard/loan/<int:pk>/delete", LoanDeleteView.as_view(), name="loan-delete"),
+
+    path("dashboard/loan-items", LoanItemListView.as_view(), name="loan-items"),
+    path("dashboard/new_loan_item", new_loan_item, name="new_loan_item"),
+    path("dashboard/loan-item/<int:pk>/", LoanItemDetailView.as_view(), name="loan-item-detail"),
+    path("dashboard/loan-item/<int:pk>/edit", LoanItemUpdateView.as_view(), name="loan-item-edit"),
+    path("dashboard/loan-item/<int:pk>/delete", LoanItemDeleteView.as_view(), name="loan-item-delete"),
 ]

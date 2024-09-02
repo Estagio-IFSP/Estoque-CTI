@@ -1,0 +1,24 @@
+{% extends "list.html" %}
+
+{% block title %}Itens de empréstimo{% endblock %}
+{% block h1 %}Itens de empréstimo{% endblock %}
+{% block create_button_url %}{% url 'new_loan_item' %}{% endblock %}
+
+{% block table_content %}
+{% now "Y" as current_year %}
+  <tr>
+    <th>Bem</th>
+    <th>Quantidade</th>
+    <th style="text-align: right;"><span >Ações</span></th>
+  </tr>
+  {% for loan_item in loan_items %}
+  <tr>
+    <td>
+      <a href="{{ loan_item.get_absolute_url }}">
+          {{ loan_item.good.name }}</a>
+    </td>
+    <td>{{ loan_item.quantity }}</td>
+    {% include 'action_buttons.html' with object=loan_item %}
+  </tr>
+  {% endfor %}
+{% endblock table_content %}

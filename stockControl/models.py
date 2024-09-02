@@ -54,6 +54,13 @@ class Claimant(models.Model):
 class LoanItem(models.Model):
     good = models.ForeignKey(Good, on_delete=models.PROTECT)
     quantity = models.PositiveIntegerField()
+    slug = 'loan-item'
+
+    def __str__(self):
+        return "Item de Empréstimo " + str(self.good.name)
+
+    def get_absolute_url(self):
+        return reverse(self.slug + "-detail", kwargs={"pk": self.pk})
 
 # Empréstimo
 class Loan(models.Model):

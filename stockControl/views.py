@@ -2,8 +2,8 @@ from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView, UpdateView, DeleteView
 from django.db.models import ProtectedError
-from stockControl.models import Supplier, Claimant, Loan, Good
-from .forms import GoodForm, SupplierForm,ClaimantForm, LoanForm
+from stockControl.models import Good, Supplier, Claimant, Loan, LoanItem
+from .forms import GoodForm, SupplierForm,ClaimantForm, LoanForm, LoanItemForm
 
 class ProtectedAwareDeleteView(DeleteView):
 
@@ -69,6 +69,16 @@ def new_loan(request):
         form = LoanForm()
 
     return render(request, "new_loan.html", { "form": form })
+
+def new_loan_item(request):
+    if request.method == "POST":
+        form = LoanItemForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = LoanItemForm()
+
+    return render(request, "new_loan_item.html", { "form": form })
 
 class GoodDetailView(DetailView):
     model = Good
@@ -150,9 +160,28 @@ class LoanListView(ListView):
 class LoanUpdateView(UpdateView):
     model = Loan
     template_name = "update.html"
-    fields = [ "good", "quantity", "claimant", "loan_date", "return_date", ]
+    fields = [ "items", "claimant", "loan_date", "return_date", ]
 
 class LoanDeleteView(ProtectedAwareDeleteView):
-    model = Loan
+    model = LoanItem
     template_name = "delete.html"
     success_url = reverse_lazy("loans")
+
+class LoanItemDetailView(DetailView):
+    model = LoanItem
+    template_name = "loan_detail.html"
+
+class LoanItemListView(ListView):
+    model = LoanItem
+    template_name = "loan_item_list.html"
+    context_object_name = "loan_items"
+
+class LoanItemUpdateView(UpdateView):
+    model = LoanItem
+    template_name = "update.html"
+    fields = [ "good", "quantity", ]
+
+class LoanItemDeleteView(ProtectedAwareDeleteView):
+    model = LoanItem
+    template_name = "delete.html"
+    success_url = reverse_lazy("loan_items")

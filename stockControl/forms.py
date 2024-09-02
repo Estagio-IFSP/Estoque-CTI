@@ -1,9 +1,6 @@
 from django import forms
 from django.forms import CheckboxInput
-from stockControl.models import Good
-from stockControl.models import Supplier
-from stockControl.models import Claimant
-from stockControl.models import Loan
+from stockControl.models import Good, Supplier, Claimant, Loan, LoanItem
 
 # Atribui as classes do Bootstrap a todos os campos dos formulários
 class BaseModelForm(forms.ModelForm):
@@ -56,4 +53,13 @@ class LoanForm(BaseModelForm):
             "claimant": "Requerente",
             "loan_date": "Data do empréstimo",
             "return_date": "Data de devolução",
+        }
+
+class LoanItemForm(BaseModelForm):
+    class Meta:
+        model = LoanItem
+        fields = [ "good", "quantity", ]
+        labels = {
+            "good": "Bem",
+            "quantity": "Quantidade",
         }

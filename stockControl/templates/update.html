@@ -1,0 +1,32 @@
+{% extends "dashboard.html" %}
+{% load static %}
+{% load css_class %}
+
+{% block title %}Editar{% endblock %}
+
+{% block dashboard_content %}
+{% block dashboard_header %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>{% block h1 %}Editar{% endblock %}</h1>
+    </div>
+  </div>
+</div>
+{% endblock dashboard_header %}
+
+<form method="post">{% csrf_token %}
+  {% for field in form %}
+  <div class="mb-3">
+    {{ field.label_tag }}
+    {% if field.field.widget.input_type == "checkbox" %}
+      {{ field|css_class:"form-check" }}
+    {% else %}
+      {{ field|css_class:"form-control" }}
+    {% endif %}
+    {{ field.errors }}
+  </div>
+  {% endfor %}
+  <input type="submit" value="Salvar">
+</form>
+{% endblock dashboard_content %}

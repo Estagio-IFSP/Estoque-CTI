@@ -1,0 +1,34 @@
+{% extends "detail.html" %}
+{% load static %}
+
+{% block title %}Empréstimo de {{ object }}{% endblock %}
+
+{% block details %}
+<div class="container">
+  <div class="row">
+    <div class="col-10">
+      <h1 class="h3">{{ object.good.name }}</h1>
+    </div>
+    <div class="col-2 d-inline-flex align-items-center justify-content-end">
+      {% if object.due_check %}
+      <span class="badge text-bg-danger">Atrasado</span>
+      {% else %}
+      <span class="badge text-bg-success">Em dia</span>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<dl class="row">
+  <dt class="col-sm-3">Bem</dt>
+  <dd class="col-sm-9"><a href="{{ object.good.get_absolute_url }}">{{ object.good }}</a></dd>
+  <dt class="col-sm-3">Quantidade</dt>
+  <dd class="col-sm-9">{{ object.quantity }}</dd>
+  <dt class="col-sm-3">Requerente</dt>
+  <dd class="col-sm-9"><a href="{{ object.claimant.get_absolute_url }}">{{ object.claimant }}</a></dd>
+  <dt class="col-sm-3">Data do empréstimo</dt>
+  <dd class="col-sm-9">{{ object.loan_date }} (há {{ object.loan_date | timesince }})</dd>
+  <dt class="col-sm-3">Data de devolução</dt>
+  <dd class="col-sm-9"><span class="{% if object.due_check %}badge text-bg-danger{% endif %}">{{ object.return_date }}{% if not object.due_check %} (em {{ object.return_date | timeuntil }}){% else %} (há {{ object.return_date | timesince }}){% endif %}</span></dd>
+</dl>
+{% include 'action_buttons.html' with object=object %}
+{% endblock details %}

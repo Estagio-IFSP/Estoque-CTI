@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}<title>{% block dashboard_title %}Dashboard{% endblock %} - Estoque CTI</title>{% endblock %}
+{% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<nav class="nav nav-fill nav-pills">
+<nav class="nav nav-expand-lg nav-pills justify-content-center mt-2">
   <a class="nav-link {% if request.path == '/dashboard/goods' %}active{% endif %}" href="{% url 'goods' %}">Bens</a>
   <a class="nav-link {% if request.path == '/dashboard/loans' %}active{% endif %}" href="{% url 'loans' %}">Empréstimos</a>
   <a class="nav-link {% if request.path == '/dashboard/suppliers' %}active{% endif %}" href="{% url 'suppliers' %}">Fornecedores</a>
@@ -12,8 +12,7 @@
 </nav>
 
 <main class="container mt-5">
-{% block dashboard_header %}{% endblock %}
-{% block dashboard_content %}{% endblock %}
+  {% block dashboard_content %}{% endblock %}
 </main>
 
-{% endblock %}
+{% endblock content %}

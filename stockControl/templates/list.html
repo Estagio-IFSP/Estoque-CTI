@@ -1,19 +1,23 @@
 {% extends "dashboard.html" %}
 {% load static %}
 
-{% block dashboard_title %}Listagem{% endblock %}
+{% block title %}Listagem{% endblock %}
 
+{% block dashboard_content %}
 {% block dashboard_header %}
 <div class="container">
   <div class="row">
-    <div class="col-10">
+    <div class="col">
       <h1>{% block h1 %}{% endblock %}</h1>
     </div>
-    <div class="col">
-      <a class="btn btn-success float-end" href="{% block create_button_url %}{% endblock %}">Novo</a>
+    <div class="col d-inline-flex align-items-center justify-content-end">
+      <a class="btn btn-success" href="{% block create_button_url %}{% endblock %}">Novo</a>
     </div>
   </div>
 </div>
-{% endblock %}
+{% endblock dashboard_header %}
 
-{% block dashboard_content %}{% endblock %}
+<table class="table">
+  {% block table_content %}{% endblock table_content %}
+</table>
+{% endblock dashboard_content %}

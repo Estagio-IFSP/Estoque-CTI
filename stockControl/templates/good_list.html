@@ -1,23 +1,24 @@
 {% extends "list.html" %}
 
-{% block dashboard_title %}Bens{% endblock %}
+{% block title %}Bens{% endblock %}
+{% block h1 %}Bens{% endblock %}
 {% block create_button_url %}{% url 'new_good' %}{% endblock %}
 
-{% block dashboard_content %}
-  <table class="table">
-    <tr>
-      <th>Nome</th>
-      <th>Fornecedor</th>
-      <th>Quantidade</th>
-      <th>Status</th>
-    </tr>
-    {% for good in goods %}
-    <tr>
-      <td>{{ good.name }}</td>
-      <td>{{ good.supplier }}</td>
-      <td>{{ good.quantity }}</td>
-      <td>{{ good.status }}</td>
-    </tr>
-    {% endfor %}
-  </table>
-{% endblock %}
+{% block table_content %}
+  <tr>
+    <th>Nome</th>
+    <th>Fornecedor</th>
+    <th>Quantidade</th>
+    <th>Status</th>
+    <th style="text-align: right;"><span >Ações</span></th>
+  </tr>
+  {% for good in goods %}
+  <tr>
+    <td><a href="{{ good.get_absolute_url }}">{{ good.name }}</a></td>
+    <td><a href="{{ good.supplier.get_absolute_url }}">{{ good.supplier.name }}</a></td>
+    <td>{{ good.quantity }}</td>
+    <td>{{ good.status }}</td>
+    {% include 'action_buttons.html' with object=good %}
+  </tr>
+  {% endfor %}
+{% endblock table_content %}

@@ -1,0 +1,25 @@
+{% extends "dashboard.html" %}
+{% load static %}
+{% load css_class %}
+
+{% block title %}Erro ao Excluir {{ object }}{% endblock %}
+
+{% block dashboard_content %}
+{% block dashboard_header %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>{% block h1 %}Erro ao Excluir {{ object }}{% endblock %}</h1>
+    </div>
+  </div>
+</div>
+{% endblock dashboard_header %}
+
+  <p>Não é possível excluir {{ object }} pois há relações com os seguintes objetos:</p>
+  <ul>
+  {% for item in error.protected_objects %}
+  <li><strong>{{ item.localized_class_name }}:</strong> <a href="{{ item.get_absolute_url }}">{{ item }}</a></li>
+  {% endfor %}
+  </ul>
+  <p>Elimine ou edite estes objetos primeiro para desfazer a relação e então tente excluir novamente.</p>
+{% endblock dashboard_content %}

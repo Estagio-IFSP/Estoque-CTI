@@ -7,8 +7,7 @@
 {% block table_content %}
 {% now "Y" as current_year %}
   <tr>
-    <th>Bem</th>
-    <th>Quantidade</th>
+    <th>Bens</th>
     <th>Requerente</th>
     <th>Empréstimo</th>
     <th>Devolução</th>
@@ -16,8 +15,16 @@
   </tr>
   {% for loan in loans %}
   <tr>
-    <td><a href="{{ loan.get_absolute_url }}">{{ loan.good }}</a></td>
-    <td>{{ loan.quantity }}</td>
+    <td>
+      <a href="{{ loan.get_absolute_url }}">
+        {% if loan.good.all.count == 2 %}
+        {{ loan.good.last }}</a> +{{ loan.good.all.count|add:"-1" }} bem
+        {% elif loan.good.all.count > 2 %}
+        {{ loan.good.last }}</a> +{{ loan.good.all.count|add:"-1" }} bens
+        {% else %}
+          {{ loan.good.last }}</a>
+        {% endif %}
+    </td>
     <td><a href="{{ loan.claimant.get_absolute_url }}">{{ loan.claimant }}</a></td>
     <td>{% if loan.loan_date|date:"Y" == current_year %}{{ loan.loan_date | date:"d/m" }}{% else %}{{ loan.loan_date | date:"d/m/y"}}{% endif %}</td>
     <td><span class="{% if loan.due_check %}badge text-bg-danger{% endif %}">{% if loan.return_date|date:"Y" == current_year %}{{ loan.return_date | date:"d/m" }}{% else %}{{ loan.return_date | date:"d/m/y"}}{% endif %}</span></td>

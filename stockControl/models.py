@@ -5,7 +5,7 @@ from datetime import date
 
 # Fornecedor
 class Supplier(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     phone_number = models.CharField(max_length=20)
     slug = "supplier"
     localized_class_name = "Fornecedor"
@@ -18,7 +18,7 @@ class Supplier(models.Model):
 
 # Bem (permanente e de consumo)
 class Good(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     quantity = models.PositiveBigIntegerField()
     acquisition_date = models.DateField()
     description = models.TextField()
@@ -39,7 +39,7 @@ class Good(models.Model):
 # Requerente (Pessoa que empresta um bem)
 class Claimant(models.Model):
     name = models.CharField()
-    identifier = models.CharField()
+    identifier = models.CharField(unique=True)
     phone_number = models.PositiveIntegerField()
     slug="claimant"
     localized_class_name = "Requerente"
@@ -50,18 +50,22 @@ class Claimant(models.Model):
     def get_absolute_url(self):
         return reverse(self.slug + "-detail", kwargs={"pk": self.pk})
 
+# Item de empréstimo
+class LoanItem(models.Model):
+    good = models.ForeignKey(Good, on_delete=models.PROTECT)
+    quantity = models.PositiveIntegerField()
+
 # Empréstimo
 class Loan(models.Model):
-    good = models.ForeignKey(Good, on_delete = models.PROTECT)
+    items = models.ManyToManyField(LoanItem)
     claimant = models.ForeignKey(Claimant, on_delete = models.PROTECT)
     loan_date = models.DateField()
     return_date = models.DateField()
-    quantity = models.PositiveBigIntegerField()
     slug = "loan"
     localized_class_name = "Empréstimo"
 
     def __str__(self):
-        return str(self.good.name) + " para " + str(self.claimant.name)
+        return "Empréstimo por " + str(self.claimant.name) + " em " + str(self.loan_date)
 
     def get_absolute_url(self):
         return reverse(self.slug + "-detail", kwargs={"pk": self.pk})

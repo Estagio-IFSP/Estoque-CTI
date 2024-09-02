@@ -1,0 +1,11 @@
+- [ ] Permitir emprestar múltiplos bens em um único empréstimo
+- [ ] Aplicar classes CSS nas mensagens de erro da validação de formulários
+    - <https://getbootstrap.com/docs/5.3/forms/validation/>
+- [ ] Atualizar para o Django 5
+- [ ] Desenvolver uma página inicial na dashboard com os empréstimos em atraso
+- [ ] Avisar ao fazer um empréstimo para alguém com um empréstimo já em atraso
+- [ ] Adicionar um campo booleano para determinar se um bem está emprestado ou não
+    - [ ] Não marcar em vermelho a data passada de devolução para um bem que já foi devolvido
+- [ ] Não permitir que a quantidade de bens emprestados exceda a de bens disponíveis
+- [ ] Não pedir dados de garantia se o bem criado não é permanente
+- [ ] Armazenar telefones como strings ou aumentar o tamanho máximo dos campos de inteiros

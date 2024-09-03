@@ -47,9 +47,8 @@ class ClaimantForm(BaseModelForm):
 class LoanForm(BaseModelForm):
     class Meta:
         model = Loan
-        fields = [ "items", "claimant", "loan_date", "return_date", ]
+        fields = [ "claimant", "loan_date", "return_date", ]
         labels = {
-            "items": "Bens",
             "claimant": "Requerente",
             "loan_date": "Data do empréstimo",
             "return_date": "Data de devolução",
@@ -58,8 +57,9 @@ class LoanForm(BaseModelForm):
 class LoanItemForm(BaseModelForm):
     class Meta:
         model = LoanItem
-        fields = [ "good", "quantity", ]
+        fields = [ "loan", "good", "quantity", ]
         labels = {
+            "loan": "Empréstimo",
             "good": "Bem",
             "quantity": "Quantidade",
         }

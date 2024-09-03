@@ -1,13 +1,16 @@
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
+from django.contrib import messages
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView
+from django.forms import formset_factory
 from django.db.models import ProtectedError
 from stockControl.models import Good, Supplier, Claimant, Loan, LoanItem
 from .forms import GoodForm, SupplierForm,ClaimantForm, LoanForm, LoanItemForm
 
 class ProtectedAwareDeleteView(DeleteView):
-
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args):
         self.object = self.get_object()
         try:
             form = self.get_form()
@@ -16,7 +19,24 @@ class ProtectedAwareDeleteView(DeleteView):
             else:
                 return self.form_invalid(form)
         except ProtectedError as error:
-            return render(request, "protected-error.html", {"object": self.object, "error": error})
+            return render(request, "protected_error.html", {"object": self.object, "error": error})
+
+
+class RedirectableDetailView(DetailView):
+    def get_success_url(self):
+        pk = self.kwargs["pk"]
+        return reverse(self.model.slug + "-detail", kwargs={"pk": pk})
+
+class RedirectableCreateView(CreateView):
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            self.fcc_form = form.save(commit=True)
+            messages.add_message(self.request, messages.INFO, 'Created')
+            return HttpResponseRedirect(reverse(self.model.slug + '-detail', kwargs={'pk': self.fcc_form.pk}))
+        else:
+            messages.add_message(self.request, messages.ERROR, 'Error')
+            return render(request, self.template_name, {'form': form})
 
 def login(request):
     return render(request, "login.html")
@@ -25,60 +45,15 @@ def signup(request):
     return render(request, "signup.html")
 
 def password_recovery(request):
-    return render(request, "password-recovery.html")
+    return render(request, "password_recovery.html")
 
 def dashboard(request):
     return render(request, "dashboard.html")
 
-def new_good(request):
-    if request.method == "POST":
-        form = GoodForm(request.POST)
-        if form.is_valid():
-            form.save()
-    else:
-        form = GoodForm()
-
-    return render(request, "new_good.html", { "form": form })
-
-def new_supplier(request):
-    if request.method == "POST":
-        form = SupplierForm(request.POST)
-        if form.is_valid():
-            form.save()
-    else:
-        form = SupplierForm()
-
-    return render(request, "new_supplier.html", { "form": form })
-
-def new_claimant(request):
-    if request.method == "POST":
-        form = ClaimantForm(request.POST)
-        if form.is_valid():
-            form.save()
-    else:
-        form = ClaimantForm()
-
-    return render(request, "new_claimant.html", { "form": form })
-
-def new_loan(request):
-    if request.method == "POST":
-        form = LoanForm(request.POST)
-        if form.is_valid():
-            form.save()
-    else:
-        form = LoanForm()
-
-    return render(request, "new_loan.html", { "form": form })
-
-def new_loan_item(request):
-    if request.method == "POST":
-        form = LoanItemForm(request.POST)
-        if form.is_valid():
-            form.save()
-    else:
-        form = LoanItemForm()
-
-    return render(request, "new_loan_item.html", { "form": form })
+class GoodCreateView(RedirectableCreateView):
+    model = Good
+    template_name = "new_good.html"
+    form_class = GoodForm
 
 class GoodDetailView(DetailView):
     model = Good
@@ -108,7 +83,12 @@ class GoodDeleteView(ProtectedAwareDeleteView):
             else:
                 return self.form_invalid(form)
         except ProtectedError as error:
-            return render(request, "protected-error.html", {"object": self.object, "error": error})
+            return render(request, "protected_error.html", {"object": self.object, "error": error})
+
+class SupplierCreateView(RedirectableCreateView):
+    model = Supplier
+    template_name = "new_supplier.html"
+    form_class = SupplierForm
 
 class SupplierDetailView(DetailView):
     model = Supplier
@@ -129,6 +109,11 @@ class SupplierDeleteView(ProtectedAwareDeleteView):
     template_name = "delete.html"
     success_url = reverse_lazy("suppliers")
 
+class ClaimantCreateView(RedirectableCreateView):
+    model = Claimant
+    template_name = "new_claimant.html"
+    form_class = ClaimantForm
+
 class ClaimantDetailView(DetailView):
     model = Claimant
     template_name = "claimant_detail.html"
@@ -148,7 +133,12 @@ class ClaimantDeleteView(ProtectedAwareDeleteView):
     template_name = "delete.html"
     success_url = reverse_lazy("claimants")
 
-class LoanDetailView(DetailView):
+class LoanCreateView(RedirectableCreateView):
+    model = Loan
+    template_name = "new_loan.html"
+    form_class = LoanForm
+
+class LoanDetailView(RedirectableDetailView):
     model = Loan
     template_name = "loan_detail.html"
 
@@ -160,16 +150,22 @@ class LoanListView(ListView):
 class LoanUpdateView(UpdateView):
     model = Loan
     template_name = "update.html"
-    fields = [ "items", "claimant", "loan_date", "return_date", ]
+    fields = [ "claimant", "loan_date", "return_date", ]
+
 
 class LoanDeleteView(ProtectedAwareDeleteView):
-    model = LoanItem
+    model = Loan
     template_name = "delete.html"
     success_url = reverse_lazy("loans")
 
+class LoanItemCreateView(RedirectableCreateView):
+    model = LoanItem
+    template_name = "new_loan_item.html"
+    form_class = LoanItemForm
+
 class LoanItemDetailView(DetailView):
     model = LoanItem
-    template_name = "loan_detail.html"
+    template_name = "loan_item_detail.html"
 
 class LoanItemListView(ListView):
     model = LoanItem
@@ -184,4 +180,4 @@ class LoanItemUpdateView(UpdateView):
 class LoanItemDeleteView(ProtectedAwareDeleteView):
     model = LoanItem
     template_name = "delete.html"
-    success_url = reverse_lazy("loan_items")
+    success_url = reverse_lazy("loan-items")

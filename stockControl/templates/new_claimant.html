@@ -5,7 +5,7 @@
 {% block h1 %}Novo requerente{% endblock %}
 
 {% block creation_form %}
-<form action="/dashboard/new_claimant" method="post">
+<form action="/dashboard/new-claimant" method="post">
   {% csrf_token %}
   {{ form }}
   <input type="submit" value="Enviar" class="">

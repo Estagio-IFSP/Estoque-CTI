@@ -19,20 +19,6 @@
   </div>
 </div>
 <dl class="row">
-  <dt class="col-sm-3">{% if object.good.all.count > 1 %}Bens{% else %}Bem{% endif %}</dt>
-  <dd class="col-sm-9">
-    {% if object.good.all.count > 1 %}
-    <ol style="padding-left: 30px;">
-    {% for item in object.good.all  %}
-    <li><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></li>
-    {% endfor %}
-    </ol>
-    {% else %}
-    <a href="{{ object.good.all.get_absolute_url }}">{{ object.good.last }}</a>
-    {% endif %}
-  </dd>
-  <dt class="col-sm-3">Quantidade</dt>
-  <dd class="col-sm-9">{{ object.quantity }}</dd>
   <dt class="col-sm-3">Requerente</dt>
   <dd class="col-sm-9"><a href="{{ object.claimant.get_absolute_url }}">{{ object.claimant }}</a></dd>
   <dt class="col-sm-3">Data do empréstimo</dt>

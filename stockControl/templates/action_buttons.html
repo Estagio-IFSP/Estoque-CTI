@@ -8,5 +8,10 @@
     <a href="/dashboard/{{ object.slug }}/{{ object.id }}/delete" class="btn btn-danger btn-sm" role="button">
       <img src="{% static 'img/ph--trash-fill.svg' %}" alt="Ícone de deletar" style="filter: invert(100%);"/>
     </a>
+    {% if object.slug == "loan" %}
+    <a href="/dashboard/{{ object.slug }}/{{ object.id }}/new-item" class="btn btn-primary btn-sm ms-1" role="button">
+      <img src="{% static 'img/ph--plus-bold.svg' %}" alt="Ícone de adicionar item" style="filter: invert(100%);"/>
+    </a>
+    {% endif %}
   </div>
 </td>

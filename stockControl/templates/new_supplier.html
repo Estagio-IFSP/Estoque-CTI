@@ -5,7 +5,7 @@
 {% block h1 %}Novo fornecedor{% endblock %}
 
 {% block creation_form %}
-<form action="/dashboard/new_supplier" method="post">
+<form action="/dashboard/new-supplier" method="post">
   {% csrf_token %}
   {{ form }}
   <input type="submit" value="Enviar" class="">

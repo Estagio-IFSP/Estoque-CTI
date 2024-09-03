@@ -2,7 +2,7 @@
 
 {% block title %}Empréstimos{% endblock %}
 {% block h1 %}Empréstimos{% endblock %}
-{% block create_button_url %}{% url 'new_loan' %}{% endblock %}
+{% block create_button_url %}{% url 'new-loan' %}{% endblock %}
 
 {% block table_content %}
 {% now "Y" as current_year %}
@@ -17,13 +17,8 @@
   <tr>
     <td>
       <a href="{{ loan.get_absolute_url }}">
-        {% if loan.good.all.count == 2 %}
-        {{ loan.good.last }}</a> +{{ loan.good.all.count|add:"-1" }} bem
-        {% elif loan.good.all.count > 2 %}
-        {{ loan.good.last }}</a> +{{ loan.good.all.count|add:"-1" }} bens
-        {% else %}
-          {{ loan.good.last }}</a>
-        {% endif %}
+          {{ loan }}
+      </a>
     </td>
     <td><a href="{{ loan.claimant.get_absolute_url }}">{{ loan.claimant }}</a></td>
     <td>{% if loan.loan_date|date:"Y" == current_year %}{{ loan.loan_date | date:"d/m" }}{% else %}{{ loan.loan_date | date:"d/m/y"}}{% endif %}</td>

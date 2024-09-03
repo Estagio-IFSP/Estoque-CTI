@@ -50,21 +50,8 @@ class Claimant(models.Model):
     def get_absolute_url(self):
         return reverse(self.slug + "-detail", kwargs={"pk": self.pk})
 
-# Item de empréstimo
-class LoanItem(models.Model):
-    good = models.ForeignKey(Good, on_delete=models.PROTECT)
-    quantity = models.PositiveIntegerField()
-    slug = 'loan-item'
-
-    def __str__(self):
-        return "Item de Empréstimo " + str(self.good.name)
-
-    def get_absolute_url(self):
-        return reverse(self.slug + "-detail", kwargs={"pk": self.pk})
-
 # Empréstimo
 class Loan(models.Model):
-    items = models.ManyToManyField(LoanItem)
     claimant = models.ForeignKey(Claimant, on_delete = models.PROTECT)
     loan_date = models.DateField()
     return_date = models.DateField()
@@ -79,3 +66,16 @@ class Loan(models.Model):
 
     def due_check(self):
         return date.today() > self.return_date
+
+# Item de empréstimo
+class LoanItem(models.Model):
+    good = models.ForeignKey(Good, on_delete=models.PROTECT)
+    loan = models.ForeignKey(Loan, on_delete=models.PROTECT)
+    quantity = models.PositiveIntegerField()
+    slug = 'loan-item'
+
+    def __str__(self):
+        return "Item de Empréstimo " + str(self.good.name)
+
+    def get_absolute_url(self):
+        return reverse(self.slug + "-detail", kwargs={"pk": self.pk})

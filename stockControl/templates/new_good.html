@@ -5,7 +5,7 @@
 {% block h1 %}Novo bem{% endblock %}
 
 {% block creation_form %}
-<form action="/dashboard/new_good" method="post">
+<form action="/dashboard/new-good" method="post">
   {% csrf_token %}
   {{ form }}
   <input type="submit" value="Enviar" class="">

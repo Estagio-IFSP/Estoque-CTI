@@ -5,7 +5,7 @@
 {% block h1 %}Novo item de empréstimo{% endblock %}
 
 {% block creation_form %}
-<form action="/dashboard/new_loan_item" method="post">
+<form action="/dashboard/new-loan-item" method="post">
   {% csrf_token %}
   {{ form }}
   <input type="submit" value="Enviar" class="">

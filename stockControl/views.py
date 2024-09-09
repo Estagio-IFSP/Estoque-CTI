@@ -1,10 +1,10 @@
+from datetime import date
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView, UpdateView, DeleteView
 from django.views.generic.edit import CreateView
-from django.forms import formset_factory
 from django.db.models import ProtectedError
 from stockControl.models import Good, Supplier, Claimant, Loan, LoanItem
 from .forms import GoodForm, SupplierForm,ClaimantForm, LoanForm, LoanItemForm
@@ -54,6 +54,7 @@ class GoodCreateView(RedirectableCreateView):
     model = Good
     template_name = "new_good.html"
     form_class = GoodForm
+    initial = { "acquisition_date": date.today() }
 
 class GoodDetailView(DetailView):
     model = Good
@@ -113,6 +114,7 @@ class ClaimantCreateView(RedirectableCreateView):
     model = Claimant
     template_name = "new_claimant.html"
     form_class = ClaimantForm
+    initial = { "identifier": "JC" }
 
 class ClaimantDetailView(DetailView):
     model = Claimant
@@ -137,6 +139,7 @@ class LoanCreateView(RedirectableCreateView):
     model = Loan
     template_name = "new_loan.html"
     form_class = LoanForm
+    initial = { "loan_date": date.today() }
 
 class LoanDetailView(RedirectableDetailView):
     model = Loan
@@ -158,10 +161,19 @@ class LoanDeleteView(ProtectedAwareDeleteView):
     template_name = "delete.html"
     success_url = reverse_lazy("loans")
 
-class LoanItemCreateView(RedirectableCreateView):
+class LoanItemCreateView(CreateView):
     model = LoanItem
     template_name = "new_loan_item.html"
     form_class = LoanItemForm
+
+    def get_initial(self):
+        initial = super().initial.copy()
+        self.loan_pk = self.kwargs.get('loan_pk', None)
+        initial['loan'] = self.loan_pk
+        return initial
+
+    def get_success_url(self):
+        return reverse('loan-detail', kwargs={"pk": self.object.loan.pk})
 
 class LoanItemDetailView(DetailView):
     model = LoanItem

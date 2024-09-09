@@ -17,7 +17,7 @@
           {{ loan_item }}</a>
     </td>
     <td>{{ loan_item.quantity }}</td>
-    {% include 'action_buttons.html' with object=loan_item %}
+    <td>{% include 'action_buttons.html' with object=loan_item %}</td>
   </tr>
   {% endfor %}
 {% endblock table_content %}

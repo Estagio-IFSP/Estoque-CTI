@@ -1,3 +1,4 @@
+- [ ] Adicionar Mensagens <https://docs.djangoproject.com/en/4.2/ref/contrib/messages/>
 - [ ] Permitir emprestar múltiplos bens em um único empréstimo
 - [ ] Aplicar classes CSS nas mensagens de erro da validação de formulários
     - <https://getbootstrap.com/docs/5.3/forms/validation/>

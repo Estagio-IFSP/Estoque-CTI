@@ -23,7 +23,9 @@
     <td><a href="{{ loan.claimant.get_absolute_url }}">{{ loan.claimant }}</a></td>
     <td>{% if loan.loan_date|date:"Y" == current_year %}{{ loan.loan_date | date:"d/m" }}{% else %}{{ loan.loan_date | date:"d/m/y"}}{% endif %}</td>
     <td><span class="{% if loan.due_check %}badge text-bg-danger{% endif %}">{% if loan.return_date|date:"Y" == current_year %}{{ loan.return_date | date:"d/m" }}{% else %}{{ loan.return_date | date:"d/m/y"}}{% endif %}</span></td>
+    <td>
     {% include 'action_buttons.html' with object=loan %}
+    </td>
   </tr>
   {% endfor %}
 {% endblock table_content %}

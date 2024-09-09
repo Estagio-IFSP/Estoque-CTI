@@ -1,3 +1,4 @@
+from datetime import date
 from django import forms
 from django.forms import CheckboxInput
 from stockControl.models import Good, Supplier, Claimant, Loan, LoanItem

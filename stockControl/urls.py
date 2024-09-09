@@ -38,6 +38,7 @@ urlpatterns = [
     path("dashboard/loan/<int:pk>/", LoanDetailView.as_view(), name="loan-detail"),
     path("dashboard/loan/<int:pk>/edit", LoanUpdateView.as_view(), name="loan-edit"),
     path("dashboard/loan/<int:pk>/delete", LoanDeleteView.as_view(), name="loan-delete"),
+    path("dashboard/loan/<int:loan_pk>/new-item", LoanItemCreateView.as_view(), name="new-loan-item"),
 
     path("dashboard/loan-items", LoanItemListView.as_view(), name="loan-items"),
     path("dashboard/new-loan-item", LoanItemCreateView.as_view(), name="new-loan-item"),

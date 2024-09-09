@@ -16,7 +16,7 @@
     <td><a href="{{ claimant.get_absolute_url }}">{{ claimant.name }}</a></td>
     <td>{{ claimant.identifier }}</td>
     <td>{{ claimant.phone_number }}</td>
-    {% include 'action_buttons.html' with object=claimant %}
+    <td>{% include 'action_buttons.html' with object=claimant %}</td>
   </tr>
   {% endfor %}
 {% endblock table_content %}

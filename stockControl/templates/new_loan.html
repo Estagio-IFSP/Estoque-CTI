@@ -8,6 +8,7 @@
 <form action="/dashboard/new-loan" method="post">
   {% csrf_token %}
   {{ form }}
-  <input type="submit" value="Enviar" class="">
+  <p class="mt-4 opacity-75">Prossiga para a próxima tela para adicionar bens a este empréstimo.</p>
+  <input type="submit" value="Prosseguir" class="">
 </form>
 {% endblock creation_form %}

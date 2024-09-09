@@ -7,7 +7,7 @@
 <div class="container">
   <div class="row">
     <div class="col-10">
-      <h1 class="h3">{{ object.good.name }}</h1>
+      <h1 class="h3">{{ object }}</h1>
     </div>
     <div class="col-2 d-inline-flex align-items-center justify-content-end">
       {% if object.due_check %}
@@ -26,5 +26,5 @@
   <dt class="col-sm-3">Data de devolução</dt>
   <dd class="col-sm-9"><span class="{% if object.due_check %}badge text-bg-danger{% endif %}">{{ object.return_date }}{% if not object.due_check %} (em {{ object.return_date | timeuntil }}){% else %} (há {{ object.return_date | timesince }}){% endif %}</span></dd>
 </dl>
-{% include 'action_buttons.html' with object=object %}
+{% include 'action_buttons.html' with object=object detail=True %}
 {% endblock details %}

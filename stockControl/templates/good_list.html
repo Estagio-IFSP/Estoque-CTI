@@ -18,7 +18,7 @@
     <td><a href="{{ good.supplier.get_absolute_url }}">{{ good.supplier.name }}</a></td>
     <td>{{ good.quantity }}</td>
     <td>{{ good.status }}</td>
-    {% include 'action_buttons.html' with object=good %}
+    <td>{% include 'action_buttons.html' with object=good %}</td>
   </tr>
   {% endfor %}
 {% endblock table_content %}

@@ -59,7 +59,7 @@ class Loan(models.Model):
     localized_class_name = "Empréstimo"
 
     def __str__(self):
-        return "Empréstimo por " + str(self.claimant.name) + " em " + str(self.loan_date)
+        return "Empréstimo " + str(self.id)
 
     def get_absolute_url(self):
         return reverse(self.slug + "-detail", kwargs={"pk": self.pk})

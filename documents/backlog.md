@@ -1,3 +1,5 @@
+- [ ] Listar itens de um empréstimo no detalhe do empréstimo
+- [ ] Permitir excluir um item de empréstimo
 - [ ] Adicionar Mensagens <https://docs.djangoproject.com/en/4.2/ref/contrib/messages/>
 - [ ] Permitir emprestar múltiplos bens em um único empréstimo
 - [ ] Aplicar classes CSS nas mensagens de erro da validação de formulários

@@ -5,10 +5,12 @@ from datetime import date
 
 # Fornecedor
 class Supplier(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    phone_number = models.CharField(max_length=20)
+    name = models.CharField(max_length=100, unique=True, verbose_name="nome")
+    phone_number = models.CharField(max_length=20, verbose_name="telefone")
     slug = "supplier"
-    localized_class_name = "Fornecedor"
+
+    class Meta:
+        verbose_name = "Fornecedor"
 
     def __str__(self):
         return str(self.name)
@@ -18,17 +20,19 @@ class Supplier(models.Model):
 
 # Bem (permanente e de consumo)
 class Good(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    quantity = models.PositiveBigIntegerField()
-    acquisition_date = models.DateField()
-    description = models.TextField()
-    status = models.CharField(max_length=30)
-    supplier = models.ForeignKey(Supplier, on_delete=models.PROTECT)
-    permanent = models.BooleanField()
-    warranty_expiry_date = models.DateField()
-    warranty_details = models.TextField();
+    name = models.CharField(max_length=100, unique=True, verbose_name="nome")
+    quantity = models.PositiveBigIntegerField(verbose_name="quantidade")
+    acquisition_date = models.DateField(verbose_name="data de aquisição")
+    description = models.TextField(verbose_name="descrição")
+    status = models.CharField(max_length=30, verbose_name="status")
+    supplier = models.ForeignKey(Supplier, on_delete=models.PROTECT, verbose_name="fornecedor")
+    permanent = models.BooleanField(verbose_name="permanente")
+    warranty_expiry_date = models.DateField(verbose_name="data de vencimento da garantia")
+    warranty_details = models.TextField(verbose_name="detalhes da garantia");
     slug = "good"
-    localized_class_name = "Bem"
+
+    class Meta:
+        verbose_name = "Bem"
 
     def __str__(self):
         return str(self.name)
@@ -38,11 +42,13 @@ class Good(models.Model):
 
 # Requerente (Pessoa que empresta um bem)
 class Claimant(models.Model):
-    name = models.CharField()
-    identifier = models.CharField(unique=True)
-    phone_number = models.PositiveIntegerField()
+    name = models.CharField(verbose_name="nome")
+    identifier = models.CharField(unique=True, verbose_name="identificador")
+    phone_number = models.CharField(max_length=20, verbose_name="telefone")
     slug="claimant"
-    localized_class_name = "Requerente"
+
+    class Meta:
+        verbose_name = "Requerente"
 
     def __str__(self):
         return str(self.name)
@@ -52,11 +58,13 @@ class Claimant(models.Model):
 
 # Empréstimo
 class Loan(models.Model):
-    claimant = models.ForeignKey(Claimant, on_delete = models.PROTECT)
-    loan_date = models.DateField()
-    return_date = models.DateField()
+    claimant = models.ForeignKey(Claimant, on_delete = models.PROTECT, verbose_name="requerente")
+    loan_date = models.DateField(verbose_name="data do empréstimo")
+    return_date = models.DateField(verbose_name="prazo de devolução")
     slug = "loan"
-    localized_class_name = "Empréstimo"
+
+    class Meta:
+        verbose_name = "Empréstimo"
 
     def __str__(self):
         return "Empréstimo " + str(self.id)
@@ -69,10 +77,13 @@ class Loan(models.Model):
 
 # Item de empréstimo
 class LoanItem(models.Model):
-    good = models.ForeignKey(Good, on_delete=models.PROTECT)
-    loan = models.ForeignKey(Loan, on_delete=models.PROTECT)
-    quantity = models.PositiveIntegerField()
+    good = models.ForeignKey(Good, on_delete=models.PROTECT, verbose_name="bem")
+    loan = models.ForeignKey(Loan, on_delete=models.PROTECT, verbose_name="empréstimo")
+    quantity = models.PositiveIntegerField(verbose_name="quantidade")
     slug = 'loan-item'
+
+    class Meta:
+        verbose_name = "Item de empréstimo"
 
     def __str__(self):
         return "Item de Empréstimo " + str(self.good.name)

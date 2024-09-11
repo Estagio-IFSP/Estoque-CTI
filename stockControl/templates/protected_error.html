@@ -1,6 +1,7 @@
 {% extends "dashboard.html" %}
 {% load static %}
 {% load css_class %}
+{% load to_verbose_name %}
 
 {% block title %}Erro ao Excluir {{ object }}{% endblock %}
 
@@ -18,7 +19,7 @@
   <p>Não é possível excluir {{ object }} pois há relações com os seguintes objetos:</p>
   <ul>
   {% for item in error.protected_objects %}
-  <li><strong>{{ item.localized_class_name }}:</strong> <a href="{{ item.get_absolute_url }}">{{ item }}</a></li>
+  <li><strong>{{ item | to_verbose_name }}:</strong> <a href="{{ item.get_absolute_url }}">{{ item }}</a></li>
   {% endfor %}
   </ul>
   <p>Elimine ou edite estes objetos primeiro para desfazer a relação e então tente excluir novamente.</p>

@@ -10,7 +10,7 @@ from stockControl.models import Good, Supplier, Claimant, Loan, LoanItem
 from .forms import GoodForm, SupplierForm,ClaimantForm, LoanForm, LoanItemForm
 
 class ProtectedAwareDeleteView(DeleteView):
-    def post(self, request, *args):
+    def post(self, request, pk, *args):
         self.object = self.get_object()
         try:
             form = self.get_form()
@@ -128,7 +128,7 @@ class ClaimantListView(ListView):
 class ClaimantUpdateView(UpdateView):
     model = Claimant
     template_name = "update.html"
-    fields = [ "name", "phone_number" ]
+    fields = [ "identifier", "name", "phone_number" ]
 
 class ClaimantDeleteView(ProtectedAwareDeleteView):
     model = Claimant
@@ -187,7 +187,7 @@ class LoanItemListView(ListView):
 class LoanItemUpdateView(UpdateView):
     model = LoanItem
     template_name = "update.html"
-    fields = [ "good", "quantity", ]
+    fields = [ "loan", "good", "quantity", ]
 
 class LoanItemDeleteView(ProtectedAwareDeleteView):
     model = LoanItem

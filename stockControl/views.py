@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView, UpdateView, DeleteView
 from django.views.generic.edit import CreateView
-from django.db.models import ProtectedError
+from django.db.models import ProtectedError, Subquery, OuterRef
 from stockControl.models import Good, Supplier, Claimant, Loan, LoanItem
 from .forms import GoodForm, SupplierForm,ClaimantForm, LoanForm, LoanItemForm
 
@@ -60,6 +60,21 @@ class GoodDetailView(DetailView):
     model = Good
     template_name = "good_detail.html"
 
+    def get_loans(self):
+        loans = Loan.objects.filter(
+            id__in=Subquery(
+                LoanItem.objects.filter(good=self.get_object())
+                .values('loan_id')
+                .distinct()
+            )
+        )
+        return loans
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["associated_loans"] = self.get_loans()
+        return context
+
 class GoodListView(ListView):
     model = Good
     template_name = "good_list.html"
@@ -95,6 +110,11 @@ class SupplierDetailView(DetailView):
     model = Supplier
     template_name = "supplier_detail.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["supplier_goods"] = Good.objects.filter(supplier=self.get_object())
+        return context
+
 class SupplierListView(ListView):
     model = Supplier
     template_name = "supplier_list.html"
@@ -119,6 +139,12 @@ class ClaimantCreateView(RedirectableCreateView):
 class ClaimantDetailView(DetailView):
     model = Claimant
     template_name = "claimant_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["claimant_loans"] = Loan.objects.filter(claimant=self.get_object())
+        return context
+
 
 class ClaimantListView(ListView):
     model = Claimant
@@ -145,6 +171,11 @@ class LoanDetailView(RedirectableDetailView):
     model = Loan
     template_name = "loan_detail.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["loan_items"] = LoanItem.objects.filter(loan=self.get_object())
+        return context
+
 class LoanListView(ListView):
     model = Loan
     template_name = "loan_list.html"
@@ -154,7 +185,6 @@ class LoanUpdateView(UpdateView):
     model = Loan
     template_name = "update.html"
     fields = [ "claimant", "loan_date", "return_date", ]
-
 
 class LoanDeleteView(ProtectedAwareDeleteView):
     model = Loan

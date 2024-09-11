@@ -67,7 +67,14 @@ class Loan(models.Model):
         verbose_name = "Empréstimo"
 
     def __str__(self):
-        return "Empréstimo " + str(self.id)
+        loan = Loan.objects.get(pk=self.id)
+        loan_items = LoanItem.objects.filter(loan=loan)
+        if loan_items.count() < 1:
+            return "Empréstimo " + str(self.id) + " (vazio)"
+        if loan_items.count() > 1:
+            return "Empréstimo de " + str(loan_items[0]) + " +" + str(loan_items.count()) + " itens"
+        else:
+            return "Empréstimo de " + str(loan_items[0])
 
     def get_absolute_url(self):
         return reverse(self.slug + "-detail", kwargs={"pk": self.pk})
@@ -86,7 +93,7 @@ class LoanItem(models.Model):
         verbose_name = "Item de empréstimo"
 
     def __str__(self):
-        return "Item de Empréstimo " + str(self.good.name)
+        return str(self.good.name)
 
     def get_absolute_url(self):
         return reverse(self.slug + "-detail", kwargs={"pk": self.pk})

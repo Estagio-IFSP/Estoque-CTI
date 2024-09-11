@@ -35,4 +35,25 @@
   <p><strong>Detalhes:</strong> {{ object.warranty_details }}</p>
   {% endif %}
 {% include 'action_buttons.html' with object=object %}
+
+{% if associated_loans %}
+<h2 class="h4 mt-5">Empréstimos</h2>
+<table class="table">
+  <tr>
+    <th>Empréstimo</th>
+    <th style="text-align: right;"><span >Ações</span></th>
+  </tr>
+  {% for loan in associated_loans %}
+  <tr>
+    <td>
+      <a href="{{ loan.get_absolute_url }}">
+          {{ loan }}</a>
+    </td>
+    <td>{% include 'action_buttons.html' with object=loan %}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<em class="opacity-75">Não há empréstimos para esse bem.</em>
+{% endif %}
 {% endblock details %}

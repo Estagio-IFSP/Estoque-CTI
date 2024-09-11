@@ -19,12 +19,48 @@
   </div>
 </div>
 <dl class="row">
-  <dt class="col-sm-3">Requerente</dt>
-  <dd class="col-sm-9"><a href="{{ object.claimant.get_absolute_url }}">{{ object.claimant }}</a></dd>
-  <dt class="col-sm-3">Data do empréstimo</dt>
-  <dd class="col-sm-9">{{ object.loan_date }} (há {{ object.loan_date | timesince }})</dd>
-  <dt class="col-sm-3">Data de devolução</dt>
-  <dd class="col-sm-9"><span class="{% if object.due_check %}badge text-bg-danger{% endif %}">{{ object.return_date }}{% if not object.due_check %} (em {{ object.return_date | timeuntil }}){% else %} (há {{ object.return_date | timesince }}){% endif %}</span></dd>
+  <dt class="col-sm-4">Requerente</dt>
+  <dd class="col-sm-8"><a href="{{ object.claimant.get_absolute_url }}">{{ object.claimant }}</a></dd>
+  <dt class="col-sm-4">Data do empréstimo</dt>
+  <dd class="col-sm-8">
+    {{ object.loan_date }}
+    <br/>
+    <small class="opacity-75">há {{ object.loan_date | timesince }}</small>
+  </dd>
+  <dt class="col-sm-4">Data de devolução</dt>
+  <dd class="col-sm-8">
+    <span class="{% if object.due_check %}badge text-bg-danger{% endif %}">
+      {{ object.return_date }}
+    </span>
+    <br/>
+    <small class="opacity-75">
+      {% if not object.due_check %}
+        em {{ object.return_date | timeuntil }}
+      {% else %}
+        há {{ object.return_date | timesince }}
+      {% endif %}
+    </small>
+  </dd>
 </dl>
 {% include 'action_buttons.html' with object=object detail=True %}
+
+{% if loan_items %}
+<h2 class="h4 mt-5">Itens do empréstimo</h2>
+<table class="table">
+  <tr>
+    <th>Item</th>
+    <th>Quantidade</th>
+    <th style="text-align: right;"><span >Ações</span></th>
+  </tr>
+  {% for loan_item in loan_items %}
+  <tr>
+    <td><a href="{{ loan_item.good.get_absolute_url }}">{{ loan_item }}</a></td>
+    <td>{{ loan_item.quantity }}</td>
+    <td>{% include 'action_buttons.html' with object=loan_item %}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<em class="opacity-75">Não há itens neste empréstimo.</em>
+{% endif %}
 {% endblock details %}

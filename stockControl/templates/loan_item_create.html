@@ -1,13 +1,13 @@
-{% extends "new.html" %}
+{% extends "create.html" %}
 {% load static %}
 
 {% block title %}Novo item de empréstimo{% endblock %}
 {% block h1 %}Novo item de empréstimo{% endblock %}
 
 {% block creation_form %}
-<form action="/dashboard/new-loan-item" method="post">
+<form action="/dashboard/loan-item/create" method="post">
   {% csrf_token %}
   {{ form }}
-  <input type="submit" value="Enviar" class="">
+  <input type="submit" value="Criar" class="">
 </form>
 {% endblock creation_form %}

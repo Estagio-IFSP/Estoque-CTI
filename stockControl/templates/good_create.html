@@ -1,13 +1,13 @@
-{% extends "new.html" %}
+{% extends "create.html" %}
 {% load static %}
 
 {% block title %}Novo bem{% endblock %}
 {% block h1 %}Novo bem{% endblock %}
 
 {% block creation_form %}
-<form action="/dashboard/new-good" method="post">
+<form action="/dashboard/good/create" method="post">
   {% csrf_token %}
   {{ form }}
-  <input type="submit" value="Enviar" class="">
+  <input type="submit" value="Criar" class="">
 </form>
 {% endblock creation_form %}

@@ -19,7 +19,7 @@ class ProtectedAwareDeleteView(DeleteView):
             else:
                 return self.form_invalid(form)
         except ProtectedError as error:
-            return render(request, "protected_error.html", {"object": self.object, "error": error})
+            return render(request, "error_protected.html", {"object": self.object, "error": error})
 
 
 class RedirectableDetailView(DetailView):
@@ -52,7 +52,7 @@ def dashboard(request):
 
 class GoodCreateView(RedirectableCreateView):
     model = Good
-    template_name = "new_good.html"
+    template_name = "good_create.html"
     form_class = GoodForm
     initial = { "acquisition_date": date.today() }
 
@@ -99,11 +99,11 @@ class GoodDeleteView(ProtectedAwareDeleteView):
             else:
                 return self.form_invalid(form)
         except ProtectedError as error:
-            return render(request, "protected_error.html", {"object": self.object, "error": error})
+            return render(request, "error_protected.html", {"object": self.object, "error": error})
 
 class SupplierCreateView(RedirectableCreateView):
     model = Supplier
-    template_name = "new_supplier.html"
+    template_name = "supplier_create.html"
     form_class = SupplierForm
 
 class SupplierDetailView(DetailView):
@@ -132,7 +132,7 @@ class SupplierDeleteView(ProtectedAwareDeleteView):
 
 class ClaimantCreateView(RedirectableCreateView):
     model = Claimant
-    template_name = "new_claimant.html"
+    template_name = "claimant_create.html"
     form_class = ClaimantForm
     initial = { "identifier": "JC" }
 
@@ -163,7 +163,7 @@ class ClaimantDeleteView(ProtectedAwareDeleteView):
 
 class LoanCreateView(RedirectableCreateView):
     model = Loan
-    template_name = "new_loan.html"
+    template_name = "loan_create.html"
     form_class = LoanForm
     initial = { "loan_date": date.today() }
 
@@ -193,7 +193,7 @@ class LoanDeleteView(ProtectedAwareDeleteView):
 
 class LoanItemCreateView(CreateView):
     model = LoanItem
-    template_name = "new_loan_item.html"
+    template_name = "loan_item_create.html"
     form_class = LoanItemForm
 
     def get_initial(self):

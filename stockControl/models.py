@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from datetime import date
+from django.core.validators import MinValueValidator
 
 
 # Fornecedor
@@ -21,7 +22,7 @@ class Supplier(models.Model):
 # Bem (permanente e de consumo)
 class Good(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name="nome")
-    quantity = models.PositiveBigIntegerField(verbose_name="quantidade")
+    quantity = models.PositiveIntegerField(verbose_name="quantidade", validators=[MinValueValidator(1)])
     acquisition_date = models.DateField(verbose_name="data de aquisição")
     description = models.TextField(verbose_name="descrição")
     status = models.CharField(max_length=30, verbose_name="status")
@@ -71,10 +72,12 @@ class Loan(models.Model):
         loan_items = LoanItem.objects.filter(loan=loan)
         if loan_items.count() < 1:
             return "Empréstimo " + str(self.id) + " (vazio)"
-        if loan_items.count() > 1:
-            return "Empréstimo de " + str(loan_items[0]) + " +" + str(loan_items.count()) + " itens"
-        else:
+        elif loan_items.count() == 1:
             return "Empréstimo de " + str(loan_items[0])
+        elif loan_items.count() == 2:
+            return "Empréstimo de " + str(loan_items[0]) + " +" + str(loan_items.count() - 1) + " item"
+        else:
+            return "Empréstimo de " + str(loan_items[0]) + " +" + str(loan_items.count() - 1) + " itens"
 
     def get_absolute_url(self):
         return reverse(self.slug + "-detail", kwargs={"pk": self.pk})
@@ -85,8 +88,8 @@ class Loan(models.Model):
 # Item de empréstimo
 class LoanItem(models.Model):
     good = models.ForeignKey(Good, on_delete=models.PROTECT, verbose_name="bem")
-    loan = models.ForeignKey(Loan, on_delete=models.PROTECT, verbose_name="empréstimo")
-    quantity = models.PositiveIntegerField(verbose_name="quantidade")
+    loan = models.ForeignKey(Loan, on_delete=models.CASCADE, verbose_name="empréstimo")
+    quantity = models.PositiveIntegerField(verbose_name="quantidade", validators=[MinValueValidator(1)])
     slug = 'loan-item'
 
     class Meta:

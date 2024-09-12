@@ -1,7 +1,6 @@
-- [ ] Listar itens de um empréstimo no detalhe do empréstimo
-- [ ] Permitir excluir um item de empréstimo
+# Backlog
+
 - [ ] Adicionar Mensagens <https://docs.djangoproject.com/en/4.2/ref/contrib/messages/>
-- [ ] Permitir emprestar múltiplos bens em um único empréstimo
 - [ ] Aplicar classes CSS nas mensagens de erro da validação de formulários
     - <https://getbootstrap.com/docs/5.3/forms/validation/>
 - [ ] Atualizar para o Django 5
@@ -11,4 +10,9 @@
     - [ ] Não marcar em vermelho a data passada de devolução para um bem que já foi devolvido
 - [ ] Não permitir que a quantidade de bens emprestados exceda a de bens disponíveis
 - [ ] Não pedir dados de garantia se o bem criado não é permanente
-- [ ] Armazenar telefones como strings ou aumentar o tamanho máximo dos campos de inteiros
+
+## Feito
+- [x] Permitir emprestar múltiplos bens em um único empréstimo
+- [x] Listar itens de um empréstimo no detalhe do empréstimo
+- [x] Permitir excluir um item de empréstimo
+- [x] Armazenar telefones como strings ou aumentar o tamanho máximo dos campos de inteiros

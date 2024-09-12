@@ -18,4 +18,22 @@
   <dd class="col-sm-9">{{ object.phone_number }}</dd>
 </dl>
 {% include 'action_buttons.html' with object=object %}
+
+{% if claimant_loans %}
+<h2 class="h4 mt-5">Empréstimos</h2>
+<table class="table">
+  <tr>
+    <th>Empréstimo</th>
+    <th style="text-align: right;"><span >Ações</span></th>
+  </tr>
+  {% for loan in claimant_loans %}
+  <tr>
+    <td><a href="{{ loan.get_absolute_url }}">{{ loan }}</a></td>
+    <td>{% include 'action_buttons.html' with object=good %}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<em class="opacity-75">Este requerente ainda não fez empréstimos.</em>
+{% endif %}
 {% endblock details %}

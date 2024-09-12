@@ -1,0 +1,14 @@
+{% extends "create.html" %}
+{% load static %}
+
+{% block title %}Novo empréstimo{% endblock %}
+{% block h1 %}Novo empréstimo{% endblock %}
+
+{% block creation_form %}
+<form action="/dashboard/loan/create" method="post">
+  {% csrf_token %}
+  {{ form }}
+  <p class="mt-4 opacity-75">Prossiga para a próxima tela para adicionar bens a este empréstimo.</p>
+  <input type="submit" value="Prosseguir" class="">
+</form>
+{% endblock creation_form %}

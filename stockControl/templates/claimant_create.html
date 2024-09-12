@@ -1,13 +1,13 @@
-{% extends "new.html" %}
+{% extends "create.html" %}
 {% load static %}
 
 {% block title %}Novo requerente{% endblock %}
 {% block h1 %}Novo requerente{% endblock %}
 
 {% block creation_form %}
-<form action="/dashboard/new_claimant" method="post">
+<form action="/dashboard/claimant/create" method="post">
   {% csrf_token %}
   {{ form }}
-  <input type="submit" value="Enviar" class="">
+  <input type="submit" value="Criar" class="">
 </form>
 {% endblock creation_form %}

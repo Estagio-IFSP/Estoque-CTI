@@ -1,0 +1,34 @@
+{% extends "detail.html" %}
+{% load static %}
+
+{% block title %}Item de Empréstimo {{ object.good.name }}{% endblock %}
+
+{% block details %}
+<div class="container">
+  <div class="row">
+    <div class="col-10">
+      <h1 class="h3">{{ object.good.name }}</h1>
+    </div>
+    <div class="col-2">
+      <span class="badge text-bg-secondary">Item de<br/>empréstimo</span>
+    </div>
+  </div>
+</div>
+<dl class="row">
+  <dt class="col-sm-4">Bem</dt>
+  <dd class="col-sm-8">
+    <a href="{{ object.good.get_absolute_url }}">{{ object.good.name }}</a>
+  </dd>
+  <dt class="col-sm-4">Quantidade</dt>
+  <dd class="col-sm-8">{{ object.quantity }}</dd>
+  <dt class="col-sm-4">Empréstimo</dt>
+  <dd class="col-sm-8"><a href="{{ object.loan.get_absolute_url }}">{{ object.loan }}</a></dd>
+  <dt class="col-sm-4">Requerente</dt>
+  <dd class="col-sm-8"><a href="{{ object.loan.claimant.get_absolute_url }}">{{ object.loan.claimant }}</a></dd>
+  <dt class="col-sm-4">Data do empréstimo</dt>
+  <dd class="col-sm-8">{{ object.loan.loan_date }}</dd>
+  <dt class="col-sm-4">Prazo de devolução</dt>
+  <dd class="col-sm-8">{{ object.loan.return_date }}</dd>
+</dl>
+{% include 'action_buttons.html' with object=object %}
+{% endblock details %}

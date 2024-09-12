@@ -14,4 +14,22 @@
   <dd class="col-sm-9">{{ object.phone_number }}</dd>
 </dl>
 {% include 'action_buttons.html' with object=object %}
+
+{% if supplier_goods %}
+<h2 class="h4 mt-5">Bens</h2>
+<table class="table">
+  <tr>
+    <th>Item</th>
+    <th style="text-align: right;"><span >Ações</span></th>
+  </tr>
+  {% for good in supplier_goods %}
+  <tr>
+    <td><a href="{{ good.get_absolute_url }}">{{ good }}</a></td>
+    <td>{% include 'action_buttons.html' with object=good %}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<em class="opacity-75">Não há bens deste fornecedor cadastrados.</em>
+{% endif %}
 {% endblock details %}

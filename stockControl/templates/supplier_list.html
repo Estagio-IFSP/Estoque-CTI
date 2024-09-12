@@ -2,7 +2,7 @@
 
 {% block title %}Fornecedores{% endblock %}
 {% block h1 %}Fornecedores{% endblock %}
-{% block create_button_url %}{% url 'new_supplier' %}{% endblock %}
+{% block create_button_url %}{% url 'supplier-create' %}{% endblock %}
 
 {% block table_content %}
   <tr>
@@ -12,7 +12,7 @@
   {% for supplier in suppliers %}
   <tr>
     <td><a href="{{ supplier.get_absolute_url }}">{{ supplier.name }}</a></td>
-    {% include 'action_buttons.html' with object=supplier %}
+    <td>{% include 'action_buttons.html' with object=supplier %}</td>
   </tr>
   {% endfor %}
 {% endblock table_content %}

@@ -2,7 +2,7 @@
 
 {% block title %}Requerentes{% endblock %}
 {% block h1 %}Requerentes{% endblock %}
-{% block create_button_url %}{% url 'new_claimant' %}{% endblock %}
+{% block create_button_url %}{% url 'claimant-create' %}{% endblock %}
 
 {% block table_content %}
   <tr>
@@ -16,7 +16,7 @@
     <td><a href="{{ claimant.get_absolute_url }}">{{ claimant.name }}</a></td>
     <td>{{ claimant.identifier }}</td>
     <td>{{ claimant.phone_number }}</td>
-    {% include 'action_buttons.html' with object=claimant %}
+    <td>{% include 'action_buttons.html' with object=claimant %}</td>
   </tr>
   {% endfor %}
 {% endblock table_content %}

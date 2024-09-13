@@ -1,3 +1,4 @@
+from datetime import date
 from django.db import models
 from django.urls import reverse
 from datetime import date
@@ -56,6 +57,19 @@ class Claimant(models.Model):
 
     def get_absolute_url(self):
         return reverse(self.slug + "-detail", kwargs={"pk": self.pk})
+
+    def get_due_loans(self):
+        return Loan.objects.filter(claimant=self, return_date__lt=date.today())
+
+    def due_check(self):
+        return self.get_due_loans().count() > 0
+
+    def get_on_time_loans(self):
+        return Loan.objects.filter(claimant=self, return_date__gte=date.today())
+
+    def get_on_time_loan_count(self):
+        return Loan.objects.filter(claimant=self, return_date__gte=date.today()).count()
+
 
 # Empréstimo
 class Loan(models.Model):

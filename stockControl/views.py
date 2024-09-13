@@ -47,8 +47,10 @@ def signup(request):
 def password_recovery(request):
     return render(request, "password_recovery.html")
 
-def dashboard(request):
-    return render(request, "dashboard.html")
+class DashboardHomeView(ListView):
+    model = Loan
+    template_name = "dashboard.html"
+    context_object_name = "loans"
 
 class GoodCreateView(RedirectableCreateView):
     model = Good

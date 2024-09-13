@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from stockControl.views import login, signup, password_recovery, dashboard
+from stockControl.views import login, signup, password_recovery, DashboardHomeView
 from stockControl.views import GoodDetailView, GoodListView, GoodUpdateView, GoodDeleteView
 from stockControl.views import SupplierDetailView, SupplierListView, SupplierUpdateView, SupplierDeleteView
 from stockControl.views import ClaimantDetailView, ClaimantListView, ClaimantUpdateView, ClaimantDeleteView
@@ -13,7 +13,7 @@ urlpatterns = [
     path("", login, name="login"),
     path("signup", signup, name="signup"),
     path("password-recovery", password_recovery, name="password-recovery"),
-    path("dashboard", dashboard, name="dashboard"),
+    path("dashboard", DashboardHomeView.as_view(), name="dashboard"),
 
     path("dashboard/goods", GoodListView.as_view(), name="goods"),
     path("dashboard/good/create", GoodCreateView.as_view(), name="good-create"),

@@ -7,25 +7,34 @@
 {% block table_content %}
 {% now "Y" as current_year %}
   <tr>
-    <th>Bens</th>
-    <th>Requerente</th>
     <th>Empréstimo</th>
+    <th>Requerente</th>
+    <th>Retirada</th>
     <th>Devolução</th>
     <th style="text-align: right;"><span >Ações</span></th>
   </tr>
   {% for loan in loans %}
   <tr>
+    <td><a href="{{ loan.get_absolute_url }}">{{ loan }}</a></td>
     <td>
-      <a href="{{ loan.get_absolute_url }}">
-          {{ loan }}
-      </a>
+      <a href="{{ loan.claimant.get_absolute_url }}">{{ loan.claimant }}</a>
     </td>
-    <td><a href="{{ loan.claimant.get_absolute_url }}">{{ loan.claimant }}</a></td>
-    <td>{% if loan.loan_date|date:"Y" == current_year %}{{ loan.loan_date | date:"d/m" }}{% else %}{{ loan.loan_date | date:"d/m/y"}}{% endif %}</td>
-    <td><span class="{% if loan.due_check %}badge text-bg-danger{% endif %}">{% if loan.return_date|date:"Y" == current_year %}{{ loan.return_date | date:"d/m" }}{% else %}{{ loan.return_date | date:"d/m/y"}}{% endif %}</span></td>
     <td>
-    {% include 'action_buttons.html' with object=loan %}
+      {% if loan.loan_date|date:"Y" == current_year %}
+        {{ loan.loan_date | date:"d/m" }}
+      {% else %}
+        {{ loan.loan_date | date:"d/m/y"}}{% endif %}
     </td>
+    <td>
+      <span class="{% if loan.due_check %}badge text-bg-danger{% endif %}">
+        {% if loan.return_date|date:"Y" == current_year %}
+          {{ loan.return_date | date:"d/m" }}
+        {% else %}
+          {{ loan.return_date | date:"d/m/y"}}
+        {% endif %}
+      </span>
+    </td>
+    <td>{% include 'action_buttons.html' with object=loan %}</td>
   </tr>
   {% endfor %}
 {% endblock table_content %}

@@ -28,7 +28,11 @@
   </tr>
   {% for loan in claimant_loans %}
   <tr>
-    <td><a href="{{ loan.get_absolute_url }}">{{ loan }}</a></td>
+    <td><a href="{{ loan.get_absolute_url }}">{{ loan }}</a>
+      {% if loan.due_check %}
+      <span class="badge text-bg-danger">Atrasado</span>
+      {% endif %}
+    </td>
     <td>{% include 'action_buttons.html' with object=good %}</td>
   </tr>
   {% endfor %}

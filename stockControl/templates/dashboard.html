@@ -5,6 +5,7 @@
 
 {% block content %}
 <nav class="nav nav-expand-lg nav-pills justify-content-center mt-2">
+  <a class="nav-link {% if request.path == '/dashboard' %}active{% endif %}" href="{% url 'dashboard' %}">Início</a>
   <a class="nav-link {% if request.path == '/dashboard/goods' %}active{% endif %}" href="{% url 'goods' %}">Bens</a>
   <a class="nav-link {% if request.path == '/dashboard/loans' %}active{% endif %}" href="{% url 'loans' %}">Empréstimos</a>
   <a class="nav-link {% if request.path == '/dashboard/suppliers' %}active{% endif %}" href="{% url 'suppliers' %}">Fornecedores</a>
@@ -12,7 +13,43 @@
 </nav>
 
 <main class="container mt-5">
-  {% block dashboard_content %}{% endblock %}
+{% block dashboard_content %}
+  <h2 class="h3">Empréstimos em atraso</h2>
+  <table class="table">
+    {% now "Y" as current_year %}
+      <tr>
+        <th>Empréstimo</th>
+        <th>Requerente</th>
+        <th>Retirada</th>
+        <th>Devolução</th>
+      </tr>
+      {% for loan in loans %}
+      {% if loan.due_check %}
+        <tr>
+          <td><a href="{{ loan.get_absolute_url }}">{{ loan }}</a></td>
+          <td>
+            <a href="{{ loan.claimant.get_absolute_url }}">{{ loan.claimant }}</a>
+          </td>
+          <td>
+            {% if loan.loan_date|date:"Y" == current_year %}
+              {{ loan.loan_date | date:"d/m" }}
+            {% else %}
+              {{ loan.loan_date | date:"d/m/y"}}{% endif %}
+          </td>
+          <td>
+            <span class="badge text-bg-danger">
+              {% if loan.return_date|date:"Y" == current_year %}
+                {{ loan.return_date | date:"d/m" }}
+              {% else %}
+                {{ loan.return_date | date:"d/m/y"}}
+              {% endif %}
+              <small class="opacity-75">há {{ loan.return_date | timesince }}</small>
+            </span>
+          </td>
+        </tr>
+      {% endif %}
+      {% endfor %}
+  </table>
+{% endblock %}
 </main>
-
 {% endblock content %}

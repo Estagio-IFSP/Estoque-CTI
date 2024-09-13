@@ -21,6 +21,7 @@
   - [ ] Refatorar templates para melhorar legibilidade
 
 ## Feito
+- [x] Status permanente na listagem de bens
 - [x] Atualizar para o Django 5
 - [x] Mostrar empréstimos em atraso na página inicial da dashboard
 - [x] Permitir emprestar múltiplos bens em um único empréstimo

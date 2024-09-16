@@ -9,7 +9,7 @@
     <th>Nome</th>
     <th>Fornecedor</th>
     <th>Quantidade</th>
-    <th>Status</th>
+    <th>Tipo</th>
     <th style="text-align: right;"><span >Ações</span></th>
   </tr>
   {% for good in goods %}
@@ -17,7 +17,13 @@
     <td><a href="{{ good.get_absolute_url }}">{{ good.name }}</a></td>
     <td><a href="{{ good.supplier.get_absolute_url }}">{{ good.supplier.name }}</a></td>
     <td>{{ good.quantity }}</td>
-    <td>{{ good.status }}</td>
+    <td>
+      {% if good.permanent %}
+      <span class="badge text-bg-success">Permanente</span>
+      {% else %}
+      <span class="badge text-bg-secondary">Consumível</span>
+      {% endif %}
+    </td>
     <td>{% include 'action_buttons.html' with object=good %}</td>
   </tr>
   {% endfor %}

@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
 from django.http import HttpResponseRedirect
@@ -167,7 +167,17 @@ class LoanCreateView(RedirectableCreateView):
     model = Loan
     template_name = "loan_create.html"
     form_class = LoanForm
-    initial = { "loan_date": date.today() }
+    initial = { "loan_date": date.today(), "return_date": date.today() + timedelta(days=30) }
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            self.fcc_form = form.save(commit=True)
+            messages.add_message(self.request, messages.INFO, 'Created')
+            return HttpResponseRedirect(reverse('loan-add-item', kwargs={'loan_pk': self.fcc_form.pk}))
+        else:
+            messages.add_message(self.request, messages.ERROR, 'Error')
+            return render(request, self.template_name, {'form': form})
 
 class LoanDetailView(RedirectableDetailView):
     model = Loan
@@ -203,6 +213,12 @@ class LoanItemCreateView(CreateView):
         self.loan_pk = self.kwargs.get('loan_pk', None)
         initial['loan'] = self.loan_pk
         return initial
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["loan"] = Loan.objects.get(pk=self.kwargs.get('loan_pk', None))
+        context["loan_items"] = LoanItem.objects.filter(loan=self.kwargs.get('loan_pk', None))
+        return context
 
     def get_success_url(self):
         return reverse('loan-detail', kwargs={"pk": self.object.loan.pk})

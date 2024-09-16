@@ -9,6 +9,13 @@
     <div class="col-10">
       <h1 class="h3">{{ object.name }}</h1>
     </div>
+    <div class="col-2 d-inline-flex align-items-center justify-content-end">
+      {% if object.due_check %}
+      <span class="badge text-bg-danger">Atrasado</span>
+      {% else %}
+      <span class="badge text-bg-success">Em dia</span>
+      {% endif %}
+    </div>
   </div>
 </div>
 <dl class="row">
@@ -16,28 +23,57 @@
   <dd class="col-sm-9">{{ object.identifier }}</dd>
   <dt class="col-sm-3">Telefone</dt>
   <dd class="col-sm-9">{{ object.phone_number }}</dd>
+  {% if object.due_check %}{% endif %}
 </dl>
 {% include 'action_buttons.html' with object=object %}
 
 {% if claimant_loans %}
-<h2 class="h4 mt-5">Empréstimos</h2>
-<table class="table">
-  <tr>
-    <th>Empréstimo</th>
-    <th style="text-align: right;"><span >Ações</span></th>
-  </tr>
-  {% for loan in claimant_loans %}
-  <tr>
-    <td><a href="{{ loan.get_absolute_url }}">{{ loan }}</a>
-      {% if loan.due_check %}
-      <span class="badge text-bg-danger">Atrasado</span>
-      {% endif %}
-    </td>
-    <td>{% include 'action_buttons.html' with object=good %}</td>
-  </tr>
-  {% endfor %}
-</table>
+
+  {% if object.due_check %}
+  <h2 class="h4 mt-5">Empréstimos em atraso</h2>
+  <table class="table">
+    <tr>
+      <th>Empréstimo</th>
+      <th style="text-align: right;"><span >Ações</span></th>
+    </tr>
+    {% for loan in object.get_due_loans %}
+    <tr>
+      <td><a href="{{ loan.get_absolute_url }}">{{ loan }}</a>
+        {% if loan.due_check %}
+        <span class="badge text-bg-danger">
+          Atrasado {{ loan.return_date | timesince }}
+        </span>
+        {% endif %}
+      </td>
+      <td>{% include 'action_buttons.html' with object=loan %}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+
+  {% if object.get_on_time_loan_count > 0 %}
+  <h2 class="h4 mt-5">Empréstimos em dia</h2>
+  <table class="table">
+    <tr>
+      <th>Empréstimo</th>
+      <th style="text-align: right;"><span >Ações</span></th>
+    </tr>
+
+    {% for loan in object.get_on_time_loans %}
+    <tr>
+      <td><a href="{{ loan.get_absolute_url }}">{{ loan }}</a>
+        {% if loan.due_check %}
+        <span class="badge text-bg-danger">Atrasado</span>
+        {% endif %}
+      </td>
+      <td>{% include 'action_buttons.html' with object=loan %}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+
 {% else %}
-<em class="opacity-75">Este requerente ainda não fez empréstimos.</em>
+  <em class="opacity-75">Este requerente ainda não fez empréstimos.</em>
 {% endif %}
+
 {% endblock details %}

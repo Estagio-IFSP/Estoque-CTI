@@ -40,8 +40,3 @@ class LoanItemForm(BaseModelForm):
     class Meta:
         model = LoanItem
         fields = [ "loan", "good", "quantity", ]
-        labels = {
-            "loan": "Empréstimo",
-            "good": "Bem",
-            "quantity": "Quantidade",
-        }

@@ -1,7 +1,6 @@
 # Backlog
 
 - Empréstimos
-  - [ ] Avisar ao fazer um empréstimo para alguém com um empréstimo já em atraso
   - [ ] Poder determinar se um bem está emprestado ou não
       - [ ] Não marcar em vermelho a data passada de devolução para um bem que já foi devolvido
   - [ ] Não permitir que a quantidade de bens emprestados exceda a de bens disponíveis
@@ -26,6 +25,7 @@
   - [ ] Refatorar templates para melhorar legibilidade
 
 ## Feito
+- [x] Avisar ao fazer um empréstimo para alguém com um empréstimo já em atraso
 - [x] Status permanente na listagem de bens
 - [x] Atualizar para o Django 5
 - [x] Mostrar empréstimos em atraso na página inicial da dashboard

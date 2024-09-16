@@ -1,13 +1,40 @@
 {% extends "create.html" %}
 {% load static %}
 
-{% block title %}Novo item de empréstimo{% endblock %}
-{% block h1 %}Novo item de empréstimo{% endblock %}
+{% block title %}Adicionar item ao empréstimo{% endblock %}
+{% block h1 %}Adicionar item ao empréstimo{% endblock %}
 
 {% block creation_form %}
+
+<dl class="row">
+  <dt class="col-sm-4">Empréstimo</dt>
+  <dd class="col-sm-8"><a href="{{ loan.get_absolute_url }}">{{ loan }}</a></dd>
+  <dt class="col-sm-4">Requerente</dt>
+  <dd class="col-sm-8">
+    <a href="{{ loan.claimant.get_absolute_url }}">{{ loan.claimant }}</a>
+    {% if loan.claimant.due_check %}
+      <span class="badge text-bg-danger">Empréstimos atrasados</span>
+    {% endif %}
+  </dd>
+  <dt class="col-sm-4">Itens</dt>
+  <dd class="col-sm-8">
+    {% if loan_items %}
+    <ul>
+    {% for item in loan_items %}
+    <li>{{ item.quantity }} {{ item }}</li>
+    {% endfor %}
+    </ul>
+    {% else %}
+    <em class="opacity-75">Nenhum item ainda</em>
+    {% endif %}
+  </dd>
+</dl>
+
+
+
 <form action="/dashboard/loan-item/create" method="post">
   {% csrf_token %}
   {{ form }}
-  <input type="submit" value="Criar" class="">
+  <input type="submit" value="Criar" class="mt-4">
 </form>
 {% endblock creation_form %}

@@ -5,9 +5,9 @@ services:
     volumes:
       - ./data/db:/var/lib/postgresql/data
     environment:
-      DJANGO_DB_NAME: /run/secrets/db_name
-      DJANGO_DB_USER: /run/secrets/db_user
-      DJANGO_DB_PASSWORD: /run/secrets/db_password
+      POSTGRES_DB: /run/secrets/db_name
+      POSTGRES_USER: /run/secrets/db_user
+      POSTGRES_PASSWORD: /run/secrets/db_password
     secrets:
     - db_name
     - db_user
@@ -38,10 +38,10 @@ networks:
 
 secrets:
   db_name:
-    file: ~/secrets/db_name.txt
+    file: /root/secrets/db_name.txt
   db_user:
-    file: ~/secrets/db_user.txt
+    file: /root/secrets/db_user.txt
   db_password:
-    file: ~/secrets/db_password.txt
+    file: /root/secrets/db_password.txt
   django_secret:
-    file: ~/secrets/django_secret.txt
+    file: /root/secrets/django_secret.txt

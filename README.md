@@ -44,8 +44,7 @@ O comando acima foi testado apenas com o [Podman](https://podman.io/).
 O ambiente de execução precisa ter as seguintes variáveis de ambiente configuradas. Os valores abaixo são para um ambiente de desenvolvimento.
 
 ```sh
-export DB_HOST=localhost
-export DJANGO_HOST=localhost
+export DJANGO_HOST="localhost"
 export DJANGO_SECRET="4d2e7c5b600aa340df7cd4d9489594d6fd2178b2a97072e1f4036f0732ee0af3"
 export DJANGO_DB_NAME=""
 export DJANGO_DB_USER=""
@@ -84,6 +83,29 @@ Por fim, o comando abaixo inicializa o servidor da aplicação. Ela ficará aces
 ```sh
 python manage.py runserver
 ```
+
+### Imagem Docker
+
+Para o ambiente de produção, os arquivos `Dockerfile` e `docker-compose.yaml` permitem que o sistema e um banco de dados sejam executados em conjunto através de containers utilizando o Docker.
+
+Para subir ambos pode-se utilizar `docker compose up` estando na raiz deste repositório. O Docker se encarregará de subir o sistema apenas quando o banco de dados já estiver disponível.
+
+Para que o comando `compose` funcione, é preciso que exista o diretório `/root/secrets` contendo os seguintes arquivos:
+
+- `db_name.txt`
+- `db_user.txt`
+- `db_password.txt`
+- `django_secret.txt`
+
+Estes arquivos devem conter os respectivos valores que serão lidos para configurar as variáveis de ambientes descritas acima, na seção de instalação. É recomendável que as permissões adequadas sejam dadas a esses arquivos para que possam ser lidos ou sobrescritos apenas pelo usuário `root`.
+
+Se desejar gerar a imagem apenas da aplicação Python a partir deste repositório de código ou sempre que o sistema for atualizado, pode-se usar o seguinte comando na raiz do repositório:
+
+```sh
+docker build -t estoque-cti .
+```
+
+Este comando irá gerar uma imagem chamada estoque-cti com a tag `:latest`.
 
 ## Documentação
 

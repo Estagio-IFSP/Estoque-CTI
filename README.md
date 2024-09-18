@@ -34,18 +34,48 @@ Para a execução, é necessário ainda um banco de dados PostgreSQL disponível
 O comando abaixo pode ser utilizado para executar um container Docker com o PostgreSQL:
 
 ```sh
-docker run --rm -d -e POSTGRES_PASSWORD=admin -e POSTGRES_USER=admin -e POSTGRES_DB=stock_control -p 5432:5432 postgres:16.3-alpine3.20 postgres
+docker run --rm -d -e POSTGRES_DB=stock_control -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=password -p 5432:5432 postgres:16.3-alpine3.20 postgres
 ```
 
 Se desejar ver a saída de log do banco de dados, retire o argumento `-d`. Se desejar preservar o container após a execução para poder executá-lo novamente, retire o argumento `--rm`. Com este argumento, o container será sempre apagado após a execução.
 
 O comando acima foi testado apenas com o [Podman](https://podman.io/).
 
-Com o banco de dados disponível, é possível realizar as migrações para que o banco possua todas as tabelas necessárias:
+O ambiente de execução precisa ter as seguintes variáveis de ambiente configuradas. Os valores abaixo são para um ambiente de desenvolvimento.
 
 ```sh
 export DB_HOST=localhost
+export DJANGO_HOST=localhost
+export DJANGO_SECRET="4d2e7c5b600aa340df7cd4d9489594d6fd2178b2a97072e1f4036f0732ee0af3"
+export DJANGO_DB_NAME=""
+export DJANGO_DB_USER=""
+export DJANGO_DB_PASSWORD=""
+export DJANGO_DB_HOST="localhost"
+```
+
+O valor dado acima para a variável `DJANGO_SECRET` é apenas um exemplo. Ele pode ser qualquer valor aleatório e não precisa permanecer sempre o mesmo. No ambiente de produção, esta variável será configurada para um valor diferente do usado no desenvolvimento.
+
+Para as variáveis que iniciam com o padrão `DJANGO_DB_`, os valores serão correspondentes ao nome do banco de dados, do nome de usuário, da senha e do endereço IP do servidor. Usando o comando Docker sugerido acima, a configuração seria:
+
+```sh
+export DJANGO_DB_NAME="stock_control"
+export DJANGO_DB_USER="admin"
+export DJANGO_DB_PASSWORD="password"
+export DJANGO_DB_HOST="localhost"
+```
+
+No ambiente de desenvolvimento, é recomendo ainda configurar a variável de ambiente `DEBUG=TRUE` para que as mensagens de erro sejam mais úteis. Essa variável não deve ser usada no ambiente de produção.
+
+Com o banco de dados disponível, é possível realizar as migrações para que o banco possua todas as tabelas necessárias:
+
+```sh
 python manage.py makemigrations
+python manage.py migrate
+```
+
+Dependendo das alterações feitas, em particular mudanças nos modelos da aplicação (arquivo `stockControl/models.py`), o comando abaixo pode ser necessário para sincronizar o banco de dados com as migrações feitas:
+
+```sh
 python manage.py migrate --run-syncdb
 ```
 

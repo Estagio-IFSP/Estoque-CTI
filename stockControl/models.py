@@ -104,6 +104,7 @@ class LoanItem(models.Model):
     good = models.ForeignKey(Good, on_delete=models.PROTECT, verbose_name="bem")
     loan = models.ForeignKey(Loan, on_delete=models.CASCADE, verbose_name="empréstimo")
     quantity = models.PositiveIntegerField(verbose_name="quantidade", validators=[MinValueValidator(1)])
+    returned = models.BooleanField(verbose_name="devolvido")
     slug = 'loan-item'
 
     class Meta:

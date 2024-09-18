@@ -20,10 +20,12 @@ services:
     ports:
       - "8000:8000"
     environment:
+      DJANGO_SECRET: /run/secrets/django_secret
       DJANGO_DB_NAME: /run/secrets/db_name
       DJANGO_DB_USER: /run/secrets/db_user
       DJANGO_DB_PASSWORD: /run/secrets/db_password
-      DJANGO_SECRET: /run/secrets/django_secret
+      DJANGO_DB_HOST: db
+      DJANGO_HOST: "*" # TODO Cross origin errors
     secrets:
     - db_name
     - db_user
@@ -31,10 +33,6 @@ services:
     - django_secret
     depends_on:
       - db
-
-networks:
-  bridge-network:
-    driver: bridge
 
 secrets:
   db_name:

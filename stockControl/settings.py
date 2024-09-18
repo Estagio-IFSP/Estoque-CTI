@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ["DJANGO_SECRET"]
 
-DEBUG = os.environ["DJANGO_DEBUG"] == "TRUE"
+DEBUG = os.environ.get("DJANGO_DEBUG", "FALSE") == "TRUE"
 
 ALLOWED_HOSTS = [os.environ["DJANGO_HOST"]]
 

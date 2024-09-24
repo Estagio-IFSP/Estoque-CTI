@@ -14,7 +14,15 @@ services:
     - db_password
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command:
+      - /bin/sh
+      - -c
+      - |
+        python manage.py makemigrations --no-input
+        python manage.py migrate --no-input
+        python manage.py migrate --run-syncdb --no-input
+        python manage.py collectstatic --no-input
+        python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
     ports:

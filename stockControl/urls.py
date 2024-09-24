@@ -1,5 +1,8 @@
-from django.contrib import admin
+from django.conf import settings
 from django.urls import path
+from django.urls import re_path
+from django.contrib import admin
+from django.views.static import serve
 from stockControl.views import login, signup, password_recovery, DashboardHomeView
 from stockControl.views import GoodDetailView, GoodListView, GoodUpdateView, GoodDeleteView
 from stockControl.views import SupplierDetailView, SupplierListView, SupplierUpdateView, SupplierDeleteView
@@ -45,4 +48,5 @@ urlpatterns = [
     path("dashboard/loan-item/<int:pk>/", LoanItemDetailView.as_view(), name="loan-item-detail"),
     path("dashboard/loan-item/<int:pk>/edit", LoanItemUpdateView.as_view(), name="loan-item-edit"),
     path("dashboard/loan-item/<int:pk>/delete", LoanItemDeleteView.as_view(), name="loan-item-delete"),
+    re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 ]

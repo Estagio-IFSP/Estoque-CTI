@@ -102,7 +102,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "/static/"
-STATIC_ROOT = "/var/www/static"
+STATIC_ROOT = os.environ.get("DJANGO_STATIC_ROOT", "/var/www/static")
 STATICFILES_DIRS = []
 
 # Default primary key field type

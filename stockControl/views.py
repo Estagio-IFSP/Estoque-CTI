@@ -85,7 +85,7 @@ class GoodListView(ListView):
 class GoodUpdateView(UpdateView):
     model = Good
     template_name = "update.html"
-    fields = [ "name", "quantity", "acquisition_date", "description", "status", "supplier", "permanent", "warranty_expiry_date", "warranty_details" ]
+    fields = [ "name", "quantity", "acquisition_date", "description", "supplier", "permanent", "warranty_expiry_date", "warranty_details" ]
 
 class GoodDeleteView(ProtectedAwareDeleteView):
     model = Good
@@ -235,7 +235,7 @@ class LoanItemListView(ListView):
 class LoanItemUpdateView(UpdateView):
     model = LoanItem
     template_name = "update.html"
-    fields = [ "loan", "good", "quantity", ]
+    fields = [ "loan", "good", "quantity", "returned", ]
 
 class LoanItemDeleteView(ProtectedAwareDeleteView):
     model = LoanItem

@@ -16,7 +16,7 @@ class BaseModelForm(forms.ModelForm):
 class GoodForm(BaseModelForm):
     class Meta:
         model = Good
-        fields = [ "name", "quantity", "acquisition_date", "description", "status", "supplier", "permanent", "warranty_expiry_date", "warranty_details" ]
+        fields = [ "name", "quantity", "acquisition_date", "description", "supplier", "permanent", "warranty_expiry_date", "warranty_details" ]
 
 class SupplierForm(BaseModelForm):
     class Meta:

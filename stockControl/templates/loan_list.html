@@ -9,6 +9,7 @@
   <tr>
     <th>Empréstimo</th>
     <th>Requerente</th>
+    <th>Status</th>
     <th>Retirada</th>
     <th>Devolução</th>
     <th style="text-align: right;"><span >Ações</span></th>
@@ -20,13 +21,16 @@
       <a href="{{ loan.claimant.get_absolute_url }}">{{ loan.claimant }}</a>
     </td>
     <td>
+      {{ loan.get_status }}
+    </td>
+    <td>
       {% if loan.loan_date|date:"Y" == current_year %}
         {{ loan.loan_date | date:"d/m" }}
       {% else %}
         {{ loan.loan_date | date:"d/m/y"}}{% endif %}
     </td>
     <td>
-      <span class="{% if loan.due_check %}badge text-bg-danger{% endif %}">
+      <span class="{% if loan.due_check and not loan.returned_check %}badge text-bg-danger{% endif %}">
         {% if loan.return_date|date:"Y" == current_year %}
           {{ loan.return_date | date:"d/m" }}
         {% else %}

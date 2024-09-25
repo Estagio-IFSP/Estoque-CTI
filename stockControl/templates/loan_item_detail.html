@@ -15,6 +15,16 @@
   </div>
 </div>
 <dl class="row">
+  <dt class="col-sm-4">Status</dt>
+  <dd class="col-sm-8">
+    <span class="badge
+                 {% if object.returned %}
+                 text-bg-success
+                 {% else %}
+                 text-bg-warning
+                 {% endif %}
+                 ">{{ object.get_status }}
+    </span></dd>
   <dt class="col-sm-4">Bem</dt>
   <dd class="col-sm-8">
     <a href="{{ object.good.get_absolute_url }}">{{ object.good.name }}</a>

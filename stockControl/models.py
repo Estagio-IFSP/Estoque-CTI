@@ -26,7 +26,6 @@ class Good(models.Model):
     quantity = models.PositiveIntegerField(verbose_name="quantidade", validators=[MinValueValidator(1)])
     acquisition_date = models.DateField(verbose_name="data de aquisição")
     description = models.TextField(verbose_name="descrição")
-    status = models.CharField(max_length=30, verbose_name="status")
     supplier = models.ForeignKey(Supplier, on_delete=models.PROTECT, verbose_name="fornecedor")
     permanent = models.BooleanField(verbose_name="permanente")
     warranty_expiry_date = models.DateField(verbose_name="data de vencimento da garantia")
@@ -99,11 +98,21 @@ class Loan(models.Model):
     def due_check(self):
         return date.today() > self.return_date
 
+    def returned_check(self):
+        return LoanItem.objects.filter(loan=self).filter(returned=False).count() == 0
+
+    def get_status(self):
+        if self.returned_check():
+            return "Devolvido"
+        else:
+            return "Pendente"
+
 # Item de empréstimo
 class LoanItem(models.Model):
     good = models.ForeignKey(Good, on_delete=models.PROTECT, verbose_name="bem")
     loan = models.ForeignKey(Loan, on_delete=models.CASCADE, verbose_name="empréstimo")
     quantity = models.PositiveIntegerField(verbose_name="quantidade", validators=[MinValueValidator(1)])
+    returned = models.BooleanField(verbose_name="devolvido", default=False)
     slug = 'loan-item'
 
     class Meta:
@@ -114,3 +123,9 @@ class LoanItem(models.Model):
 
     def get_absolute_url(self):
         return reverse(self.slug + "-detail", kwargs={"pk": self.pk})
+
+    def get_status(self):
+        if self.returned:
+            return "Devolvido"
+        else:
+            return "Emprestado"

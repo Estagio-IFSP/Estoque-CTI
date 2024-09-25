@@ -50,12 +50,23 @@
   <tr>
     <th>Item</th>
     <th>Quantidade</th>
+    <th>Status</th>
     <th style="text-align: right;"><span >Ações</span></th>
   </tr>
   {% for loan_item in loan_items %}
   <tr>
     <td><a href="{{ loan_item.good.get_absolute_url }}">{{ loan_item }}</a></td>
     <td>{{ loan_item.quantity }}</td>
+    <td><span class="badge
+                 {% if loan_item.returned %}
+                 text-bg-success
+                 {% else %}
+                 text-bg-warning
+                 {% endif %}
+                 ">
+        {{ loan_item.get_status }}
+      </span>
+    </td>
     <td>{% include 'action_buttons.html' with object=loan_item %}</td>
   </tr>
   {% endfor %}

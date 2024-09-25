@@ -34,18 +34,39 @@ Para a execução, é necessário ainda um banco de dados PostgreSQL disponível
 O comando abaixo pode ser utilizado para executar um container Docker com o PostgreSQL:
 
 ```sh
-docker run --rm -d -e POSTGRES_PASSWORD=admin -e POSTGRES_USER=admin -e POSTGRES_DB=stock_control -p 5432:5432 postgres:16.3-alpine3.20 postgres
+docker run --rm -d -e POSTGRES_DB=stock_control -e POSTGRES_USER=dev -e POSTGRES_PASSWORD=password -p 5432:5432 postgres:16.3-alpine3.20 postgres
 ```
 
 Se desejar ver a saída de log do banco de dados, retire o argumento `-d`. Se desejar preservar o container após a execução para poder executá-lo novamente, retire o argumento `--rm`. Com este argumento, o container será sempre apagado após a execução.
 
-O comando acima foi testado apenas com o [Podman](https://podman.io/).
+O ambiente de execução precisa ter as seguintes variáveis de ambiente configuradas.
 
-Com o banco de dados disponível, é possível realizar as migrações para que o banco possua todas as tabelas necessárias:
+Os valores abaixo são para um ambiente de desenvolvimento compatível com a configuração do banco de dados do comando Docker mostrado anteriormente.
 
 ```sh
-export DB_HOST=localhost
+export DJANGO_DEBUG="TRUE"
+export DJANGO_HOST="localhost"
+export DJANGO_DB_NAME="stock_control"
+export DJANGO_DB_USER="dev"
+export DJANGO_DB_PASSWORD="password"
+export DJANGO_DB_HOST="localhost"
+export DJANGO_SECRET="4d2e7c5b600aa340df7cd4d9489594d6fd2178b2a97072e1f4036f0732ee0af3"
+```
+
+Estes valores não devem ser usados em um ambiente de produção. A variável de ambiente `DJANGO_DEBUG=TRUE` é usada no ambiente de desenvolvimento para gerar mensagens de erro mais úteis e para que os arquivos estáticos sejam servidos diretamente do diretório `stockControl/static`.
+
+Caso `DJANGO_DEBUG` tenha outro valor que não `TRUE`, `DJANGO_STATIC_ROOT` deve apontar para algum diretório válido onde os arquivos estáticos serão copiados ao usar `python manage.py collectstatic`. Se `DJANGO_STATIC_ROOT` não for configurada, ela por padrão terá o valor `/var/www/static`.
+
+Com o ambiente definido e o banco de dados disponível, é possível realizar as migrações para que o banco possua todas as tabelas necessárias:
+
+```sh
 python manage.py makemigrations
+python manage.py migrate
+```
+
+Dependendo das alterações feitas, em particular na primeira execução ou após mudanças nos modelos da aplicação (arquivo `stockControl/models.py`), o comando abaixo pode ser necessário para sincronizar o banco de dados:
+
+```sh
 python manage.py migrate --run-syncdb
 ```
 
@@ -54,6 +75,34 @@ Por fim, o comando abaixo inicializa o servidor da aplicação. Ela ficará aces
 ```sh
 python manage.py runserver
 ```
+
+### Imagem Docker
+
+Para o ambiente de produção, o processo de instalação e configuração acima, incluindo o banco de dados, pode ser completamente automatizado em containers definidos nos arquivos `Dockerfile` e `compose.yaml`.
+
+Para subir ambos pode-se utilizar `docker compose up` na raiz deste repositório, onde encontra-se o arquivo `compose.yaml`. O Docker se encarregará de subir o sistema apenas quando o banco de dados já estiver disponível.
+
+Para que o comando `compose` funcione, é preciso que exista o diretório `/root/secrets` na máquina hospedeira. Ele deve conter os seguintes arquivos:
+
+- `db_name.txt`
+- `db_user.txt`
+- `db_password.txt`
+- `django_secret.txt`
+
+Estes arquivos devem conter os respectivos valores que serão lidos para configurar as variáveis de ambientes descritas acima, na seção de instalação. É recomendável que as permissões adequadas sejam dadas a esses arquivos para que possam ser lidos ou sobrescritos apenas pelo usuário `root`, por exemplo:
+
+```sh
+chown root:root /root/secrets/*.txt
+chmod 600 /root/secrets/*.txt
+```
+
+Para gerar uma imagem Docker apenas da aplicação, pode-se usar o seguinte comando na raiz do repositório:
+
+```sh
+docker build -t estoque-cti .
+```
+
+Este comando irá gerar uma imagem chamada estoque-cti com a tag `:latest`.
 
 ## Documentação
 

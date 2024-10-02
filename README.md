@@ -34,7 +34,7 @@ Para a execução, é necessário ainda um banco de dados PostgreSQL disponível
 O comando abaixo pode ser utilizado para executar um container Docker com o PostgreSQL:
 
 ```sh
-docker run --rm -d -e POSTGRES_DB=stock_control -e POSTGRES_USER=dev -e POSTGRES_PASSWORD=password -p 5432:5432 postgres:16.3-alpine3.20 postgres
+docker run --rm -d -e POSTGRES_DB=stock_control -e POSTGRES_USER=dev -e POSTGRES_PASSWORD=password -p 5432:5432 postgres:17.0-alpine3.20 postgres
 ```
 
 Se desejar ver a saída de log do banco de dados, retire o argumento `-d`. Se desejar preservar o container após a execução para poder executá-lo novamente, retire o argumento `--rm`. Com este argumento, o container será sempre apagado após a execução.
@@ -78,7 +78,7 @@ python manage.py runserver
 
 ### Imagem Docker
 
-Para o ambiente de produção, o processo de instalação e configuração acima, incluindo o banco de dados, pode ser completamente automatizado em containers definidos nos arquivos `Dockerfile` e `compose.yaml`.
+Para o ambiente de produção, o processo de instalação e configuração acima, incluindo o banco de dados, pode ser completamente automatizado usando o Docker compose, que criará containers já definidos e configurados nos arquivos `Dockerfile` e `compose.yaml`.
 
 Para subir ambos pode-se utilizar `docker compose up` na raiz deste repositório, onde encontra-se o arquivo `compose.yaml`. O Docker se encarregará de subir o sistema apenas quando o banco de dados já estiver disponível.
 
@@ -103,6 +103,10 @@ docker build -t estoque-cti .
 ```
 
 Este comando irá gerar uma imagem chamada estoque-cti com a tag `:latest`.
+
+O arquivo `db-init.sql`, localizado na raiz deste repositório, é lido na primeira inicialização do banco de dados quando Docker compose é usado. Na versão atual, ele apenas cria um usuário `root` e o banco de dados `stock`, dando ao usuário `root` todos os privilégios sobre este banco. Este arquivo não é necessário para que o banco seja criado. Sem ele, o próprio Django se encarregará de criar o banco. 
+
+O propósito deste arquivo é facilitar o carregamento de dados iniciais para testes durante o desenvolvimento e a realização de backups e consultas diretamente pela linha de comando com `pg_dump` e `psql`, respectivamente. No ambiente de produção, o arquivo pode ser modificado para tornar esse acesso mais restrito. Note que, por padrão, o PostgreSQL já não aceita conexões via linha de comando pela rede. Este arquivo não será lido nem surtirá efeitos quando já existe um banco de dados em `/var/postgres`.
 
 ## Documentação
 

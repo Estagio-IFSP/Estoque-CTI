@@ -24,7 +24,7 @@
         <th>Devolução</th>
       </tr>
       {% for loan in loans %}
-      {% if loan.due_check %}
+      {% if loan.due_check and not loan.returned_check %}
         <tr>
           <td><a href="{{ loan.get_absolute_url }}">{{ loan }}</a></td>
           <td>

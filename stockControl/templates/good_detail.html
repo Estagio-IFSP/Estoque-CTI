@@ -35,17 +35,41 @@
 {% include 'action_buttons.html' with object=object %}
 
 {% if associated_loans %}
+{% now "Y" as current_year %}
 <h2 class="h4 mt-5">Empréstimos</h2>
 <table class="table">
   <tr>
     <th>Empréstimo</th>
+    <th>Status</th>
     <th style="text-align: right;"><span >Ações</span></th>
   </tr>
   {% for loan in associated_loans %}
   <tr>
     <td>
       <a href="{{ loan.get_absolute_url }}">
-          {{ loan }}</a>
+        {{ loan }}
+      </a>
+      <br/>
+      <small class="opacity-50">
+        para {{ loan.claimant }} em
+        {% if loan.loan_date|date:"Y" == current_year %}
+          {{ loan.loan_date | date:"d/m" }}
+        {% else %}
+          {{ loan.loan_date | date:"d/m/y"}}
+        {% endif %}
+      </small>
+    </td>
+    <td>
+      <span class="badge
+                   {% if loan.returned_check %}
+                   text-bg-success
+                   {% elif loan.due_check %}
+                   text-bg-danger
+                   {% else %}
+                   text-bg-warning
+                   {% endif %}
+                   ">{{ loan.get_status }}
+      </span>
     </td>
     <td>{% include 'action_buttons.html' with object=loan %}</td>
   </tr>

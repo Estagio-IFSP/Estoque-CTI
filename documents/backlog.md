@@ -1,8 +1,8 @@
 # Backlog
 
 - Empréstimos
-  - [ ] Poder determinar se um bem está emprestado ou não
-      - [ ] Não marcar em vermelho a data passada de devolução para um bem que já foi devolvido
+  - [x] Poder determinar se um bem está emprestado ou não
+      - [x] Não marcar em vermelho a data passada de devolução para um bem que já foi devolvido
       - [ ] Não permitir que a quantidade de bens emprestados exceda a de bens disponíveis
   - [ ] Não pedir dados de garantia se o bem criado não é permanente
   - [ ] Marcar em amarelo uma data de devolução nos próximos 7 dias

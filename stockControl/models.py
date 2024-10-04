@@ -104,6 +104,8 @@ class Loan(models.Model):
     def get_status(self):
         if self.returned_check():
             return "Devolvido"
+        elif not self.returned_check() and self.due_check():
+            return "Atrasado"
         else:
             return "Pendente"
 

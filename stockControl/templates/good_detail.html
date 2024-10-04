@@ -22,8 +22,25 @@
 <dl class="row">
   <dt class="col-sm-3">Fornecedor</dt>
   <dd class="col-sm-9"><a href="{{ object.supplier.get_absolute_url }}">{{ object.supplier }}</a></dd>
-  <dt class="col-sm-3">Quantidade</dt>
+  <dt class="col-sm-3">Disponível</dt>
+  <dd class="col-sm-9">
+      <span class="badge
+                   {% if object.has_available_units %}
+                   text-bg-success
+                   {% else %}
+                   text-bg-secondary
+                   {% endif %}
+                   ">
+        {{ object.has_available_units|yesno:"Sim,Não" }}
+      </span>
+    {% if object.has_available_units %}{% else %}{% endif %}
+  </dd>
+  <dt class="col-sm-3">Quantidade total</dt>
   <dd class="col-sm-9">{{ object.quantity }}</dd>
+  <dt class="col-sm-3">Emprestados</dt>
+  <dd class="col-sm-9">{{ object.get_loaned_quantity }}</dd>
+  <dt class="col-sm-3">Disponíveis</dt>
+  <dd class="col-sm-9">{{ object.get_available_quantity }}</dd>
   <dt class="col-sm-3">Data de aquisição</dt>
   <dd class="col-sm-9">{{ object.acquisition_date }}</dd>
 </dl>

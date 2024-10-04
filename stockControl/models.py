@@ -41,6 +41,16 @@ class Good(models.Model):
     def get_absolute_url(self):
         return reverse(self.slug + "-detail", kwargs={"pk": self.pk})
 
+    def get_loaned_quantity(self):
+        return LoanItem.objects.filter(good=self, returned=False) \
+                               .aggregate(total=models.Sum('quantity'))['total'] or 0
+
+    def get_available_quantity(self):
+        return self.quantity - self.get_loaned_quantity()
+
+    def has_available_units(self):
+        return self.get_loaned_quantity() < self.quantity
+
 # Requerente (Pessoa que empresta um bem)
 class Claimant(models.Model):
     name = models.CharField(verbose_name="nome")

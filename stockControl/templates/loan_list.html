@@ -21,7 +21,16 @@
       <a href="{{ loan.claimant.get_absolute_url }}">{{ loan.claimant }}</a>
     </td>
     <td>
-      {{ loan.get_status }}
+      <span class="badge
+                   {% if loan.returned_check %}
+                   text-bg-success
+                   {% elif loan.due_check %}
+                   text-bg-danger
+                   {% else %}
+                   text-bg-warning
+                   {% endif %}
+                   ">{{ loan.get_status }}
+      </span>
     </td>
     <td>
       {% if loan.loan_date|date:"Y" == current_year %}

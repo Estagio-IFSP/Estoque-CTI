@@ -237,7 +237,20 @@ class LoanItemUpdateView(UpdateView):
     template_name = "update.html"
     fields = [ "loan", "good", "quantity", "returned", ]
 
-class LoanItemDeleteView(ProtectedAwareDeleteView):
+class LoanItemDeleteView(DeleteView):
     model = LoanItem
     template_name = "delete.html"
-    success_url = reverse_lazy("loan-items")
+
+    def get_success_url(self):
+        return reverse('loan-detail', kwargs={"pk": self.object.loan.pk})
+
+    def post(self, request, pk, *args):
+        self.object = self.get_object()
+        try:
+            form = self.get_form()
+            if form.is_valid():
+                return self.form_valid(form)
+            else:
+                return self.form_invalid(form)
+        except ProtectedError as error:
+            return render(request, "error_protected.html", {"object": self.object, "error": error})

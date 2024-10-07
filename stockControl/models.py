@@ -9,7 +9,7 @@ from django.utils.ipv6 import ValidationError
 # Fornecedor
 class Supplier(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name="nome")
-    phone_number = models.CharField(max_length=20, verbose_name="telefone")
+    phone_number = models.CharField(max_length=20, verbose_name="telefone", blank=True, null=True)
     slug = "supplier"
 
     class Meta:
@@ -26,11 +26,11 @@ class Good(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name="nome")
     quantity = models.PositiveIntegerField(verbose_name="quantidade", validators=[MinValueValidator(1)])
     acquisition_date = models.DateField(verbose_name="data de aquisição")
-    description = models.TextField(verbose_name="descrição")
+    description = models.TextField(verbose_name="descrição", blank=True, null=True)
     supplier = models.ForeignKey(Supplier, on_delete=models.PROTECT, verbose_name="fornecedor")
     permanent = models.BooleanField(verbose_name="permanente")
-    warranty_expiry_date = models.DateField(verbose_name="data de vencimento da garantia")
-    warranty_details = models.TextField(verbose_name="detalhes da garantia");
+    warranty_expiry_date = models.DateField(verbose_name="data de vencimento da garantia", blank=True, null=True)
+    warranty_details = models.TextField(verbose_name="detalhes da garantia", blank=True, null=True);
     slug = "good"
 
     class Meta:
@@ -56,7 +56,7 @@ class Good(models.Model):
 class Claimant(models.Model):
     name = models.CharField(verbose_name="nome")
     identifier = models.CharField(unique=True, verbose_name="identificador")
-    phone_number = models.CharField(max_length=20, verbose_name="telefone")
+    phone_number = models.CharField(max_length=20, verbose_name="telefone", blank=True, null=True)
     slug="claimant"
 
     class Meta:

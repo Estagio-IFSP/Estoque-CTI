@@ -1,7 +1,9 @@
 from datetime import date
 from django import forms
+from django.db.models.constraints import ValidationError
 from django.forms import CheckboxInput
 from stockControl.models import Good, Supplier, Claimant, Loan, LoanItem
+from django.forms.fields import IntegerField
 
 # Atribui as classes do Bootstrap a todos os campos dos formulários
 class BaseModelForm(forms.ModelForm):
@@ -37,6 +39,16 @@ class LoanForm(BaseModelForm):
         fields = [ "claimant", "loan_date", "return_date", ]
 
 class LoanItemForm(BaseModelForm):
+    quantity = IntegerField()
+
     class Meta:
         model = LoanItem
         fields = [ "loan", "good", "quantity", ]
+
+    def clean(self):
+        cleaned_data = super().clean()
+        cleaned_good = cleaned_data.get("good")
+        cleaned_quantity = cleaned_data.get("quantity")
+
+        if cleaned_quantity > cleaned_good.get_available_quantity():
+            raise ValidationError("A quantidade solicitada excede quantidade disponível")

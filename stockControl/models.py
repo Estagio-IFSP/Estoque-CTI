@@ -3,6 +3,7 @@ from django.db import models
 from django.urls import reverse
 from datetime import date
 from django.core.validators import MinValueValidator
+from django.utils.ipv6 import ValidationError
 
 
 # Fornecedor

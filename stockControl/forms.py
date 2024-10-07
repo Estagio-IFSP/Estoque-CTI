@@ -1,7 +1,9 @@
 from datetime import date
 from django import forms
+from django.db.models.constraints import ValidationError
 from django.forms import CheckboxInput
 from stockControl.models import Good, Supplier, Claimant, Loan, LoanItem
+from django.forms.fields import IntegerField
 
 # Atribui as classes do Bootstrap a todos os campos dos formulários
 class BaseModelForm(forms.ModelForm):
@@ -37,6 +39,25 @@ class LoanForm(BaseModelForm):
         fields = [ "claimant", "loan_date", "return_date", ]
 
 class LoanItemForm(BaseModelForm):
+    quantity = IntegerField()
+
     class Meta:
         model = LoanItem
         fields = [ "loan", "good", "quantity", ]
+
+    def format_unavailable_quantity_error(self, available, good):
+        if available == 0:
+            return "Não há unidades disponíveis de {}".format(good)
+        elif available == 1:
+            return "Há apenas uma unidade disponível de {}".format(good)
+        else:
+            return "Há apenas {} unidades disponíveis de {}".format(available, good)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        good = cleaned_data.get("good")
+        requested_quantity = cleaned_data.get("quantity")
+        available_quantity = good.get_available_quantity()
+
+        if requested_quantity > available_quantity:
+            raise ValidationError(self.format_unavailable_quantity_error(available_quantity, good))

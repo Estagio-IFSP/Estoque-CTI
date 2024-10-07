@@ -44,7 +44,6 @@ urlpatterns = [
     path("dashboard/loan/<int:loan_pk>/add-item", LoanItemCreateView.as_view(), name="loan-add-item"),
 
     path("dashboard/loan-items", LoanItemListView.as_view(), name="loan-items"),
-    path("dashboard/loan-item/create", LoanItemCreateView.as_view(), name="loan-item-create"),
     path("dashboard/loan-item/<int:pk>/", LoanItemDetailView.as_view(), name="loan-item-detail"),
     path("dashboard/loan-item/<int:pk>/edit", LoanItemUpdateView.as_view(), name="loan-item-edit"),
     path("dashboard/loan-item/<int:pk>/delete", LoanItemDeleteView.as_view(), name="loan-item-delete"),

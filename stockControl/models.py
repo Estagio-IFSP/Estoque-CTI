@@ -1,14 +1,15 @@
 from datetime import date
 from django.db import models
 from django.urls import reverse
-from datetime import date
+from datetime import date, timedelta
 from django.core.validators import MinValueValidator
 
 
 # Fornecedor
 class Supplier(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name="nome")
-    phone_number = models.CharField(max_length=20, verbose_name="telefone", blank=True, null=True)
+    phone_number = models.CharField(max_length=20, verbose_name="telefone",
+                                    blank=True, null=True)
     slug = "supplier"
 
     class Meta:
@@ -23,13 +24,16 @@ class Supplier(models.Model):
 # Bem (permanente e de consumo)
 class Good(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name="nome")
-    quantity = models.PositiveIntegerField(verbose_name="quantidade", validators=[MinValueValidator(1)])
+    quantity = models.PositiveIntegerField(verbose_name="quantidade",
+                                           validators=[MinValueValidator(1)])
     acquisition_date = models.DateField(verbose_name="data de aquisição")
     description = models.TextField(verbose_name="descrição", blank=True, null=True)
     supplier = models.ForeignKey(Supplier, on_delete=models.PROTECT, verbose_name="fornecedor")
     permanent = models.BooleanField(verbose_name="permanente")
-    warranty_expiry_date = models.DateField(verbose_name="data de vencimento da garantia", blank=True, null=True)
-    warranty_details = models.TextField(verbose_name="detalhes da garantia", blank=True, null=True);
+    warranty_expiry_date = models.DateField(verbose_name="data de vencimento da garantia",
+                                            blank=True, null=True)
+    warranty_details = models.TextField(verbose_name="detalhes da garantia",
+                                        blank=True, null=True);
     slug = "good"
 
     class Meta:
@@ -55,7 +59,8 @@ class Good(models.Model):
 class Claimant(models.Model):
     name = models.CharField(verbose_name="nome")
     identifier = models.CharField(unique=True, verbose_name="identificador")
-    phone_number = models.CharField(max_length=20, verbose_name="telefone", blank=True, null=True)
+    phone_number = models.CharField(max_length=20, verbose_name="telefone",
+                                    blank=True, null=True)
     slug="claimant"
 
     class Meta:
@@ -108,10 +113,21 @@ class Loan(models.Model):
     def due_check(self):
         return date.today() > self.return_date
 
+    def due_today_check(self):
+        return date.today() == self.return_date
+
+    def due_next_week_check(self):
+        return date.today() + timedelta(days = 7) >= self.return_date
+
+    def empty_check(self):
+        return LoanItem.objects.filter(loan=self).count() == 0
+
     def returned_check(self):
-        return LoanItem.objects.filter(loan=self).filter(returned=False).count() == 0
+        return not self.empty_check() and LoanItem.objects.filter(loan=self).filter(returned=False).count() == 0
 
     def get_status(self):
+        if self.empty_check():
+            return "Vazio"
         if self.returned_check():
             return "Devolvido"
         elif not self.returned_check() and self.due_check():

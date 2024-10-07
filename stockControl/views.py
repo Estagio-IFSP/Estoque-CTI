@@ -84,8 +84,8 @@ class GoodListView(ListView):
 
 class GoodUpdateView(UpdateView):
     model = Good
-    template_name = "update.html"
-    fields = [ "name", "quantity", "acquisition_date", "description", "supplier", "permanent", "warranty_expiry_date", "warranty_details" ]
+    form_class = GoodForm
+    template_name = "good_update.html"
 
 class GoodDeleteView(ProtectedAwareDeleteView):
     model = Good

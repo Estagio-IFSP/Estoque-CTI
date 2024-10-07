@@ -1,6 +1,10 @@
 {% extends "create.html" %}
 {% load static %}
 
+{% block script %}
+<script src="{% static 'js/warranty-fields-toggle.js' %}" defer></script>
+{% endblock %}
+
 {% block title %}Novo bem{% endblock %}
 {% block h1 %}Novo bem{% endblock %}
 

@@ -1,11 +1,13 @@
 # Backlog
 
 - Empréstimos
-  - [ ] Não pedir dados de garantia se o bem criado não é permanente
   - [ ] Marcar em amarelo uma data de devolução nos próximos 7 dias
   - [ ] Marcar em laranja uma data de devolução igual ao dia atual
 
 - Funcionalidades pontuais
+  - [ ] Botões para marcar como devolvido
+    - [ ] Por item
+    - [ ] Por empréstimo (todos os itens)
   - [ ] Desativação de itens
   - [ ] Botões de voltar
   - [ ] [Adicionar Mensagens](https://docs.djangoproject.com/en/4.2/ref/contrib/messages)
@@ -35,3 +37,4 @@
 - [x] Poder determinar se um bem está emprestado ou não
     - [x] Não marcar em vermelho a data passada de devolução para um bem que já foi devolvido
     - [x] Não permitir que a quantidade de bens emprestados exceda a de bens disponíveis
+- [x] Não pedir dados de garantia se o bem criado não é permanente

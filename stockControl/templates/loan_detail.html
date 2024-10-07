@@ -10,11 +10,18 @@
       <h1 class="h3">{{ object }}</h1>
     </div>
     <div class="col-2 d-inline-flex align-items-center justify-content-end">
-      {% if object.due_check %}
-      <span class="badge text-bg-danger">Atrasado</span>
-      {% else %}
-      <span class="badge text-bg-success">Em dia</span>
-      {% endif %}
+      <span class="badge
+                   {% if object.returned_check %}
+                   text-bg-success
+                   {% elif object.due_check %}
+                   text-bg-danger
+                   {% elif object.empty_check %}
+                   text-bg-secondary
+                   {% else %}
+                   text-bg-warning
+                   {% endif %}
+                   ">{{ object.get_status }}
+      </span>
     </div>
   </div>
 </div>
@@ -29,7 +36,7 @@
   </dd>
   <dt class="col-sm-4">Data de devolução</dt>
   <dd class="col-sm-8">
-    <span class="{% if object.due_check %}badge text-bg-danger{% endif %}">
+    <span class="{% if not loan.returned_check and not loan.empty_check %}badge {% if object.due_today_check %}text-bg-warning{% elif object.due_check %}text-bg-danger{% elif object.due_next_week_check %}text-bg-secondary{% else %}text-bg-success{% endif %}{% endif %}">
       {{ object.return_date }}
     </span>
     <br/>
@@ -51,7 +58,7 @@
     <th>Item</th>
     <th>Quantidade</th>
     <th>Status</th>
-    <th style="text-align: right;"><span >Ações</span></th>
+    <th style="text-align: right;"><span>Ações</span></th>
   </tr>
   {% for loan_item in loan_items %}
   <tr>

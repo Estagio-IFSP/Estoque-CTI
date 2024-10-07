@@ -26,6 +26,8 @@
                    text-bg-success
                    {% elif loan.due_check %}
                    text-bg-danger
+                   {% elif loan.empty_check %}
+                   text-bg-secondary
                    {% else %}
                    text-bg-warning
                    {% endif %}
@@ -39,7 +41,7 @@
         {{ loan.loan_date | date:"d/m/y"}}{% endif %}
     </td>
     <td>
-      <span class="{% if loan.due_check and not loan.returned_check %}badge text-bg-danger{% endif %}">
+      <span class="{% if not loan.returned_check and not loan.empty_check %}badge text-bg-{% if loan.due_today_check %}warning{% elif loan.due_check %}danger{% elif loan.due_next_week_check %}secondary{% else %}success{% endif %}{% endif %}">
         {% if loan.return_date|date:"Y" == current_year %}
           {{ loan.return_date | date:"d/m" }}
         {% else %}

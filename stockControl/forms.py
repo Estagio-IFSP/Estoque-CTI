@@ -45,10 +45,19 @@ class LoanItemForm(BaseModelForm):
         model = LoanItem
         fields = [ "loan", "good", "quantity", ]
 
+    def format_unavailable_quantity_error(self, available, good):
+        if available == 0:
+            return "Não há unidades disponíveis de {}".format(good)
+        elif available == 1:
+            return "Há apenas uma unidade disponível de {}".format(good)
+        else:
+            return "Há apenas {} unidades disponíveis de {}".format(available, good)
+
     def clean(self):
         cleaned_data = super().clean()
-        cleaned_good = cleaned_data.get("good")
-        cleaned_quantity = cleaned_data.get("quantity")
+        good = cleaned_data.get("good")
+        requested_quantity = cleaned_data.get("quantity")
+        available_quantity = good.get_available_quantity()
 
-        if cleaned_quantity > cleaned_good.get_available_quantity():
-            raise ValidationError("A quantidade solicitada excede quantidade disponível")
+        if requested_quantity > available_quantity:
+            raise ValidationError(self.format_unavailable_quantity_error(available_quantity, good))

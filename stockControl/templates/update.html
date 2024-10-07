@@ -16,15 +16,16 @@
 {% endblock dashboard_header %}
 
 <form method="post">{% csrf_token %}
+  {{ form.non_field_errors }}
   {% for field in form %}
   <div class="mb-3">
+    {{ field.errors }}
     {{ field.label_tag }}
     {% if field.field.widget.input_type == "checkbox" %}
       {{ field|css_class:"form-check" }}
     {% else %}
       {{ field|css_class:"form-control" }}
     {% endif %}
-    {{ field.errors }}
   </div>
   {% endfor %}
   <input type="submit" value="Salvar">

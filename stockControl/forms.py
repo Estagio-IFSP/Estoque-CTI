@@ -20,6 +20,15 @@ class GoodForm(BaseModelForm):
         model = Good
         fields = [ "name", "quantity", "acquisition_date", "description", "supplier", "permanent", "warranty_expiry_date", "warranty_details" ]
 
+    def clean(self):
+        cleaned_data = super().clean()
+        permanent = cleaned_data.get("permanent")
+        warranty_details = cleaned_data.get("warranty_details")
+        warranty_expiry_date = cleaned_data.get("warranty_expiry_date")
+
+        if permanent and not (warranty_details and warranty_expiry_date):
+            raise ValidationError("Bens permanentes requerem dados de garantia.")
+
 class SupplierForm(BaseModelForm):
     class Meta:
         model = Supplier

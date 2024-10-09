@@ -4,6 +4,8 @@ from django.db.models.constraints import ValidationError
 from django.forms import CheckboxInput
 from stockControl.models import Good, Supplier, Claimant, Loan, LoanItem
 from django.forms.fields import IntegerField
+from django.contrib.auth.forms import BaseUserCreationForm, UsernameField
+from django.contrib.auth.models import User
 
 # Atribui as classes do Bootstrap a todos os campos dos formulários
 class BaseModelForm(forms.ModelForm):
@@ -70,3 +72,21 @@ class LoanItemForm(BaseModelForm):
 
         if requested_quantity > available_quantity:
             raise ValidationError(self.format_unavailable_quantity_error(available_quantity, good))
+
+class SignUpForm(BaseUserCreationForm):
+
+    class Meta:
+        model = User
+        fields = ("username",)
+        field_classes = {"username": UsernameField}
+        labels = {
+            "username": "Email",
+        }
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self._meta.model.USERNAME_FIELD in self.fields:
+            self.fields[self._meta.model.USERNAME_FIELD].widget.attrs[
+            "autofocus"
+        ] = True
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'

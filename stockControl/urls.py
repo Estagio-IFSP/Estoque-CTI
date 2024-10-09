@@ -3,7 +3,7 @@ from django.urls import path
 from django.urls import re_path
 from django.contrib import admin
 from django.views.static import serve
-from stockControl.views import login, signup, password_recovery, DashboardHomeView
+from stockControl.views import SignUpView, login, password_recovery, DashboardHomeView
 from stockControl.views import GoodDetailView, GoodListView, GoodUpdateView, GoodDeleteView
 from stockControl.views import SupplierDetailView, SupplierListView, SupplierUpdateView, SupplierDeleteView
 from stockControl.views import ClaimantDetailView, ClaimantListView, ClaimantUpdateView, ClaimantDeleteView
@@ -14,7 +14,7 @@ from stockControl.views import GoodCreateView, ClaimantCreateView, LoanCreateVie
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", login, name="login"),
-    path("signup", signup, name="signup"),
+    path("signup", SignUpView.as_view(), name="signup"),
     path("password-recovery", password_recovery, name="password-recovery"),
     path("dashboard", DashboardHomeView.as_view(), name="dashboard"),
 
@@ -47,5 +47,6 @@ urlpatterns = [
     path("dashboard/loan-item/<int:pk>/", LoanItemDetailView.as_view(), name="loan-item-detail"),
     path("dashboard/loan-item/<int:pk>/edit", LoanItemUpdateView.as_view(), name="loan-item-edit"),
     path("dashboard/loan-item/<int:pk>/delete", LoanItemDeleteView.as_view(), name="loan-item-delete"),
+
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 ]

@@ -7,7 +7,7 @@ from django.views.generic import DetailView, ListView, UpdateView, DeleteView
 from django.views.generic.edit import CreateView
 from django.db.models import ProtectedError, Subquery, OuterRef
 from stockControl.models import Good, Supplier, Claimant, Loan, LoanItem
-from .forms import GoodForm, SupplierForm,ClaimantForm, LoanForm, LoanItemForm
+from .forms import GoodForm, SupplierForm,ClaimantForm, LoanForm, LoanItemForm, SignUpForm
 
 class ProtectedAwareDeleteView(DeleteView):
     def post(self, request, pk, *args):
@@ -38,11 +38,13 @@ class RedirectableCreateView(CreateView):
             messages.add_message(self.request, messages.ERROR, 'Error')
             return render(request, self.template_name, {'form': form})
 
+class SignUpView(CreateView):
+    form_class = SignUpForm
+    success_url = reverse_lazy("login")
+    template_name = "signup.html"
+
 def login(request):
     return render(request, "login.html")
-
-def signup(request):
-    return render(request, "signup.html")
 
 def password_recovery(request):
     return render(request, "password_recovery.html")

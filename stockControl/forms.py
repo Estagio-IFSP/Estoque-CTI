@@ -37,7 +37,7 @@ class SupplierForm(BaseModelForm):
 class ClaimantForm(BaseModelForm):
     class Meta:
         model = Claimant
-        fields = [ "name", "identifier", "phone_number" ]
+        fields = [ "name", "identifier", "email", "phone_number", ]
         labels = {
             "identifier": "Identificador (prontuário)",
         }

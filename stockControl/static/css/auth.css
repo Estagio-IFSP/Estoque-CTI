@@ -1,0 +1,9 @@
+label {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.helptext {
+  color: gray;
+  font-size: small;
+}

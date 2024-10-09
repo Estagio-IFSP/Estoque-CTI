@@ -1,27 +1,16 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block head_extra %}<link rel="stylesheet" type="text/css" href="{% static 'css/auth.css' %}">{% endblock %}
 {% block title %}Criar conta{% endblock %}
 
 {% block content %}
   <main class="container mt-5">
-    <h2>Criar conta</h2>
-    <form>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email">
-      </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Senha</label>
-        <input type="password" class="form-control" id="password">
-      <div class="mb-3">
-        <label for="password-confirmation" class="form-label">Repita a senha</label>
-        <input type="password-confirmation" class="form-control" id="password-confirmation">
-      </div>
-        <button type="submit" class="btn btn-primary">Criar</button>
-        <a class="btn btn-primary" a href="{% url 'login' %}">Entrar</a>
-      </div>
+  <h2>Criar conta</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form }}
+      <input type="submit" value="Criar" class="mt-3">
     </form>
   </main>
-</body>
 {% endblock content %}

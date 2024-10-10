@@ -41,13 +41,7 @@ class RedirectableCreateView(CreateView):
 class SignUpView(CreateView):
     form_class = SignUpForm
     success_url = reverse_lazy("login")
-    template_name = "signup.html"
-
-def login(request):
-    return render(request, "login.html")
-
-def password_recovery(request):
-    return render(request, "password_recovery.html")
+    template_name = "registration/signup.html"
 
 class DashboardHomeView(ListView):
     model = Loan

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_extra %}<link rel="stylesheet" type="text/css" href="{% static 'css/auth.css' %}">{% endblock %}
+{% block title %}Criar conta{% endblock %}
+
+{% block content %}
+  <main class="container mt-5">
+  <h2>Criar conta</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form }}
+      <input type="submit" value="Criar" class="btn btn-primary mt-3">
+    </form>
+  </main>
+{% endblock content %}

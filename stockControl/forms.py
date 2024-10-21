@@ -50,8 +50,6 @@ class LoanForm(BaseModelForm):
         fields = [ "claimant", "loan_date", "return_date", ]
 
 class LoanItemForm(BaseModelForm):
-    quantity = IntegerField()
-
     class Meta:
         model = LoanItem
         fields = [ "loan", "good", "quantity", ]

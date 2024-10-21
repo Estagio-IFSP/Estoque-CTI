@@ -57,6 +57,18 @@ Estes valores não devem ser usados em um ambiente de produção. A variável de
 
 Caso `DJANGO_DEBUG` tenha outro valor que não `TRUE`, `DJANGO_STATIC_ROOT` deve apontar para algum diretório válido onde os arquivos estáticos serão copiados ao usar `python manage.py collectstatic`. Se `DJANGO_STATIC_ROOT` não for configurada, ela por padrão terá o valor `/var/www/static`.
 
+Para que as funcionalidades que enviam emails (recuperação de conta, avisos por email) funcionem, também é necessário ter um servidor SMTP configurado através das seguintes variáveis de ambiente:
+
+- `DJANGO_EMAIL_HOST`: Hostname do servidor, por exemplo, `smtp.ifsp.edu.br`
+- `DJANGO_EMAIL_PORT`: Porta
+- `DJANGO_EMAIL_HOST_USER`: Nome de usuário (normalmente um endereço de email)
+- `DJANGO_EMAIL_HOST_PASSWORD`: Senha do usuário acima
+- `DJANGO_EMAIL_USE_TLS`: Se o servidor utiliza TLS
+- `DJANGO_EMAIL_USE_SSL`: Se o servidor utiliza SSL
+ 
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+#EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
 Com o ambiente definido e o banco de dados disponível, é possível realizar as migrações para que o banco possua todas as tabelas necessárias:
 
 ```sh

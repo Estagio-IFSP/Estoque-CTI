@@ -3,6 +3,7 @@ from django.urls import path, re_path
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.views.static import serve
+from stockControl.forms import CustomAuthenticationForm
 from stockControl.views import SignUpView, DashboardHomeView
 from stockControl.views import GoodDetailView, GoodListView, GoodUpdateView, GoodDeleteView
 from stockControl.views import SupplierDetailView, SupplierListView, SupplierUpdateView, SupplierDeleteView
@@ -14,7 +15,7 @@ from stockControl.views import GoodCreateView, ClaimantCreateView, LoanCreateVie
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("signup/", SignUpView.as_view(), name="signup"),
-    path("", auth_views.LoginView.as_view(), name="login"),
+    path("", auth_views.LoginView.as_view(form_class=CustomAuthenticationForm), name="login"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("password-change/",
          auth_views.PasswordChangeView.as_view(template_name="registration/password_change.html"),

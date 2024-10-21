@@ -4,7 +4,7 @@ from django.db.models.constraints import ValidationError
 from django.forms import CheckboxInput
 from stockControl.models import Good, Supplier, Claimant, Loan, LoanItem
 from django.forms.fields import IntegerField
-from django.contrib.auth.forms import BaseUserCreationForm, UsernameField
+from django.contrib.auth.forms import BaseUserCreationForm, UsernameField, AuthenticationForm
 from django.contrib.auth.models import User
 
 # Atribui as classes do Bootstrap a todos os campos dos formulários
@@ -75,10 +75,10 @@ class SignUpForm(BaseUserCreationForm):
 
     class Meta:
         model = User
-        fields = ("username",)
+        fields = ("username", "email")
         field_classes = {"username": UsernameField}
         labels = {
-            "username": "Email",
+            "username": "Prontuário",
         }
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -86,5 +86,20 @@ class SignUpForm(BaseUserCreationForm):
             self.fields[self._meta.model.USERNAME_FIELD].widget.attrs[
             "autofocus"
         ] = True
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
+
+class CustomAuthenticationForm(AuthenticationForm):
+    username = UsernameField(
+        label = 'Prontuário',
+        widget = forms.TextInput(attrs={"autofocus": True}),
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # if self._meta.model.USERNAME_FIELD in self.fields:
+        #     self.fields[self._meta.model.USERNAME_FIELD].widget.attrs[
+        #     "autofocus"
+        # ] = True
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'

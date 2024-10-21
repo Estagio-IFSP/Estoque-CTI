@@ -47,7 +47,8 @@
             Login
             {% endif %}
           </a>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><p class="mx-2">{{ user.email }}</p></li>
             <li><a class="dropdown-item" href="{% url 'password-change' %}">Alterar senha</a></li>
             <li>
               <form class="container-fluid" action="{% url 'logout' %}" method="post">

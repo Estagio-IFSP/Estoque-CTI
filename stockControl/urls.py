@@ -1,6 +1,5 @@
 from django.conf import settings
-from django.urls import path
-from django.urls import re_path
+from django.urls import path, re_path
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.views.static import serve
@@ -16,9 +15,13 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("signup/", SignUpView.as_view(), name="signup"),
     path("", auth_views.LoginView.as_view(), name="login"),
-    path("logout", auth_views.LogoutView.as_view(), name="logout"),
-    path("password-recovery/", auth_views.PasswordResetView.as_view(), name="password-recovery"),
+    path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("password-change/", auth_views.PasswordChangeView.as_view(), name="password-change"),
+    path("password-change-done/", auth_views.PasswordChangeDoneView.as_view(), name="password_change_done"),
+    path("password-recovery/", auth_views.PasswordResetView.as_view(), name="password-recovery"),
+    path("password-reset-done/", auth_views.PasswordResetDoneView.as_view(), name="password_change_done"),
+    path("reset/<uidb64>/<token>/", auth_views.PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
+    path("reset/done/", auth_views.PasswordResetCompleteView.as_view(), name="password_reset_complete"),
     path("dashboard/", DashboardHomeView.as_view(), name="dashboard"),
 
     path("dashboard/goods/", GoodListView.as_view(), name="goods"),

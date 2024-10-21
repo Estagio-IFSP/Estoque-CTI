@@ -1,14 +1,5 @@
 # Backlog
 
-- Funcionalidades pontuais
-  - [ ] Botões para marcar como devolvido
-    - [ ] Por item
-    - [ ] Por empréstimo (todos os itens)
-  - [ ] Desativação de itens
-  - [ ] Botões de voltar
-  - [ ] [Implementar Messages](https://docs.djangoproject.com/en/4.2/ref/contrib/messages)
-  - [ ] [Aplicar classes CSS nas mensagens de erro da validação de formulários](https://getbootstrap.com/docs/5.3/forms/validation)
-
 - Funcionalidades amplas
   - [ ] Envio de emails
     - [ ] Adicionar campo de email no cadastro de requerentes
@@ -16,6 +7,15 @@
     - [ ] Disparar emails após atraso para a CTI e para requerente
   - [ ] Implementar busca
   - [ ] Implementar paginação
+
+- Funcionalidades pontuais
+  - [ ] Desativação de itens
+  - [ ] Botões para marcar como devolvido
+    - [ ] Por item
+    - [ ] Por empréstimo (todos os itens)
+  - [ ] [Implementar Messages](https://docs.djangoproject.com/en/4.2/ref/contrib/messages)
+  - [ ] [Aplicar classes CSS nas mensagens de erro da validação de formulários](https://getbootstrap.com/docs/5.3/forms/validation)
+  - [ ] Botões de voltar
 
 - Não-funcional
   - [ ] Refatorar templates para melhorar legibilidade

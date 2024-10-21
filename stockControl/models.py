@@ -59,6 +59,7 @@ class Good(models.Model):
 class Claimant(models.Model):
     name = models.CharField(verbose_name="nome")
     identifier = models.CharField(unique=True, verbose_name="identificador")
+    email = models.EmailField()
     phone_number = models.CharField(max_length=20, verbose_name="telefone",
                                     blank=True, null=True)
     slug="claimant"

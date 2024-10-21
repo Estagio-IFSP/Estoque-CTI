@@ -4,12 +4,63 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<nav class="nav nav-expand-lg nav-pills justify-content-center mt-2">
-  <a class="nav-link {% if request.path == '/dashboard' %}active{% endif %}" href="{% url 'dashboard' %}">Início</a>
-  <a class="nav-link {% if request.path == '/dashboard/goods' %}active{% endif %}" href="{% url 'goods' %}">Bens</a>
-  <a class="nav-link {% if request.path == '/dashboard/loans' %}active{% endif %}" href="{% url 'loans' %}">Empréstimos</a>
-  <a class="nav-link {% if request.path == '/dashboard/suppliers' %}active{% endif %}" href="{% url 'suppliers' %}">Fornecedores</a>
-  <a class="nav-link {% if request.path == '/dashboard/claimants' %}active{% endif %}" href="{% url 'claimants' %}">Requerentes</a>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'dashboard' %}">
+      <img src="{% static 'img/ready-stock.png' %}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+      Estoque CTI
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Alternar barra de navegação">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarToggler">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == '/dashboard/' %}active{% endif %}" href="{% url 'dashboard' %}">Início</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == '/dashboard/goods/' %}active{% endif %}" href="{% url 'goods' %}">Bens</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == '/dashboard/loans/' %}active{% endif %}" href="{% url 'loans' %}">Empréstimos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == '/dashboard/suppliers/' %}active{% endif %}" href="{% url 'suppliers' %}">Fornecedores</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == '/dashboard/claimants/' %}active{% endif %}" href="{% url 'claimants' %}">Requerentes</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li>
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
+          </form>
+        </li>
+        <li>
+        <div class="dropdown flex-d">
+          <a class="ms-2 {% if user.is_authenticated %}nav-link dropdown-toggle{% else %}btn btn-outline-secondary{% endif %}" href="{% if user.is_authenticated %}#{% else %}{% url 'login' %}{% endif %}" role="button" {% if user.is_authenticated %}data-bs-toggle="dropdown" aria-expanded="false"{% endif %}>
+            {% if user.is_authenticated %}
+            <small>{{ user.username }}</small>
+            {% else %}
+            Login
+            {% endif %}
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'password-change' %}">Alterar senha</a></li>
+            <li>
+              <form class="container-fluid" action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-sm btn-outline-secondary" type="submit">Sair</button>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </li>
+      </ul>
+    </div>
+  </div>
 </nav>
 
 <main class="container mt-5">

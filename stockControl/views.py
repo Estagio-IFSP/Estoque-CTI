@@ -1,15 +1,16 @@
 from datetime import date, timedelta
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView, UpdateView, DeleteView
 from django.views.generic.edit import CreateView
 from django.db.models import ProtectedError, Subquery, OuterRef
 from stockControl.models import Good, Supplier, Claimant, Loan, LoanItem
-from .forms import GoodForm, SupplierForm,ClaimantForm, LoanForm, LoanItemForm
+from .forms import GoodForm, SupplierForm,ClaimantForm, LoanForm, LoanItemForm, SignUpForm
 
-class ProtectedAwareDeleteView(DeleteView):
+class ProtectedAwareDeleteView(LoginRequiredMixin, DeleteView):
     def post(self, request, pk, *args):
         self.object = self.get_object()
         try:
@@ -22,12 +23,12 @@ class ProtectedAwareDeleteView(DeleteView):
             return render(request, "error_protected.html", {"object": self.object, "error": error})
 
 
-class RedirectableDetailView(DetailView):
+class RedirectableDetailView(LoginRequiredMixin, DetailView):
     def get_success_url(self):
         pk = self.kwargs["pk"]
         return reverse(self.model.slug + "-detail", kwargs={"pk": pk})
 
-class RedirectableCreateView(CreateView):
+class RedirectableCreateView(LoginRequiredMixin, CreateView):
     def post(self, request):
         form = self.form_class(request.POST)
         if form.is_valid():
@@ -38,16 +39,12 @@ class RedirectableCreateView(CreateView):
             messages.add_message(self.request, messages.ERROR, 'Error')
             return render(request, self.template_name, {'form': form})
 
-def login(request):
-    return render(request, "login.html")
+class SignUpView(CreateView):
+    form_class = SignUpForm
+    success_url = reverse_lazy("login")
+    template_name = "registration/signup.html"
 
-def signup(request):
-    return render(request, "signup.html")
-
-def password_recovery(request):
-    return render(request, "password_recovery.html")
-
-class DashboardHomeView(ListView):
+class DashboardHomeView(LoginRequiredMixin, ListView):
     model = Loan
     template_name = "dashboard.html"
     context_object_name = "loans"
@@ -58,7 +55,7 @@ class GoodCreateView(RedirectableCreateView):
     form_class = GoodForm
     initial = { "acquisition_date": date.today() }
 
-class GoodDetailView(DetailView):
+class GoodDetailView(LoginRequiredMixin, DetailView):
     model = Good
     template_name = "good_detail.html"
 
@@ -77,12 +74,12 @@ class GoodDetailView(DetailView):
         context["associated_loans"] = self.get_loans()
         return context
 
-class GoodListView(ListView):
+class GoodListView(LoginRequiredMixin, ListView):
     model = Good
     template_name = "good_list.html"
     context_object_name = "goods"
 
-class GoodUpdateView(UpdateView):
+class GoodUpdateView(LoginRequiredMixin, UpdateView):
     model = Good
     form_class = GoodForm
     template_name = "good_update.html"
@@ -108,7 +105,7 @@ class SupplierCreateView(RedirectableCreateView):
     template_name = "supplier_create.html"
     form_class = SupplierForm
 
-class SupplierDetailView(DetailView):
+class SupplierDetailView(LoginRequiredMixin, DetailView):
     model = Supplier
     template_name = "supplier_detail.html"
 
@@ -117,12 +114,12 @@ class SupplierDetailView(DetailView):
         context["supplier_goods"] = Good.objects.filter(supplier=self.get_object())
         return context
 
-class SupplierListView(ListView):
+class SupplierListView(LoginRequiredMixin, ListView):
     model = Supplier
     template_name = "supplier_list.html"
     context_object_name = "suppliers"
 
-class SupplierUpdateView(UpdateView):
+class SupplierUpdateView(LoginRequiredMixin, UpdateView):
     model = Supplier
     template_name = "update.html"
     fields = [ "name", "phone_number" ]
@@ -138,7 +135,7 @@ class ClaimantCreateView(RedirectableCreateView):
     form_class = ClaimantForm
     initial = { "identifier": "JC" }
 
-class ClaimantDetailView(DetailView):
+class ClaimantDetailView(LoginRequiredMixin, DetailView):
     model = Claimant
     template_name = "claimant_detail.html"
 
@@ -148,12 +145,12 @@ class ClaimantDetailView(DetailView):
         return context
 
 
-class ClaimantListView(ListView):
+class ClaimantListView(LoginRequiredMixin, ListView):
     model = Claimant
     template_name = "claimant_list.html"
     context_object_name = "claimants"
 
-class ClaimantUpdateView(UpdateView):
+class ClaimantUpdateView(LoginRequiredMixin, UpdateView):
     model = Claimant
     template_name = "update.html"
     fields = [ "identifier", "name", "phone_number" ]
@@ -188,12 +185,12 @@ class LoanDetailView(RedirectableDetailView):
         context["loan_items"] = LoanItem.objects.filter(loan=self.get_object())
         return context
 
-class LoanListView(ListView):
+class LoanListView(LoginRequiredMixin, ListView):
     model = Loan
     template_name = "loan_list.html"
     context_object_name = "loans"
 
-class LoanUpdateView(UpdateView):
+class LoanUpdateView(LoginRequiredMixin, UpdateView):
     model = Loan
     template_name = "update.html"
     fields = [ "claimant", "loan_date", "return_date", ]
@@ -203,7 +200,7 @@ class LoanDeleteView(ProtectedAwareDeleteView):
     template_name = "delete.html"
     success_url = reverse_lazy("loans")
 
-class LoanItemCreateView(CreateView):
+class LoanItemCreateView(LoginRequiredMixin, CreateView):
     model = LoanItem
     template_name = "loan_item_create.html"
     form_class = LoanItemForm
@@ -223,16 +220,16 @@ class LoanItemCreateView(CreateView):
     def get_success_url(self):
         return reverse('loan-detail', kwargs={"pk": self.object.loan.pk})
 
-class LoanItemDetailView(DetailView):
+class LoanItemDetailView(LoginRequiredMixin, DetailView):
     model = LoanItem
     template_name = "loan_item_detail.html"
 
-class LoanItemListView(ListView):
+class LoanItemListView(LoginRequiredMixin, ListView):
     model = LoanItem
     template_name = "loan_item_list.html"
     context_object_name = "loan_items"
 
-class LoanItemUpdateView(UpdateView):
+class LoanItemUpdateView(LoginRequiredMixin, UpdateView):
     model = LoanItem
     template_name = "update.html"
     fields = [ "loan", "good", "quantity", "returned", ]
@@ -240,7 +237,7 @@ class LoanItemUpdateView(UpdateView):
     def get_success_url(self):
         return reverse('loan-detail', kwargs={"pk": self.object.loan.pk})
 
-class LoanItemDeleteView(DeleteView):
+class LoanItemDeleteView(LoginRequiredMixin, DeleteView):
     model = LoanItem
     template_name = "delete.html"
 

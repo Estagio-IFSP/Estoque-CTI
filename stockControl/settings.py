@@ -113,3 +113,17 @@ STATICFILES_DIRS = []
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# SMTP server for email sending
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+#EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_SUBJECT_PREFIX='[Estoque-CTI] '
+EMAIL_HOST=os.environ["DJANGO_EMAIL_HOST"]
+EMAIL_PORT=int(os.environ["DJANGO_EMAIL_PORT"])
+EMAIL_HOST_USER=os.environ["DJANGO_EMAIL_HOST_USER"]
+DEFAULT_FROM_EMAIL=os.environ.get("DJANGO_EMAIL_FROM", EMAIL_HOST_USER)
+SERVER_EMAIL=os.environ.get("DJANGO_SERVER_EMAIL_FROM", EMAIL_HOST_USER)
+EMAIL_HOST_PASSWORD=os.environ["DJANGO_EMAIL_HOST_PASSWORD"]
+EMAIL_USE_TLS=os.environ.get("DJANGO_EMAIL_USE_TLS", "FALSE") == "TRUE"
+EMAIL_USE_SSL=os.environ.get("DJANGO_EMAIL_USE_SSL", "FALSE") == "TRUE"
+EMAIL_TIMEOUT=int(os.environ.get("DJANGO_EMAIL_TIMEOUT", "20"))

@@ -66,8 +66,12 @@ Para que as funcionalidades que enviam emails (recuperação de conta, avisos po
 - `DJANGO_EMAIL_USE_TLS`: Se o servidor utiliza TLS
 - `DJANGO_EMAIL_USE_SSL`: Se o servidor utiliza SSL
  
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-#EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+Em um ambiente de desenvolvimento, é possível trocar o backend de emails no arquivo `stockControl/settings.py` para que os emails sejam exibidos na saída de log do servidor ao invés de enviados através de um servidor real:
+
+```python
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend" # para mostrar emails no log do servidor
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend" # para envio através de um servidor SMTP (padrão)
+```
 
 Com o ambiente definido e o banco de dados disponível, é possível realizar as migrações para que o banco possua todas as tabelas necessárias:
 

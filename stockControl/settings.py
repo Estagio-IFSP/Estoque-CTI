@@ -1,4 +1,5 @@
 import os
+import logging
 
 from pathlib import Path
 
@@ -23,7 +24,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "stockControl"
+    "huey.contrib.djhuey",
+    "stockControl",
 ]
 
 MIDDLEWARE = [
@@ -114,7 +116,9 @@ STATICFILES_DIRS = []
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# SMTP server for email sending
+# Email sending configuration
+
+# SMTP server
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 #EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_SUBJECT_PREFIX='[Estoque-CTI] '
@@ -127,3 +131,13 @@ EMAIL_HOST_PASSWORD=os.environ["DJANGO_EMAIL_HOST_PASSWORD"]
 EMAIL_USE_TLS=os.environ.get("DJANGO_EMAIL_USE_TLS", "FALSE") == "TRUE"
 EMAIL_USE_SSL=os.environ.get("DJANGO_EMAIL_USE_SSL", "FALSE") == "TRUE"
 EMAIL_TIMEOUT=int(os.environ.get("DJANGO_EMAIL_TIMEOUT", "20"))
+
+# Scheduler for periodical emails and checks
+HUEY = {
+    'huey_class': 'huey.SqliteHuey',
+    'filename': '/tmp/huey.db',
+    'immediate': False,
+    'consumer': {
+        'loglevel': logging.DEBUG,
+    },
+}

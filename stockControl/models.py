@@ -158,3 +158,9 @@ class LoanItem(models.Model):
             return "Devolvido"
         else:
             return "Emprestado"
+
+    def due_check(self):
+        return not self.returned and self.loan.due_check()
+
+    def get_days_before_due(self):
+        return (self.loan.return_date - date.today()).days

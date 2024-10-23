@@ -1,5 +1,5 @@
 import os
-import logging
+from huey import SqliteHuey
 
 from pathlib import Path
 
@@ -14,7 +14,6 @@ DEBUG = os.environ.get("DJANGO_DEBUG", "FALSE") == "TRUE"
 
 ALLOWED_HOSTS = [os.environ["DJANGO_HOST"]]
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -24,8 +23,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "huey.contrib.djhuey",
     "stockControl",
+    'huey.contrib.djhuey',
 ]
 
 MIDDLEWARE = [
@@ -103,7 +102,6 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
@@ -119,8 +117,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Email sending configuration
 
 # SMTP server
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-#EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend" if DEBUG \
+  else "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_SUBJECT_PREFIX='[Estoque-CTI] '
 EMAIL_HOST=os.environ["DJANGO_EMAIL_HOST"]
 EMAIL_PORT=int(os.environ["DJANGO_EMAIL_PORT"])
@@ -133,11 +131,4 @@ EMAIL_USE_SSL=os.environ.get("DJANGO_EMAIL_USE_SSL", "FALSE") == "TRUE"
 EMAIL_TIMEOUT=int(os.environ.get("DJANGO_EMAIL_TIMEOUT", "20"))
 
 # Scheduler for periodical emails and checks
-HUEY = {
-    'huey_class': 'huey.SqliteHuey',
-    'filename': '/tmp/huey.db',
-    'immediate': False,
-    'consumer': {
-        'loglevel': logging.DEBUG,
-    },
-}
+HUEY = SqliteHuey(filename='/tmp/huey.db')

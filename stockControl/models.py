@@ -91,6 +91,7 @@ class Loan(models.Model):
     claimant = models.ForeignKey(Claimant, on_delete = models.PROTECT, verbose_name="requerente")
     loan_date = models.DateField(verbose_name="data do empréstimo")
     return_date = models.DateField(verbose_name="prazo de devolução")
+    last_notification_email = models.DateField(verbose_name="último email de aviso", blank=True, null=True)
     slug = "loan"
 
     class Meta:

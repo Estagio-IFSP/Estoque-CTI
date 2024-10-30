@@ -50,10 +50,6 @@ def db_periodic_task():
     due_in_5_days = due_soon.filter(~Q(loan__last_notification_email=None),
                                              loan__last_notification_email__lte=date.today() - timedelta(days=5))
 
-    print("outstanding: " + str(due_soon.count()))
-    print("due in 5: " + str(due_in_5_days.count()))
-    print("due in 10: " + str(due_in_10_days.count()))
-
     # Combina os conjuntos obtidos acima e envia emails referentes a cada item
     for item in due_in_5_days.union(due_in_10_days):
         send_notification_email(item)

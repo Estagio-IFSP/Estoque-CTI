@@ -42,6 +42,7 @@ services:
     - db_user
     - db_password
     - django_secret
+    - email_env
     depends_on:
       - db
 

@@ -20,7 +20,7 @@ services:
       - /bin/sh
       - -c
       - |
-        source /run/secrets/email_env
+        . /run/secrets/email_env
         python manage.py makemigrations --no-input
         python manage.py migrate --no-input
         python manage.py migrate --run-syncdb --no-input

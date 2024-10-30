@@ -29,7 +29,7 @@ def send_notification_email(item):
 # Tarefa de execução periódica
 # Executa todos os dias às 8h da manhã, faz três tentativas com 300 segundos (5 minutos) de intervalo cada
 @djhuey.db_periodic_task(
-    crontab(day="*", hour="*", minute="*"),
+    crontab(day="*", hour="08", minute="00"),
     retries=2, retry_delay=300)
 @huey.lock_task('db_periodic_task')
 def db_periodic_task():

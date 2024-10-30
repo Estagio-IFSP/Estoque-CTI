@@ -48,6 +48,16 @@
       {% endif %}
     </small>
   </dd>
+  <dt class="col-sm-4">Última notificação</dt>
+  <dd class="col-sm-8">
+    <span class="{% if object.last_notification_email %}badge text-bg-secondary{% else %}opacity-75 small fw-light fst-italic{% endif %}">
+      {% if object.last_notification_email %}
+      {{ object.last_notification_email }}
+      {% else %}
+      Nenhum email de notificação enviado ainda
+      {% endif %}
+    </span>
+  </dd>
 </dl>
 {% include 'action_buttons.html' with object=object detail=True %}
 

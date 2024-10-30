@@ -1,12 +1,17 @@
 # Backlog
 
 - Funcionalidades amplas
-  - [x] Envio de emails
-    - [x] Adicionar campo de email no cadastro de requerentes
-    - [ ] Disparar emails 5 dias úteis e 10 dias úteis antes do vencimento para CTI e para requerente
-    - [ ] Disparar emails após atraso para a CTI e para requerente
   - [ ] Implementar busca
   - [ ] Implementar paginação
+  - [x] Envio de emails
+    - [ ] Configurar emails para serem enviados às 8h da manhã
+    - [x] Adicionar campo de email no cadastro de requerentes
+    - [x] Enviar email 5 dias úteis e 10 dias úteis antes do vencimento
+      - [ ] para CTI
+      - [x] para requerente
+    - [ ] Enviar email no ato do empréstimo
+    - [ ] Enviar email no dia do vencimento
+    - [ ] Enviar email 7 dias após o vencimento
 
 - Funcionalidades pontuais
   - [ ] Desativação de itens

@@ -104,8 +104,24 @@ Para que o comando `compose` funcione, é preciso que exista o diretório `/root
 - `db_user.txt`
 - `db_password.txt`
 - `django_secret.txt`
+- `email.env`
 
-Estes arquivos devem conter os respectivos valores que serão lidos para configurar as variáveis de ambientes descritas acima, na seção de instalação. É recomendável que as permissões adequadas sejam dadas a esses arquivos para que possam ser lidos ou sobrescritos apenas pelo usuário `root`, por exemplo:
+Estes arquivos devem conter os respectivos valores que serão lidos para configurar as variáveis de ambientes descritas acima, na seção de instalação. 
+
+O arquivo `email.env` deve ser um conjunto de instruções para exportar as variáveis que configuram o servidor de envio de emails via SMTP. Por exemplo:
+
+```sh
+export DJANGO_EMAIL_HOST="smtp.exemplo.br"
+export DJANGO_EMAIL_PORT=465
+export DJANGO_EMAIL_HOST_USER="nome@exemplo.br"
+export DJANGO_EMAIL_FROM="estoque@cti.jcr.ifsp.edu.br"
+export DJANGO_EMAIL_HOST_PASSWORD="xxx00000"
+export DJANGO_EMAIL_USE_TLS=FALSE
+export DJANGO_EMAIL_USE_SSL=TRUE
+export DJANGO_EMAIL_TIMEOUT=10 # em segundos
+```
+
+É recomendável que as permissões adequadas sejam dadas a esses arquivos para que possam ser lidos ou sobrescritos apenas pelo usuário `root`, por exemplo:
 
 ```sh
 chown root:root /root/secrets/*.txt

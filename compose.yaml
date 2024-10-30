@@ -20,6 +20,7 @@ services:
       - /bin/sh
       - -c
       - |
+        source /run/secrets/email_env
         python manage.py makemigrations --no-input
         python manage.py migrate --no-input
         python manage.py migrate --run-syncdb --no-input
@@ -53,3 +54,5 @@ secrets:
     file: /root/secrets/db_password.txt
   django_secret:
     file: /root/secrets/django_secret.txt
+  email_env:
+    file: /root/secrets/email.env

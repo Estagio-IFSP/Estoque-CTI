@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.views.static import serve
 from stockControl.forms import CustomAuthenticationForm
-from stockControl.views import SignUpView, DashboardHomeView
+from stockControl.views import SignUpView, DashboardHomeView, SearchView
 from stockControl.views import GoodDetailView, GoodListView, GoodUpdateView, GoodDeleteView
 from stockControl.views import SupplierDetailView, SupplierListView, SupplierUpdateView, SupplierDeleteView
 from stockControl.views import ClaimantDetailView, ClaimantListView, ClaimantUpdateView, ClaimantDeleteView
@@ -68,4 +68,6 @@ urlpatterns = [
     path("dashboard/loan-item/<int:pk>/delete/", LoanItemDeleteView.as_view(), name="loan-item-delete"),
 
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
+
+    path("search/", SearchView.as_view(), name="search")
 ]

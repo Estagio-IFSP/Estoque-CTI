@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView, UpdateView, DeleteView
 from django.views.generic.edit import CreateView
-from django.db.models import ProtectedError, Subquery, OuterRef
+from django.db.models import ProtectedError, Subquery, OuterRef, Q
 from stockControl.models import Good, Supplier, Claimant, Loan, LoanItem
 from .forms import GoodForm, SupplierForm,ClaimantForm, LoanForm, LoanItemForm, SignUpForm
 
@@ -254,3 +254,15 @@ class LoanItemDeleteView(LoginRequiredMixin, DeleteView):
                 return self.form_invalid(form)
         except ProtectedError as error:
             return render(request, "error_protected.html", {"object": self.object, "error": error})
+
+class SearchView(ListView):
+    model = Good
+    template_name = 'search.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get("query")
+        matches = Good.objects.filter(
+            Q(name__icontains=query) | Q(description__icontains=query)
+        )
+
+        return matches

@@ -46,7 +46,6 @@ Os valores abaixo são para um ambiente de desenvolvimento compatível com a con
 ```sh
 export DJANGO_DEBUG="TRUE"
 export DJANGO_HOST="localhost"
-export DJANGO_DB_NAME="stock_control"
 export DJANGO_DB_USER="dev"
 export DJANGO_DB_PASSWORD="password"
 export DJANGO_DB_HOST="localhost"
@@ -100,7 +99,6 @@ Para subir ambos pode-se utilizar `docker compose up` na raiz deste repositório
 
 Para que o comando `compose` funcione, é preciso que exista o diretório `/root/secrets` na máquina hospedeira. Ele deve conter os seguintes arquivos:
 
-- `db_name.txt`
 - `db_user.txt`
 - `db_password.txt`
 - `django_secret.txt`

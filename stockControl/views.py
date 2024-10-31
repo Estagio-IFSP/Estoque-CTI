@@ -20,8 +20,8 @@ class ProtectedAwareDeleteView(LoginRequiredMixin, DeleteView):
             else:
                 return self.form_invalid(form)
         except ProtectedError as error:
-            return render(request, "error_protected.html", {"object": self.object, "error": error})
-
+            return render(request, "error_protected.html",
+                          {"object": self.object, "error": error})
 
 class RedirectableDetailView(LoginRequiredMixin, DetailView):
     def get_success_url(self):
@@ -34,7 +34,8 @@ class RedirectableCreateView(LoginRequiredMixin, CreateView):
         if form.is_valid():
             self.fcc_form = form.save(commit=True)
             messages.add_message(self.request, messages.INFO, 'Created')
-            return HttpResponseRedirect(reverse(self.model.slug + '-detail', kwargs={'pk': self.fcc_form.pk}))
+            return HttpResponseRedirect(reverse(self.model.slug + '-detail',
+                                                kwargs={'pk': self.fcc_form.pk}))
         else:
             messages.add_message(self.request, messages.ERROR, 'Error')
             return render(request, self.template_name, {'form': form})
@@ -98,7 +99,8 @@ class GoodDeleteView(ProtectedAwareDeleteView):
             else:
                 return self.form_invalid(form)
         except ProtectedError as error:
-            return render(request, "error_protected.html", {"object": self.object, "error": error})
+            return render(request, "error_protected.html",
+                          {"object": self.object, "error": error})
 
 class SupplierCreateView(RedirectableCreateView):
     model = Supplier
@@ -164,14 +166,16 @@ class LoanCreateView(RedirectableCreateView):
     model = Loan
     template_name = "loan_create.html"
     form_class = LoanForm
-    initial = { "loan_date": date.today(), "return_date": date.today() + timedelta(days=30) }
+    initial = { "loan_date": date.today(),
+               "return_date": date.today() + timedelta(days=30) }
 
     def post(self, request):
         form = self.form_class(request.POST)
         if form.is_valid():
             self.fcc_form = form.save(commit=True)
             messages.add_message(self.request, messages.INFO, 'Created')
-            return HttpResponseRedirect(reverse('loan-add-item', kwargs={'loan_pk': self.fcc_form.pk}))
+            return HttpResponseRedirect(reverse('loan-add-item',
+                                                kwargs={'loan_pk': self.fcc_form.pk}))
         else:
             messages.add_message(self.request, messages.ERROR, 'Error')
             return render(request, self.template_name, {'form': form})
@@ -214,7 +218,9 @@ class LoanItemCreateView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["loan"] = Loan.objects.get(pk=self.kwargs.get('loan_pk', None))
-        context["loan_items"] = LoanItem.objects.filter(loan=self.kwargs.get('loan_pk', None))
+        context["loan_items"] = LoanItem.objects.filter(
+            loan=self.kwargs.get('loan_pk', None)
+        )
         return context
 
     def get_success_url(self):
@@ -253,16 +259,45 @@ class LoanItemDeleteView(LoginRequiredMixin, DeleteView):
             else:
                 return self.form_invalid(form)
         except ProtectedError as error:
-            return render(request, "error_protected.html", {"object": self.object, "error": error})
+            return render(request, "error_protected.html",
+                          {"object": self.object, "error": error})
 
 class SearchView(ListView):
-    model = Good
     template_name = 'search.html'
+    context_object_name = "results"
 
     def get_queryset(self):
         query = self.request.GET.get("query")
-        matches = Good.objects.filter(
-            Q(name__icontains=query) | Q(description__icontains=query)
+
+        goods = Good.objects.filter(
+            Q(name__unaccent__icontains=query) |
+                Q(description__unaccent__icontains=query) |
+                Q(warranty_details__unaccent__icontains=query) |
+                Q(supplier__name__unaccent__icontains=query)
         )
+        loan_items = LoanItem.objects.filter(
+            Q(good__name__unaccent__icontains=query) |
+            Q(good__description__unaccent__icontains=query) |
+            Q(good__warranty_details__unaccent__icontains=query) |
+            Q(good__supplier__name__unaccent__icontains=query) |
+                Q(loan__claimant__name__unaccent__icontains=query)
+        )
+        claimants = Claimant.objects.filter(
+            Q(name__unaccent__icontains=query) |
+                Q(phone_number__unaccent__icontains=query) |
+                Q(email__unaccent__icontains=query) |
+                Q(identifier__icontains=query)
+        )
+        suppliers = Supplier.objects.filter(
+            Q(name__unaccent__icontains=query) |
+                Q(phone_number__unaccent__icontains=query)
+        )
+
+        matches = {
+            'goods': goods,
+            'loan_items': loan_items,
+            'claimants': claimants,
+            'suppliers': suppliers,
+        }
 
         return matches

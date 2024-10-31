@@ -1,1 +1,2 @@
 CREATE DATABASE stock_cti;
+CREATE EXTENSION unaccent SCHEMA public;

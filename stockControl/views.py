@@ -153,7 +153,7 @@ class ClaimantListView(LoginRequiredMixin, ListView):
 class ClaimantUpdateView(LoginRequiredMixin, UpdateView):
     model = Claimant
     template_name = "update.html"
-    fields = [ "identifier", "name", "phone_number" ]
+    fields = [ "identifier", "name", "phone_number", "email" ]
 
 class ClaimantDeleteView(ProtectedAwareDeleteView):
     model = Claimant

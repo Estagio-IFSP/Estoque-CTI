@@ -1,7 +1,6 @@
 # Backlog
 
 - Funcionalidades amplas
-  - [ ] Implementar busca
   - [ ] Implementar paginação
   - [x] Envio de emails
     - [ ] Configurar emails para serem enviados às 8h da manhã
@@ -16,8 +15,8 @@
 - Funcionalidades pontuais
   - [ ] Desativação de itens
   - [ ] Botões para marcar como devolvido
-    - [ ] Por item
     - [ ] Por empréstimo (todos os itens)
+    - [ ] Por item
   - [ ] [Implementar Messages](https://docs.djangoproject.com/en/4.2/ref/contrib/messages)
   - [ ] [Aplicar classes CSS nas mensagens de erro da validação de formulários](https://getbootstrap.com/docs/5.3/forms/validation)
   - [ ] Botões de voltar
@@ -26,6 +25,7 @@
   - [ ] Refatorar templates para melhorar legibilidade
 
 ## Feito
+- [x] Implementar busca
 - [x] Implementar autenticação
 - [x] Avisar ao fazer um empréstimo para alguém com um empréstimo já em atraso
 - [x] Status permanente na listagem de bens

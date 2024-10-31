@@ -1,0 +1,75 @@
+{% extends "list.html" %}
+{% load static %}
+
+{% block script %}
+<script src="{% static 'js/search-returned-toggle.js' %}" defer></script>
+{% endblock %}
+
+{% block title %}Busca{% endblock %}
+
+{% block dashboard_content %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>{% block h1 %}Busca{% endblock %}</h1>
+    </div>
+    <div class="col d-inline-flex align-items-center justify-content-end">
+      <input type="checkbox" class="btn-check" id="hide-returned-checkbox">
+      <label class="btn btn-outline-secondary" for="hide-returned-checkbox">Ocultar devolvidos</label>
+    </div>
+  </div>
+</div>
+{% block dashboard_header %}
+{% endblock dashboard_header %}
+{% if results.loan_items %}
+
+<table class="table">
+  <tr>
+    <th>Empréstimo</th>
+    <th>Requerente</th>
+    <th>Status</th>
+  </tr>
+  {% for item in results.loan_items %}
+  <tr class="{% if item.loan.returned_check %}returned{% endif %}">
+    <td><a href="{{ item.loan.get_absolute_url }}">{{ item.loan }}</a></td>
+    <td> <a href="{{ item.loan.claimant.get_absolute_url }}">{{ item.loan.claimant }}</a> </td>
+    <td>
+      <span class="badge {% if item.loan.returned_check %} text-bg-success
+                   {% elif item.loan.due_check %} text-bg-danger
+                   {% elif item.loan.empty_check %} text-bg-secondary
+                   {% else %} text-bg-warning {% endif %} ">{{ item.loan.get_status }}
+      </span>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+{% if results.goods %}
+<h2>Bens</h2>
+<ul>
+  {% for result in results.goods %}
+  <li> <a href="{{ result.get_absolute_url }}">{{ result }}</a> </li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if results.claimants %}
+<h2>Requerentes</h2>
+<ul>
+  {% for result in results.claimants %}
+  <li> <a href="{{ result.get_absolute_url }}">{{ result }}</a> </li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if results.suppliers %}
+<h2>Fornecedores</h2>
+<ul>
+  {% for result in results.suppliers %}
+  <li> <a href="{{ result.get_absolute_url }}">{{ result }}</a> </li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% endblock dashboard_content %}

@@ -1,7 +1,8 @@
 # Backlog
 
 - Funcionalidades amplas
-  - [ ] Implementar paginação
+  - [x] Implementar paginação
+    - [ ] Possibilitar escolher quantidade de itens por página
   - [x] Envio de emails
     - [ ] Configurar emails para serem enviados às 8h da manhã
     - [x] Adicionar campo de email no cadastro de requerentes

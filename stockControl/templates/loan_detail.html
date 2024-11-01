@@ -42,7 +42,9 @@
     <br/>
     <small class="opacity-75">
       {% if not object.due_check %}
-        em {{ object.return_date | timeuntil }}
+      {% if not object.return_date == today %}
+      <small class="opacity-75">em {{ object.return_date | timeuntil}}</small>
+      {% endif %}
       {% else %}
         há {{ object.return_date | timesince }}
       {% endif %}

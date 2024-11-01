@@ -66,8 +66,8 @@
 
 <main class="container mt-5">
 {% block dashboard_content %}
-{% if due_count > 1 %}
-  <h2 class="h3">Empréstimos em atraso</h2>
+{% if due_count > 0 %}
+  <h2 class="h3">Empréstimos atrasados</h2>
   <table class="table">
     {% now "Y" as current_year %}
       <tr>
@@ -118,7 +118,7 @@
         <th>Devolução</th>
       </tr>
       {% for loan in loans %}
-      {% if loan.due_next_week_check and not loan.returned_check %}
+      {% if loan.due_next_week_check and not loan.returned_check and not loan.due_check %}
         <tr>
           <td><a href="{{ loan.get_absolute_url }}">{{ loan }}</a></td>
           <td>
@@ -137,7 +137,9 @@
               {% else %}
                 {{ loan.return_date | date:"d/m/y"}}
               {% endif %}
-              <small class="opacity-75">em {{ loan.return_date | timeuntil }}</small>
+              {% if not loan.return_date == today %}
+              <small class="opacity-75">em {{ loan.return_date | timeuntil}}</small>
+              {% endif %}
             </span>
           </td>
         </tr>

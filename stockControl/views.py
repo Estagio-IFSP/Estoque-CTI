@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -57,6 +57,7 @@ class DashboardHomeView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context["due_count"] = LoanItem.objects.filter(returned=False, loan__return_date__lt=date.today()).count()
         context["due_next_week_count"] = LoanItem.objects.filter(returned=False, loan__return_date__lt=date.today() + timedelta(days=7)).count()
+        context["today"] = date.today()
         return context
 
 class GoodCreateView(RedirectableCreateView):
@@ -199,6 +200,7 @@ class LoanDetailView(RedirectableDetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["loan_items"] = LoanItem.objects.filter(loan=self.get_object())
+        context["today"] = date.today()
         return context
 
 class LoanListView(LoginRequiredMixin, ListView):

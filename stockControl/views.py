@@ -10,7 +10,7 @@ from django.db.models import ProtectedError, Subquery, OuterRef, Q
 from stockControl.models import Good, Supplier, Claimant, Loan, LoanItem
 from .forms import GoodForm, SupplierForm,ClaimantForm, LoanForm, LoanItemForm, SignUpForm
 
-itens_per_page = 15
+items_per_page = 15
 
 class ProtectedAwareDeleteView(LoginRequiredMixin, DeleteView):
     def post(self, request, pk, *args):

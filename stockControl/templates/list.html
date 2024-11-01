@@ -20,4 +20,39 @@
 <table class="table">
   {% block table_content %}{% endblock table_content %}
 </table>
+
+
+
+{% block pagination_controls %}
+{% if paginator.num_pages > 1 %}
+<nav aria-label="Navegação de páginas">
+  <ul class="pagination justify-content-center">
+
+    <li class="page-item">
+      <a class="page-link {% if not page_obj.has_previous %}disabled{% endif %}" href="/dashboard/{{ paginator.object_list.first.slug }}s?page=1" aria-label="Primeira">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link {% if not page_obj.has_previous %}disabled{% endif %}" href="{% if page_obj.has_previous %}/dashboard/{{ paginator.object_list.first.slug }}s?page={{ page_obj.previous_page_number }}{% endif %}" aria-label="Anterior">
+        <span aria-hidden="true">&lsaquo;</span>
+      </a>
+    </li>
+    {% for page in paginator.page_range %}
+    <li class="page-item"><a class="page-link {% if page == page_obj.number %}active{% endif %}" href="/dashboard/{{ paginator.object_list.first.slug }}s?page={{ page }}">{{ page }}</a></li>
+    {% endfor %}
+    <li class="page-item">
+      <a class="page-link {% if not page_obj.has_next %}disabled{% endif %}" href="{% if page_obj.has_next %}/dashboard/{{ paginator.object_list.first.slug }}s?page={{ page_obj.next_page_number }}{% endif %}" aria-label="Próxima">
+        <span aria-hidden="true">&rsaquo;</span>
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link {% if not page_obj.has_next %}disabled{% endif %}" href="/dashboard/{{ paginator.object_list.first.slug }}s?page={{ paginator.num_pages }}" aria-label="Última">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+{% endif %}
+{% endblock pagination_controls %}
 {% endblock dashboard_content %}

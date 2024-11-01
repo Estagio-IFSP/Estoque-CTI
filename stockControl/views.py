@@ -10,6 +10,8 @@ from django.db.models import ProtectedError, Subquery, OuterRef, Q
 from stockControl.models import Good, Supplier, Claimant, Loan, LoanItem
 from .forms import GoodForm, SupplierForm,ClaimantForm, LoanForm, LoanItemForm, SignUpForm
 
+itens_per_page = 15
+
 class ProtectedAwareDeleteView(LoginRequiredMixin, DeleteView):
     def post(self, request, pk, *args):
         self.object = self.get_object()
@@ -47,6 +49,7 @@ class SignUpView(CreateView):
 
 class DashboardHomeView(LoginRequiredMixin, ListView):
     model = Loan
+    paginate_by = itens_per_page
     template_name = "dashboard.html"
     context_object_name = "loans"
 
@@ -77,6 +80,7 @@ class GoodDetailView(LoginRequiredMixin, DetailView):
 
 class GoodListView(LoginRequiredMixin, ListView):
     model = Good
+    paginate_by = itens_per_page
     template_name = "good_list.html"
     context_object_name = "goods"
 
@@ -118,6 +122,7 @@ class SupplierDetailView(LoginRequiredMixin, DetailView):
 
 class SupplierListView(LoginRequiredMixin, ListView):
     model = Supplier
+    paginate_by = itens_per_page
     template_name = "supplier_list.html"
     context_object_name = "suppliers"
 
@@ -149,6 +154,7 @@ class ClaimantDetailView(LoginRequiredMixin, DetailView):
 
 class ClaimantListView(LoginRequiredMixin, ListView):
     model = Claimant
+    paginate_by = itens_per_page
     template_name = "claimant_list.html"
     context_object_name = "claimants"
 
@@ -191,6 +197,7 @@ class LoanDetailView(RedirectableDetailView):
 
 class LoanListView(LoginRequiredMixin, ListView):
     model = Loan
+    paginate_by = itens_per_page
     template_name = "loan_list.html"
     context_object_name = "loans"
 
@@ -232,6 +239,7 @@ class LoanItemDetailView(LoginRequiredMixin, DetailView):
 
 class LoanItemListView(LoginRequiredMixin, ListView):
     model = LoanItem
+    paginate_by = itens_per_page
     template_name = "loan_item_list.html"
     context_object_name = "loan_items"
 

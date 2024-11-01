@@ -49,7 +49,7 @@ class SignUpView(CreateView):
 
 class DashboardHomeView(LoginRequiredMixin, ListView):
     model = Loan
-    paginate_by = itens_per_page
+    paginate_by = items_per_page
     template_name = "dashboard.html"
     context_object_name = "loans"
 
@@ -80,7 +80,7 @@ class GoodDetailView(LoginRequiredMixin, DetailView):
 
 class GoodListView(LoginRequiredMixin, ListView):
     model = Good
-    paginate_by = itens_per_page
+    paginate_by = items_per_page
     template_name = "good_list.html"
     context_object_name = "goods"
 
@@ -122,7 +122,7 @@ class SupplierDetailView(LoginRequiredMixin, DetailView):
 
 class SupplierListView(LoginRequiredMixin, ListView):
     model = Supplier
-    paginate_by = itens_per_page
+    paginate_by = items_per_page
     template_name = "supplier_list.html"
     context_object_name = "suppliers"
 
@@ -154,7 +154,7 @@ class ClaimantDetailView(LoginRequiredMixin, DetailView):
 
 class ClaimantListView(LoginRequiredMixin, ListView):
     model = Claimant
-    paginate_by = itens_per_page
+    paginate_by = items_per_page
     template_name = "claimant_list.html"
     context_object_name = "claimants"
 
@@ -197,7 +197,7 @@ class LoanDetailView(RedirectableDetailView):
 
 class LoanListView(LoginRequiredMixin, ListView):
     model = Loan
-    paginate_by = itens_per_page
+    paginate_by = items_per_page
     template_name = "loan_list.html"
     context_object_name = "loans"
 
@@ -239,7 +239,7 @@ class LoanItemDetailView(LoginRequiredMixin, DetailView):
 
 class LoanItemListView(LoginRequiredMixin, ListView):
     model = LoanItem
-    paginate_by = itens_per_page
+    paginate_by = items_per_page
     template_name = "loan_item_list.html"
     context_object_name = "loan_items"
 

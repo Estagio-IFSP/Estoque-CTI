@@ -66,6 +66,7 @@
 
 <main class="container mt-5">
 {% block dashboard_content %}
+{% if due_count > 1 %}
   <h2 class="h3">Empréstimos em atraso</h2>
   <table class="table">
     {% now "Y" as current_year %}
@@ -102,6 +103,50 @@
       {% endif %}
       {% endfor %}
   </table>
+{% else %}
+<p class="badge text-bg-success">Não há empréstimos atrasados.</p>
+{% endif %}
+
+{% if due_next_week_count > 1 %}
+  <h2 class="h3">Empréstimos vencendo nos próximos 7 dias</h2>
+  <table class="table">
+    {% now "Y" as current_year %}
+      <tr>
+        <th>Empréstimo</th>
+        <th>Requerente</th>
+        <th>Retirada</th>
+        <th>Devolução</th>
+      </tr>
+      {% for loan in loans %}
+      {% if loan.due_next_week_check and not loan.returned_check %}
+        <tr>
+          <td><a href="{{ loan.get_absolute_url }}">{{ loan }}</a></td>
+          <td>
+            <a href="{{ loan.claimant.get_absolute_url }}">{{ loan.claimant }}</a>
+          </td>
+          <td>
+            {% if loan.loan_date|date:"Y" == current_year %}
+              {{ loan.loan_date | date:"d/m" }}
+            {% else %}
+              {{ loan.loan_date | date:"d/m/y"}}{% endif %}
+          </td>
+          <td>
+            <span class="badge text-bg-warning">
+              {% if loan.return_date|date:"Y" == current_year %}
+                {{ loan.return_date | date:"d/m" }}
+              {% else %}
+                {{ loan.return_date | date:"d/m/y"}}
+              {% endif %}
+              <small class="opacity-75">em {{ loan.return_date | timeuntil }}</small>
+            </span>
+          </td>
+        </tr>
+      {% endif %}
+      {% endfor %}
+  </table>
+{% else %}
+<p class="badge text-bg-success">Não há empréstimos vencendo nos próximos 7 dias.</p>
+{% endif %}
 {% endblock %}
 </main>
 {% endblock content %}

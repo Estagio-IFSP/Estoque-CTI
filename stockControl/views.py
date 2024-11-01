@@ -53,6 +53,12 @@ class DashboardHomeView(LoginRequiredMixin, ListView):
     template_name = "dashboard.html"
     context_object_name = "loans"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["due_count"] = LoanItem.objects.filter(returned=False, loan__return_date__lt=date.today()).count()
+        context["due_next_week_count"] = LoanItem.objects.filter(returned=False, loan__return_date__lt=date.today() + timedelta(days=7)).count()
+        return context
+
 class GoodCreateView(RedirectableCreateView):
     model = Good
     template_name = "good_create.html"

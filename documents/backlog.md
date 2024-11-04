@@ -22,10 +22,8 @@
   - [ ] [Implementar Messages](https://docs.djangoproject.com/en/4.2/ref/contrib/messages)
   - [ ] [Aplicar classes CSS nas mensagens de erro da validação de formulários](https://getbootstrap.com/docs/5.3/forms/validation)
   - [ ] Botões de voltar
-  - [x] Status do empréstimo na página de detalhe de requerente
   - [ ] Adicionar seção histórico na página de requerente
   - [ ] Filtrar bens por consumível ou permanente
-  - [ ] Telefone mostra como `None` na listagem de requerente
   - [ ] Eliminar item consumível ao emprestar
   - [ ] Alertas quando um item está com estoque baixo
   - [ ] Histórico de quem (qual conta) realizou cada ação
@@ -43,12 +41,14 @@
     - [ ] Número do processo (opcional)
   - [ ] Ordenação de colunas
   - [ ] Validação das datas (data de retirada deve ser menor que a de devolução)
-
+  - [ ] Rever métodos do modelo `Loan`. A lógica para considerar "due" leva em conta apenas a data, não verificando se os itens do empréstimo estão marcados como devolvidos
 
 - Não-funcional
   - [ ] Refatorar templates para melhorar legibilidade
 
 ## Feito
+  - [x] Status do empréstimo na página de detalhe de requerente
+  - [x] Telefone mostra como `None` na listagem de requerente
 - [x] Remover seleção de empréstimo ao adicionar novo item
 - [x] Ao desistir de criar um empréstimo, ele permanece vazio no sistema
 - [x] Implementar busca

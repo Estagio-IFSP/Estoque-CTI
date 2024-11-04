@@ -22,11 +22,7 @@
   - [ ] [Implementar Messages](https://docs.djangoproject.com/en/4.2/ref/contrib/messages)
   - [ ] [Aplicar classes CSS nas mensagens de erro da validação de formulários](https://getbootstrap.com/docs/5.3/forms/validation)
   - [ ] Botões de voltar
-
-- Itens levantados no teste de 04/11
-  - [x] Remover seleção de empréstimo ao adicionar novo item
-  - [x] Ao desistir de criar um empréstimo, ele permanece vazio no sistema
-  - [ ] Status do empréstimo na página de detalhe de requerente
+  - [x] Status do empréstimo na página de detalhe de requerente
   - [ ] Adicionar seção histórico na página de requerente
   - [ ] Filtrar bens por consumível ou permanente
   - [ ] Telefone mostra como `None` na listagem de requerente
@@ -53,6 +49,8 @@
   - [ ] Refatorar templates para melhorar legibilidade
 
 ## Feito
+- [x] Remover seleção de empréstimo ao adicionar novo item
+- [x] Ao desistir de criar um empréstimo, ele permanece vazio no sistema
 - [x] Implementar busca
 - [x] Implementar autenticação
 - [x] Avisar ao fazer um empréstimo para alguém com um empréstimo já em atraso

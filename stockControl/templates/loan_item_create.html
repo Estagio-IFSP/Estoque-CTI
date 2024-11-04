@@ -39,6 +39,15 @@
 <form action="/dashboard/loan/{{ loan.pk }}/add-item/" method="post">
   {% csrf_token %}
   {{ form }}
-  <input type="submit" value="Criar" class="mt-4">
+  <div class="d-flex mt-4">
+  <input type="submit" value="Criar" class="btn btn-success">
+  {% if not loan_items %}
+  <a href="/dashboard/loan/{{ loan.id }}/delete"
+     class="ms-auto btn btn-outline-danger"
+     role="button">
+    Desistir
+  </a>
+  {% endif %}
+  </div>
 </form>
 {% endblock creation_form %}

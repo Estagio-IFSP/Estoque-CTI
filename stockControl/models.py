@@ -76,8 +76,11 @@ class Claimant(models.Model):
     def get_due_loans(self):
         return Loan.objects.filter(claimant=self, return_date__lt=date.today())
 
+    def get_due_loan_items(self):
+        return LoanItem.objects.filter(loan__claimant=self, loan__return_date__lt=date.today(), returned=False)
+
     def due_check(self):
-        return self.get_due_loans().count() > 0
+        return self.get_due_loan_items().count() > 0
 
     def get_on_time_loans(self):
         return Loan.objects.filter(claimant=self, return_date__gte=date.today())
